@@ -1,0 +1,26 @@
+site:
+  title: YaleThom.as
+  link: https://yalethom.as
+
+# Every project has the same four fields. Set image to null until a local image
+# has been added under images/ (for example: images/my-project.svg or .webp).
+projects:
+  - title: Resume
+    category: profile
+    link: /react-resume/
+    image: null
+
+  - title: graphTv
+    category: data-visualization
+    link: /graphtv/
+    image: null
+
+  - title: metrainome
+    category: music
+    link: /metrainome/
+    image: null
+
+  - title: textTrends
+    category: data-visualization
+    link: /textTrends/
+    image: null

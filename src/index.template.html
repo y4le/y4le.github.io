@@ -1,0 +1,27 @@
+<!doctype html>
+<!-- Generated from projects.yaml and src/index.template.html by npm run build. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>{{SITE_TITLE}}</title>
+    <link rel="stylesheet" href="main.css">
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a class="wordmark" href="{{SITE_LINK}}" aria-label="{{SITE_TITLE}}">
+          {{WORDMARK}}
+        </a>
+      </header>
+
+      <main>
+        <h1 class="visually-hidden">Projects</h1>
+        <div class="project-grid">
+          {{PROJECT_CARDS}}
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
