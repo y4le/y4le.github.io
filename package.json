@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node scripts/build.mjs --check"
+    "check": "node --check scripts/dev.mjs && node scripts/build.mjs --check",
+    "dev": "npm run build && node scripts/dev.mjs",
+    "dev:tailscale": "npm run build && node scripts/dev.mjs --tailscale"
   },
   "engines": {
     "node": ">=20"
