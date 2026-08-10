@@ -5,28 +5,54 @@ produces a static `index.html`; it does not ship any JavaScript to the browser.
 
 ## Add a project
 
-Every project has four fields:
+Each project repository owns its public declaration at
+`.yalethomas/project.yaml`. Schema 1 requires the complete rich project record:
 
 ```yaml
-- title: My Project
-  category: tools
-  link: https://example.com
-  image: null
+schema: 1
+title: metrainome
+description: A timing instrument that makes practice accuracy visible.
+bullets:
+  - Places targets, recent hits, and timing distributions on one shared axis.
+  - Runs locally in the browser with keyboard and touch controls.
+date:
+  start: "2025-01"
+  end: "present"
+link: https://yalethom.as/metrainome/
+type: app
+tags:
+  - music
+  - Web Audio
+  - data visualization
+svg: .yalethomas/card.svg
 ```
 
-Use `image: null` for a centered text card. To use an image, add the file to
-`images/` and set its repository-relative path:
+All fields are required. Set `svg: null` for a typographic card; otherwise the
+SVG path is repository-root-relative and must name an existing file. Titles,
+descriptions, bullets, dates, canonical links, types, and tags are validated as
+schema 1 data rather than rewritten by this site.
 
-```yaml
-image: images/my-project.webp
+Rebuild the aggregate manifest by scanning a directory that contains project
+repositories:
+
+```sh
+npm run manifest -- /home/yale/dev
 ```
 
-SVG, AVIF, GIF, JPEG, PNG, and WebP files are supported. SVGs use the same
-`image` field, for example `image: images/my-project.svg`.
+Rebuild mode is the default: it replaces the aggregate project list with every
+valid declaration found under the scan path, sorted by canonical project slug.
+It preserves the consumer-owned `site` mapping. To update matching projects
+while retaining unmatched aggregate entries and their order, use:
 
-The asset is the entire visual contents of its card, so include any desired
-wordmark or text in the file itself. The build rejects remote, missing,
-unsupported, and out-of-directory image paths.
+```sh
+npm run manifest -- --update /home/yale/dev
+```
+
+Update matching is case-insensitive by project title; newly found projects are
+appended. The command copies declared artwork to deterministic
+`images/projects/<slug>.svg` paths and rewrites only `projects.yaml` and changed
+SVG copies. It does not delete unmatched assets, build the site, or edit
+`index.html`.
 
 ## Build
 
@@ -37,7 +63,7 @@ npm ci
 npm run build
 ```
 
-Commit `projects.yaml`, any new images, and the generated `index.html`. GitHub
+Commit `projects.yaml`, copied SVGs, and the generated `index.html`. GitHub
 Pages can continue serving the repository root from `master`.
 
 ## Custom domain and project URLs
@@ -48,9 +74,9 @@ domain's apex DNS records at GitHub Pages. The individual project sites inherit
 that domain and are available at paths matching their repository names, such as
 `yalethom.as/graphtv/` and `yalethom.as/react-resume/`.
 
-Keep project links site-relative in `projects.yaml`. This preserves the project
-path when GitHub redirects from `y4le.github.io` to the custom domain. Each
-linked repository must have GitHub Pages enabled for its path to resolve.
+Project declarations use their canonical `https://yalethom.as/<project>/`
+links. Each linked repository must have GitHub Pages enabled for its path to
+resolve.
 
 ## Development
 
@@ -76,6 +102,7 @@ To verify that the generated page is current without changing it:
 npm run check
 ```
 
-Do not edit `index.html` directly. Make structural changes in
-`src/index.template.html`, style changes in `main.css`, and content changes in
-`projects.yaml`.
+Do not edit `index.html` or generated project entries directly. Make structural
+changes in `src/index.template.html`, style changes in `main.css`, and project
+content changes in each source repository's `.yalethomas/project.yaml`, then
+rerun the manifest and site builds.
