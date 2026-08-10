@@ -52,14 +52,29 @@ Keep project links site-relative in `projects.yaml`. This preserves the project
 path when GitHub redirects from `y4le.github.io` to the custom domain. Each
 linked repository must have GitHub Pages enabled for its path to resolve.
 
+## Development
+
+Start a local development server and open <http://localhost:8000>:
+
+```sh
+npm run dev
+```
+
+To make the same server available to devices on the tailnet, run:
+
+```sh
+npm run dev:tailscale
+```
+
+The command prints the HTTPS tailnet URL, registers only the project-owned
+`/y4le/` route, and removes that route when the server stops. Set `PORT` to use
+a port other than `8000` with either command.
+
 To verify that the generated page is current without changing it:
 
 ```sh
 npm run check
 ```
-
-For a local preview, run `python3 -m http.server` and open
-<http://localhost:8000>.
 
 Do not edit `index.html` directly. Make structural changes in
 `src/index.template.html`, style changes in `main.css`, and content changes in
