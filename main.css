@@ -1,10 +1,19 @@
 :root {
-  --background: #0e0e0d;
-  --foreground: #e8e3d5;
-  --muted: #8a857a;
-  --rule: #2a2926;
-  --rule-strong: #403e39;
+  color-scheme: light dark;
+  --background: light-dark(#fbf7ec, #0e0e0d);
+  --foreground: light-dark(#1a1814, #e8e3d5);
+  --muted: light-dark(#6f6a5e, #8a857a);
+  --rule: light-dark(#d8d2c2, #2a2926);
+  --rule-strong: light-dark(#bdb5a0, #403e39);
   --accent: #c1432e;
+}
+
+:root[data-theme="light"] {
+  color-scheme: only light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: only dark;
 }
 
 * {
@@ -14,7 +23,6 @@
 html {
   min-width: 320px;
   background: var(--background);
-  color-scheme: dark;
 }
 
 body {

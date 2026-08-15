@@ -1,7 +1,7 @@
 # YaleThom.as
 
 This landing page is generated from [`projects.yaml`](projects.yaml). The build
-produces a static `index.html`; it does not ship any JavaScript to the browser.
+produces a static `index.html`; a small script controls SVG animation playback.
 
 ## Add a project
 
@@ -52,7 +52,10 @@ Update matching is case-insensitive by project title; newly found projects are
 appended. The command copies declared artwork to deterministic
 `images/projects/<slug>.svg` paths and rewrites only `projects.yaml` and changed
 SVG copies. It does not delete unmatched assets, build the site, or edit
-`index.html`.
+`index.html`. Same-origin SVG animations are paused and reset at rest, played
+while the card is hovered or keyboard-focused, and allowed to finish their
+current cycle when that interaction ends; reduced-motion preferences are
+respected.
 
 ## Build
 
