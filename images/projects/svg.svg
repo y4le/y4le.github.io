@@ -1,0 +1,122 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="title description"
+>
+  <title id="title">svg</title>
+  <desc id="description">
+    SVG source on the left renders a rotating svg word on the right.
+  </desc>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-muted: light-dark(#6f6a5e, #8a857a);
+      --card-faint: light-dark(#b3ad9b, #54524c);
+      --card-rule: light-dark(#d8d2c2, #2a2926);
+      --card-accent: #c1432e;
+      color: var(--card-ink);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    :root[data-color-scheme="light"] {
+      color-scheme: only light;
+    }
+
+    :root[data-color-scheme="dark"] {
+      color-scheme: only dark;
+    }
+
+    .ink {
+      fill: var(--card-ink);
+    }
+
+    .muted {
+      fill: var(--card-muted);
+    }
+
+    .faint {
+      fill: var(--card-faint);
+    }
+
+    .accent {
+      fill: var(--card-accent);
+    }
+
+    .frame-rule {
+      fill: none;
+      stroke: var(--card-faint);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .quiet-rule {
+      fill: none;
+      stroke: var(--card-rule);
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .code {
+      font-family: "Courier New", Courier, monospace;
+      font-size: 22px;
+    }
+
+    .rendered-mark {
+      font-size: 236px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+      transform-box: view-box;
+      transform-origin: 1190px 500px;
+      animation: rotate 4s linear infinite;
+    }
+
+    @keyframes rotate {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .rendered-mark {
+        animation: none;
+      }
+    }
+  </style>
+
+  <path class="frame-rule" d="M48 48H1570V952H48ZM809 48V952" />
+
+  <g class="code" aria-label="SVG source code">
+    <text class="muted" x="98" y="128">&lt;svg viewBox="0 0 400 240"&gt;</text>
+    <text class="muted" x="124" y="178">&lt;style&gt;</text>
+    <text class="ink" x="150" y="228">.mark {</text>
+    <text class="ink" x="176" y="278">font: 700 112px sans-serif;</text>
+    <text class="ink" x="176" y="328">transform-origin: center;</text>
+    <rect class="accent" x="157" y="350" width="3" height="31" />
+    <text class="ink" x="176" y="378">animation: rotate 4s linear infinite;</text>
+    <text class="ink" x="150" y="428">}</text>
+    <text class="ink" x="150" y="478">@keyframes rotate {</text>
+    <text class="ink" x="176" y="528">to { transform: rotate(360deg); }</text>
+    <text class="ink" x="150" y="578">}</text>
+    <text class="muted" x="124" y="628">&lt;/style&gt;</text>
+    <text class="ink" x="124" y="704">&lt;text class="mark" x="200" y="154"</text>
+    <text class="ink" x="176" y="754">text-anchor="middle"&gt;svg&lt;/text&gt;</text>
+    <text class="muted" x="98" y="864">&lt;/svg&gt;</text>
+  </g>
+
+  <g aria-label="Rendered rotating svg text">
+    <path class="quiet-rule" d="M890 500H1490M1190 200V800" />
+    <circle class="quiet-rule" cx="1190" cy="500" r="300" />
+    <circle class="faint" cx="1190" cy="500" r="6" />
+    <text
+      class="rendered-mark ink"
+      x="1190"
+      y="585"
+      text-anchor="middle"
+      aria-label="svg"
+    >
+      svg
+    </text>
+  </g>
+</svg>

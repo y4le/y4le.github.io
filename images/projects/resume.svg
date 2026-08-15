@@ -1,0 +1,94 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="resume-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="resume-card-title resume-card-description"
+>
+  <title id="resume-card-title">resume</title>
+  <desc id="resume-card-description">The muted resume wordmark with Yale Thomas&apos;s work history—Meta, Amazon, Google, Tophatter, Pandora, Rdio, Facebook, WASHU—scrolling upward over its right side.</desc>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-muted: light-dark(#6f6a5e, #8a857a);
+    }
+
+    :root[data-color-scheme="light"] {
+      color-scheme: only light;
+    }
+
+    :root[data-color-scheme="dark"] {
+      color-scheme: only dark;
+    }
+
+    #resume-card {
+      --resume-scroll-duration: 8s;
+    }
+
+    #resume-card .resume-wordmark {
+      fill: var(--card-ink);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 318px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+    }
+
+    #resume-card .resume-job-history {
+      animation: resume-job-scroll var(--resume-scroll-duration) linear infinite;
+      transform-box: view-box;
+      transform-origin: 0 0;
+    }
+
+    #resume-card .resume-job {
+      fill: var(--card-muted);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-size: var(--resume-job-size);
+      font-weight: 600;
+      letter-spacing: -0.025em;
+      text-anchor: end;
+    }
+
+    @keyframes resume-job-scroll {
+      from {
+        transform: translateY(var(--resume-scroll-start));
+      }
+      to {
+        transform: translateY(var(--resume-scroll-end));
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #resume-card .resume-job-history {
+        animation: none;
+        transform: translateY(var(--resume-scroll-rest));
+      }
+    }
+  </style>
+
+  <defs>
+    <clipPath id="resume-card-frame-clip">
+      <rect width="1618" height="1000" />
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#resume-card-frame-clip)">
+    <text class="resume-wordmark" x="809" y="602" text-anchor="middle">resume</text>
+
+    <g
+      class="resume-job-history"
+      aria-label="Work history"
+      style="--resume-job-size: 82px; --resume-scroll-start: 1082px; --resume-scroll-end: -866px; --resume-scroll-rest: 108px"
+    >
+      <text class="resume-job" x="1480" y="0">Meta</text>
+      <text class="resume-job" x="1480" y="112">Amazon</text>
+      <text class="resume-job" x="1480" y="224">Google</text>
+      <text class="resume-job" x="1480" y="336">Tophatter</text>
+      <text class="resume-job" x="1480" y="448">Pandora</text>
+      <text class="resume-job" x="1480" y="560">Rdio</text>
+      <text class="resume-job" x="1480" y="672">Facebook</text>
+      <text class="resume-job" x="1480" y="784">WASHU</text>
+    </g>
+  </g>
+</svg>

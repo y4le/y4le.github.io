@@ -1,0 +1,134 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="txtop-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="txtop-card-title txtop-card-description"
+>
+  <title id="txtop-card-title">txtop</title>
+  <desc id="txtop-card-description">
+    The centered txtop wordmark above graph bars scrolling one column at a time.
+  </desc>
+
+  <style>
+    :root {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-faint: light-dark(#b3ad9b, #54524c);
+      --card-accent: #c1432e;
+    }
+
+    :root[data-color-scheme="light"] {
+      color-scheme: only light;
+    }
+
+    :root[data-color-scheme="dark"] {
+      color-scheme: only dark;
+    }
+
+    .word {
+      fill: var(--card-ink);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 236px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+    }
+
+    .bar-base {
+      fill: var(--card-faint);
+    }
+
+    .bar-top {
+      fill: var(--card-ink);
+    }
+
+    .bar-active {
+      fill: var(--card-accent);
+    }
+
+    .scrolling-bars {
+      animation: scroll-bars 8s steps(16, end) infinite;
+    }
+
+    @keyframes scroll-bars {
+      to {
+        transform: translateX(-1024px);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .scrolling-bars {
+        animation: none;
+      }
+    }
+  </style>
+
+  <defs>
+    <clipPath id="bar-clip">
+      <rect x="0" y="620" width="1618" height="380" />
+    </clipPath>
+
+    <g id="bar-sequence">
+      <rect class="bar-base" x="8" y="938" width="38" height="62" />
+      <rect class="bar-top" x="8" y="914" width="38" height="24" />
+
+      <rect class="bar-base" x="72" y="846" width="38" height="154" />
+      <rect class="bar-top" x="72" y="752" width="38" height="94" />
+
+      <rect class="bar-base" x="136" y="944" width="38" height="56" />
+      <rect class="bar-top" x="136" y="868" width="38" height="76" />
+
+      <rect class="bar-base" x="200" y="772" width="38" height="228" />
+      <rect class="bar-top" x="200" y="690" width="38" height="82" />
+
+      <rect class="bar-base" x="264" y="890" width="38" height="110" />
+      <rect class="bar-top" x="264" y="826" width="38" height="64" />
+
+      <rect class="bar-base" x="328" y="790" width="38" height="210" />
+      <rect class="bar-top" x="328" y="650" width="38" height="140" />
+      <rect class="bar-active" x="328" y="642" width="38" height="8" />
+
+      <rect class="bar-base" x="392" y="950" width="38" height="50" />
+      <rect class="bar-top" x="392" y="926" width="38" height="24" />
+
+      <rect class="bar-base" x="456" y="810" width="38" height="190" />
+      <rect class="bar-top" x="456" y="714" width="38" height="96" />
+
+      <rect class="bar-base" x="520" y="922" width="38" height="78" />
+      <rect class="bar-top" x="520" y="884" width="38" height="38" />
+
+      <rect class="bar-base" x="584" y="870" width="38" height="130" />
+      <rect class="bar-top" x="584" y="799" width="38" height="71" />
+
+      <rect class="bar-base" x="648" y="896" width="38" height="104" />
+      <rect class="bar-top" x="648" y="842" width="38" height="54" />
+
+      <rect class="bar-base" x="712" y="840" width="38" height="160" />
+      <rect class="bar-top" x="712" y="732" width="38" height="108" />
+
+      <rect class="bar-base" x="776" y="928" width="38" height="72" />
+      <rect class="bar-top" x="776" y="896" width="38" height="32" />
+
+      <rect class="bar-base" x="840" y="854" width="38" height="146" />
+      <rect class="bar-top" x="840" y="775" width="38" height="79" />
+
+      <rect class="bar-base" x="904" y="872" width="38" height="128" />
+      <rect class="bar-top" x="904" y="812" width="38" height="60" />
+
+      <rect class="bar-base" x="968" y="946" width="38" height="54" />
+      <rect class="bar-top" x="968" y="908" width="38" height="38" />
+    </g>
+  </defs>
+
+  <g clip-path="url(#bar-clip)">
+    <g class="scrolling-bars">
+      <use href="#bar-sequence" x="-1024" />
+      <use href="#bar-sequence" x="0" />
+      <use href="#bar-sequence" x="1024" />
+      <use href="#bar-sequence" x="2048" />
+      <use href="#bar-sequence" x="3072" />
+    </g>
+  </g>
+
+  <text class="word" x="809" y="585" text-anchor="middle">txtop</text>
+</svg>

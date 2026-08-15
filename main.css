@@ -65,10 +65,11 @@ body {
 .project-card {
   position: relative;
   display: flex;
-  aspect-ratio: 16 / 10;
+  aspect-ratio: 1.61803398875 / 1;
   overflow: hidden;
   align-items: center;
   justify-content: center;
+  background: var(--background);
   border: 1px solid var(--rule);
   border-radius: 2px;
   color: var(--foreground);
@@ -86,11 +87,17 @@ body {
   outline-offset: 4px;
 }
 
-.project-card img {
+.project-media {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.project-svg {
+  background: var(--background);
+  border: 0;
+  pointer-events: none;
 }
 
 .project-title {
