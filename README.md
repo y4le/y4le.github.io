@@ -135,8 +135,11 @@ npm run dev:tailscale
 ```
 
 The command prints the HTTPS tailnet URL, registers only the project-owned
-`/y4le/` route, and removes that route when the server stops. Set `PORT` to use
-a port other than `8000` with either command.
+`/y4le/` route, and removes that route when the server stops. Starting it again
+stops a previous `y4le-site` server owned by this repository before relaunching,
+so a stale process on port `8000` does not cause `EADDRINUSE`. It will not stop
+an unrelated process on that port. Set `PORT` to use a port other than `8000`
+with either command.
 
 To verify that the generated page is current without changing it:
 

@@ -5,8 +5,10 @@ import { dirname, extname, resolve, sep } from 'node:path';
 import { spawn } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { once } from 'node:events';
+import { stopOwnedTailnetDevServer } from './dev-process.mjs';
 
-const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
+const scriptPath = fileURLToPath(import.meta.url);
+const repoRoot = resolve(dirname(scriptPath), '..');
 const host = '127.0.0.1';
 const port = Number.parseInt(process.env.PORT ?? '8000', 10);
 const useTailscale = process.argv.includes('--tailscale');
@@ -119,6 +121,18 @@ const server = createServer(async (request, response) => {
     }
   }
 });
+
+if (useTailscale) {
+  const stoppedPid = await stopOwnedTailnetDevServer({
+    routeName,
+    repoRoot,
+    routePath,
+    scriptPath,
+  });
+  if (stoppedPid !== null) {
+    console.log(`Stopped previous ${routeName} dev server (PID ${stoppedPid}); restarting.`);
+  }
+}
 
 server.listen(port, host);
 await once(server, 'listening');
