@@ -7,8 +7,6 @@ import { stringify } from "yaml";
 import { parseYamlMapping, validateProjectList } from "./project-manifest.mjs";
 import { parseArguments, rebuildManifest } from "./rebuild-manifest.mjs";
 
-const SITE = { title: "YaleThom.as", link: "https://yalethom.as" };
-
 function project(title, overrides = {}) {
   const slug = title.toLocaleLowerCase("en-US").replaceAll(/[^a-z0-9]+/g, "-");
   return {
@@ -51,10 +49,7 @@ test("rebuild mode replaces projects, copies SVGs, and leaves unrelated files al
   await mkdir(assetDirectory, { recursive: true });
   await writeFile(unrelatedPath, "do not rebuild me\n");
   await writeFile(unmatchedAsset, "do not delete me\n");
-  await writeFile(manifestPath, stringify({
-    site: SITE,
-    projects: [project("Old", { svg: null })],
-  }));
+  await writeFile(manifestPath, stringify({ projects: [project("Old", { svg: null })] }));
   await mkdir(path.join(scanRoot, "not-published", ".yalethomas"), { recursive: true });
   await writeSourceProject(scanRoot, "zeta", project("Zeta"), "zeta-svg\n");
   await writeSourceProject(scanRoot, "alpha", project("Alpha"), "alpha-svg\n");
@@ -64,6 +59,7 @@ test("rebuild mode replaces projects, copies SVGs, and leaves unrelated files al
 
   assert.equal(result.mode, "rebuild");
   assert.equal(result.scannedCount, 2);
+  assert.equal(Object.hasOwn(aggregate.value, "site"), false);
   assert.deepEqual(validateProjectList(aggregate.value.projects).map(({ title }) => title), ["Alpha", "Zeta"]);
   assert.equal(aggregate.value.projects[0].svg, "images/projects/alpha.svg");
   assert.equal(await readFile(path.join(assetDirectory, "alpha.svg"), "utf8"), "alpha-svg\n");
@@ -74,7 +70,7 @@ test("rebuild mode replaces projects, copies SVGs, and leaves unrelated files al
   assert.match(aggregate.source, /end: "present"/);
 });
 
-test("update mode replaces named projects, preserves unmatched entries, and appends new ones", async () => {
+test("update mode replaces named projects and preserves unmatched entries in slug order", async () => {
   const workspace = await mkdtemp(path.join(os.tmpdir(), "y4le-manifest-update-"));
   const scanRoot = path.join(workspace, "sources");
   const siteRoot = path.join(workspace, "site");
@@ -89,7 +85,7 @@ test("update mode replaces named projects, preserves unmatched entries, and appe
 
   await mkdir(assetDirectory, { recursive: true });
   await writeFile(legacyAsset, "legacy-svg\n");
-  await writeFile(manifestPath, stringify({ site: SITE, projects: [legacy, staleAlpha] }));
+  await writeFile(manifestPath, stringify({ projects: [legacy, staleAlpha] }));
   await writeSourceProject(scanRoot, "alpha", project("alpha", {
     description: "The current Alpha declaration replaces the stale entry.",
   }));
@@ -104,9 +100,9 @@ test("update mode replaces named projects, preserves unmatched entries, and appe
   const { value } = await readAggregate(manifestPath);
 
   assert.equal(result.mode, "update");
-  assert.deepEqual(value.projects.map(({ title }) => title), ["Legacy", "alpha", "Beta"]);
-  assert.deepEqual(value.projects[0], legacy);
-  assert.equal(value.projects[1].description, "The current Alpha declaration replaces the stale entry.");
+  assert.deepEqual(value.projects.map(({ title }) => title), ["alpha", "Beta", "Legacy"]);
+  assert.equal(value.projects[0].description, "The current Alpha declaration replaces the stale entry.");
+  assert.deepEqual(value.projects[2], legacy);
   assert.equal(await readFile(legacyAsset, "utf8"), "legacy-svg\n");
 });
 
@@ -116,7 +112,7 @@ test("validation completes before any manifest or SVG is written", async () => {
   const siteRoot = path.join(workspace, "site");
   const manifestPath = path.join(siteRoot, "projects.yaml");
   const assetDirectory = path.join(siteRoot, "images", "projects");
-  const original = stringify({ site: SITE, projects: [] });
+  const original = stringify({ projects: [] });
 
   await mkdir(siteRoot, { recursive: true });
   await writeFile(manifestPath, original);
@@ -147,4 +143,84 @@ test("CLI arguments default to rebuild mode and accept update mode", () => {
     update: true,
   });
   assert.throws(() => parseArguments([]), /directory to scan is required/i);
+});
+
+test("the manifest is stored in canonical slug order regardless of the previous order", async () => {
+  const workspace = await mkdtemp(path.join(os.tmpdir(), "y4le-manifest-canonical-"));
+  const scanRoot = path.join(workspace, "sources");
+  const siteRoot = path.join(workspace, "site");
+  const manifestPath = path.join(siteRoot, "projects.yaml");
+  const assetDirectory = path.join(siteRoot, "images", "projects");
+
+  await mkdir(siteRoot, { recursive: true });
+  await writeFile(manifestPath, stringify({
+    projects: [project("Zeta", { svg: null }), project("Alpha", { svg: null })],
+  }));
+  await writeSourceProject(scanRoot, "zeta", project("Zeta"));
+  await writeSourceProject(scanRoot, "alpha", project("Alpha"));
+
+  await rebuildManifest({ scanRoot, update: true, manifestPath, assetDirectory });
+  const { value } = await readAggregate(manifestPath);
+
+  assert.deepEqual(value.projects.map(({ title }) => title), ["Alpha", "Zeta"]);
+});
+
+test("rebuild mode migrates a manifest that still carries a site mapping", async () => {
+  const workspace = await mkdtemp(path.join(os.tmpdir(), "y4le-manifest-migrate-"));
+  const scanRoot = path.join(workspace, "sources");
+  const siteRoot = path.join(workspace, "site");
+  const manifestPath = path.join(siteRoot, "projects.yaml");
+  const assetDirectory = path.join(siteRoot, "images", "projects");
+
+  await mkdir(siteRoot, { recursive: true });
+  await writeFile(manifestPath, stringify({
+    site: { title: "YaleThom.as", link: "https://yalethom.as" },
+    projects: [project("Legacy", { svg: null })],
+  }));
+  await writeSourceProject(scanRoot, "alpha", project("Alpha"));
+
+  const result = await rebuildManifest({ scanRoot, manifestPath, assetDirectory });
+  const { value } = await readAggregate(manifestPath);
+
+  assert.equal(result.mode, "rebuild");
+  assert.equal(Object.hasOwn(value, "site"), false);
+  assert.deepEqual(value.projects.map(({ title }) => title), ["Alpha"]);
+});
+
+test("rebuild mode replaces a manifest it cannot parse as a project list", async () => {
+  const workspace = await mkdtemp(path.join(os.tmpdir(), "y4le-manifest-unparsable-"));
+  const scanRoot = path.join(workspace, "sources");
+  const siteRoot = path.join(workspace, "site");
+  const manifestPath = path.join(siteRoot, "projects.yaml");
+  const assetDirectory = path.join(siteRoot, "images", "projects");
+
+  await mkdir(siteRoot, { recursive: true });
+  await writeFile(manifestPath, "projects:\n  - schema: 1\n    title: Truncated\n");
+  await writeSourceProject(scanRoot, "alpha", project("Alpha"));
+
+  const result = await rebuildManifest({ scanRoot, manifestPath, assetDirectory });
+  const { value } = await readAggregate(manifestPath);
+
+  assert.equal(result.mode, "rebuild");
+  assert.deepEqual(value.projects.map(({ title }) => title), ["Alpha"]);
+});
+
+test("a manifest carrying a site mapping is rejected in update mode", async () => {
+  const workspace = await mkdtemp(path.join(os.tmpdir(), "y4le-manifest-legacy-site-"));
+  const scanRoot = path.join(workspace, "sources");
+  const siteRoot = path.join(workspace, "site");
+  const manifestPath = path.join(siteRoot, "projects.yaml");
+  const assetDirectory = path.join(siteRoot, "images", "projects");
+
+  await mkdir(siteRoot, { recursive: true });
+  await writeFile(manifestPath, stringify({
+    site: { title: "YaleThom.as", link: "https://yalethom.as" },
+    projects: [],
+  }));
+  await writeSourceProject(scanRoot, "alpha", project("Alpha"));
+
+  await assert.rejects(
+    rebuildManifest({ scanRoot, update: true, manifestPath, assetDirectory }),
+    /still holds a site mapping; move it to site\.yaml/,
+  );
 });

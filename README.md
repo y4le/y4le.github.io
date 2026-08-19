@@ -1,7 +1,9 @@
 # YaleThom.as
 
-This landing page is generated from [`projects.yaml`](projects.yaml). The build
-produces a static `index.html`; a small script controls SVG animation playback.
+This landing page is generated from [`projects.yaml`](projects.yaml), the
+aggregate project data, and [`site.yaml`](site.yaml), the hand-edited site
+configuration. The build produces a static `index.html`; a small script controls
+SVG animation playback.
 
 ## Add a project
 
@@ -40,22 +42,52 @@ npm run manifest -- /home/yale/dev
 ```
 
 Rebuild mode is the default: it replaces the aggregate project list with every
-valid declaration found under the scan path, sorted by canonical project slug.
-It preserves the consumer-owned `site` mapping. To update matching projects
-while retaining unmatched aggregate entries and their order, use:
+valid declaration found under the scan path. To update matching projects while
+retaining aggregate entries the scan did not match, use:
 
 ```sh
 npm run manifest -- --update /home/yale/dev
 ```
 
-Update matching is case-insensitive by project title; newly found projects are
-appended. The command copies declared artwork to deterministic
-`images/projects/<slug>.svg` paths and rewrites only `projects.yaml` and changed
-SVG copies. It does not delete unmatched assets, build the site, or edit
+Update matching is case-insensitive by project title. Both modes store
+`projects.yaml` in canonical project-slug order, so the file stays diff-stable
+and carries no display decisions; ordering lives in `site.yaml` instead. The
+command copies declared artwork to deterministic `images/projects/<slug>.svg`
+paths and rewrites only `projects.yaml` and changed SVG copies. It does not
+touch `site.yaml`, delete unmatched assets, build the site, or edit
 `index.html`. Same-origin SVG animations are paused and reset at rest, played
 while the card is hovered or keyboard-focused, and allowed to finish their
 current cycle when that interaction ends; reduced-motion preferences are
 respected.
+
+## Order the projects
+
+`site.yaml` owns the site mapping and the display order. Ordering is a site
+decision, so it stays in this repository rather than in the individual project
+declarations:
+
+```yaml
+site:
+  title: YaleThom.as
+  link: https://yalethom.as
+order:
+  - txtop
+  - graphtv
+```
+
+Projects named in `order` render first, in that order, identified by project
+slug — the path segment of the canonical link. Every project left out follows
+by recency: ongoing work (`date.end: present`) first, then the most recent
+`date.end`, then the most recent `date.start`, with the slug as the final
+tiebreak. A bare `YYYY` counts as the earliest point in that year, and a project
+without a start date sorts last within its group.
+
+Entries must be unique lowercase kebab-case slugs; duplicates fail the build.
+Slugs matching no project are reported and ignored, so pinning survives a scan
+that covers only some project repositories.
+
+Reordering is a `site.yaml` edit plus `npm run build` — it neither rescans the
+source repositories nor changes `projects.yaml`.
 
 ## Build
 
@@ -66,8 +98,9 @@ npm ci
 npm run build
 ```
 
-Commit `projects.yaml`, copied SVGs, and the generated `index.html`. GitHub
-Pages can continue serving the repository root from `master`.
+Commit `site.yaml`, `projects.yaml`, copied SVGs, and the generated
+`index.html`. GitHub Pages can continue serving the repository root from
+`master`.
 
 ## Custom domain and project URLs
 
@@ -106,6 +139,7 @@ npm run check
 ```
 
 Do not edit `index.html` or generated project entries directly. Make structural
-changes in `src/index.template.html`, style changes in `main.css`, and project
-content changes in each source repository's `.yalethomas/project.yaml`, then
-rerun the manifest and site builds.
+changes in `src/index.template.html`, style changes in `main.css`, site title,
+link, and ordering changes in `site.yaml`, and project content changes in each
+source repository's `.yalethomas/project.yaml`, then rerun the manifest and site
+builds.

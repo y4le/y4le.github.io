@@ -208,3 +208,75 @@ export function validateProjectList(values, field = "projects") {
 export function projectSlug(project) {
   return new URL(project.link).pathname.split("/")[1];
 }
+
+export const SITE_CONFIG_FIELDS = ["site", "order"];
+
+export function validateOrder(value, field = "order") {
+  if (value === undefined || value === null) return [];
+  assert(Array.isArray(value), `${field} must be a list`);
+
+  const slugs = value.map((entry, index) => {
+    const slug = requireSingleLine(entry, `${field}[${index}]`);
+    assert(LABEL_PATTERN.test(slug), `${field}[${index}] must be a lowercase kebab-case project slug`);
+    return slug;
+  });
+
+  const seen = new Set();
+  for (const slug of slugs) {
+    assert(!seen.has(slug), `${field} contains duplicate slug: ${slug}`);
+    seen.add(slug);
+  }
+
+  return slugs;
+}
+
+export function validateSiteConfig(value, field = "site.yaml") {
+  assert(isRecord(value), `${field} must contain a mapping`);
+  const unknown = Object.keys(value).filter((key) => !SITE_CONFIG_FIELDS.includes(key));
+  assert(unknown.length === 0, `${field} has unsupported field(s): ${unknown.join(", ")}`);
+  assert(Object.hasOwn(value, "site"), `${field}.site is required`);
+
+  return {
+    site: validateSite(value.site, `${field}.site`),
+    order: validateOrder(value.order, `${field}.order`),
+  };
+}
+
+function comparableMonth(value) {
+  return value.includes("-") ? value : `${value}-00`;
+}
+
+function recencyKey(project) {
+  const { start, end } = project.date;
+  return {
+    ongoing: end === "present",
+    end: end === "present" ? "" : comparableMonth(end),
+    start: start === null ? "" : comparableMonth(start),
+  };
+}
+
+export function compareByRecency(left, right) {
+  const first = recencyKey(left);
+  const second = recencyKey(right);
+
+  if (first.ongoing !== second.ongoing) return first.ongoing ? -1 : 1;
+  if (first.end !== second.end) return first.end < second.end ? 1 : -1;
+  if (first.start !== second.start) return first.start < second.start ? 1 : -1;
+  return projectSlug(left).localeCompare(projectSlug(right), "en");
+}
+
+export function orderProjects(projects, order = []) {
+  const rank = new Map(order.map((slug, index) => [slug, index]));
+
+  return [...projects].sort((left, right) => {
+    const leftRank = rank.get(projectSlug(left)) ?? Infinity;
+    const rightRank = rank.get(projectSlug(right)) ?? Infinity;
+    if (leftRank !== rightRank) return leftRank - rightRank;
+    return compareByRecency(left, right);
+  });
+}
+
+export function unmatchedOrderSlugs(projects, order) {
+  const present = new Set(projects.map(projectSlug));
+  return order.filter((slug) => !present.has(slug));
+}

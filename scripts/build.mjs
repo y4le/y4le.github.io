@@ -4,13 +4,16 @@ import { fileURLToPath } from "node:url";
 import {
   assert,
   isRecord,
+  orderProjects,
   parseYamlMapping,
+  unmatchedOrderSlugs,
   validateProjectList,
-  validateSite,
+  validateSiteConfig,
 } from "./project-manifest.mjs";
 
 const ROOT_DIRECTORY = fileURLToPath(new URL("../", import.meta.url));
 const CONFIG_PATH = path.join(ROOT_DIRECTORY, "projects.yaml");
+const SITE_CONFIG_PATH = path.join(ROOT_DIRECTORY, "site.yaml");
 const TEMPLATE_PATH = path.join(ROOT_DIRECTORY, "src", "index.template.html");
 const OUTPUT_PATH = path.join(ROOT_DIRECTORY, "index.html");
 const IMAGE_DIRECTORY = path.join(ROOT_DIRECTORY, "images");
@@ -83,24 +86,41 @@ function replaceToken(template, name, value) {
   return template.replaceAll(token, value);
 }
 
+async function loadSiteConfig() {
+  const source = await readFile(SITE_CONFIG_PATH, "utf8").catch((error) => {
+    if (error.code === "ENOENT") {
+      throw new Error("site.yaml is required; it holds the site mapping and the display order list");
+    }
+    throw error;
+  });
+
+  return validateSiteConfig(parseYamlMapping(source, "site.yaml"), "site.yaml");
+}
+
 async function loadConfig() {
-  const source = await readFile(CONFIG_PATH, "utf8");
+  const [{ site, order }, source] = await Promise.all([
+    loadSiteConfig(),
+    readFile(CONFIG_PATH, "utf8"),
+  ]);
+
   const config = parseYamlMapping(source, "projects.yaml");
   assert(isRecord(config), "projects.yaml must contain a mapping");
-  assert(isRecord(config.site), "site must be a mapping");
   assert(Array.isArray(config.projects), "projects must be a list");
 
-  const unsupportedTopLevelFields = Object.keys(config).filter(
-    (field) => !["site", "projects"].includes(field),
-  );
+  const unsupportedTopLevelFields = Object.keys(config).filter((field) => field !== "projects");
   assert(
     unsupportedTopLevelFields.length === 0,
     `projects.yaml has unsupported field(s): ${unsupportedTopLevelFields.join(", ")}`,
   );
 
-  const site = validateSite(config.site);
   const declarations = validateProjectList(config.projects);
-  const projects = await Promise.all(declarations.map(validateProjectSvg));
+  const validated = await Promise.all(declarations.map(validateProjectSvg));
+  const projects = orderProjects(validated, order);
+  const unmatched = unmatchedOrderSlugs(validated, order);
+
+  if (unmatched.length) {
+    console.warn(`Notice: site.yaml order lists unknown project slug(s): ${unmatched.join(", ")}`);
+  }
 
   return { site, projects };
 }
@@ -144,7 +164,7 @@ async function main() {
   }
 
   await writeFile(OUTPUT_PATH, html);
-  console.log("Built index.html from projects.yaml");
+  console.log("Built index.html from projects.yaml and site.yaml");
 }
 
 main().catch((error) => {
