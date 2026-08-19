@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build.mjs",
-    "check": "node --check main.js && node --check scripts/dev.mjs && node --check scripts/project-manifest.mjs && node --check scripts/rebuild-manifest.mjs && node --test scripts/project-manifest.test.mjs scripts/rebuild-manifest.test.mjs && node scripts/build.mjs --check",
+    "check": "node --check main.js && node --check scripts/dev.mjs && node --check scripts/link-liveness.mjs && node --check scripts/project-manifest.mjs && node --check scripts/rebuild-manifest.mjs && node --test scripts/link-liveness.test.mjs scripts/project-manifest.test.mjs scripts/rebuild-manifest.test.mjs && node scripts/build.mjs --check",
     "dev": "npm run build && node scripts/dev.mjs",
     "dev:tailscale": "npm run build && node scripts/dev.mjs --tailscale",
     "manifest": "node scripts/rebuild-manifest.mjs"

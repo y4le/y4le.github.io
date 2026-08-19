@@ -98,6 +98,12 @@ npm ci
 npm run build
 ```
 
+The build probes the homepage and every project link concurrently, with a
+five-second timeout per destination. Any non-success response, timeout, or
+network error produces a large, bold-red warning in interactive terminals that
+lists the affected sites. The warning does not fail the build or remove their
+cards, so a transient outage does not silently change the generated page.
+
 Commit `site.yaml`, `projects.yaml`, copied SVGs, and the generated
 `index.html`. GitHub Pages can continue serving the repository root from
 `master`.

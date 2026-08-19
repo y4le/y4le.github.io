@@ -10,6 +10,11 @@ import {
   validateProjectList,
   validateSiteConfig,
 } from "./project-manifest.mjs";
+import {
+  findNonLiveSites,
+  formatLivenessWarning,
+  shouldColorWarnings,
+} from "./link-liveness.mjs";
 
 const ROOT_DIRECTORY = fileURLToPath(new URL("../", import.meta.url));
 const CONFIG_PATH = path.join(ROOT_DIRECTORY, "projects.yaml");
@@ -144,14 +149,27 @@ async function render() {
     PROJECT_CARDS: projectCards,
   };
 
-  return Object.entries(replacements).reduce(
+  const html = Object.entries(replacements).reduce(
     (html, [name, value]) => replaceToken(html, name, value),
     template,
   );
+
+  const linkedSites = [
+    { title: `${config.site.title} homepage`, link: config.site.link },
+    ...config.projects.map(({ title, link }) => ({ title, link })),
+  ];
+
+  return { html, linkedSites };
 }
 
 async function main() {
-  const html = await render();
+  const { html, linkedSites } = await render();
+  const nonLiveSites = await findNonLiveSites(linkedSites);
+
+  if (nonLiveSites.length) {
+    const color = shouldColorWarnings({ isTTY: process.stderr.isTTY });
+    console.error(formatLivenessWarning(nonLiveSites, { color }));
+  }
 
   if (CHECK_ONLY) {
     const currentHtml = await readFile(OUTPUT_PATH, "utf8").catch(() => "");
