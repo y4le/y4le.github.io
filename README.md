@@ -104,9 +104,16 @@ network error produces a large, bold-red warning in interactive terminals that
 lists the affected sites. The warning does not fail the build or remove their
 cards, so a transient outage does not silently change the generated page.
 
-Commit `site.yaml`, `projects.yaml`, copied SVGs, and the generated
-`index.html`. GitHub Pages can continue serving the repository root from
-`master`.
+Browser icons share one rectangle geometry source. After changing it, regenerate
+both committed assets:
+
+```sh
+npm run favicon
+```
+
+Commit `site.yaml`, `projects.yaml`, copied SVGs, and the generated `index.html`,
+`favicon.svg`, and `favicon.ico`. GitHub Pages can continue serving the repository
+root from `master`.
 
 ## Custom domain and project URLs
 
@@ -147,8 +154,9 @@ To verify that the generated page is current without changing it:
 npm run check
 ```
 
-Do not edit `index.html` or generated project entries directly. Make structural
-changes in `src/index.template.html`, style changes in `main.css`, site title,
-link, and ordering changes in `site.yaml`, and project content changes in each
-source repository's `.yalethomas/project.yaml`, then rerun the manifest and site
-builds.
+Do not edit `index.html`, `favicon.svg`, `favicon.ico`, or generated project
+entries directly. Make structural changes in `src/index.template.html`, favicon
+geometry changes in `scripts/favicon.mjs`, style changes in `main.css`, site
+title, link, and ordering changes in `site.yaml`, and project content changes in
+each source repository's `.yalethomas/project.yaml`, then rerun the applicable
+favicon, manifest, and site builds.
