@@ -8,10 +8,11 @@ SVG animation playback.
 ## Add a project
 
 Each project repository owns its public declaration at
-`.yalethomas/project.yaml`. Schema 1 requires the complete rich project record:
+`.yalethomas/project.yaml`. New declarations use schema 2, which separates
+subject and domain tags from demonstrated skills:
 
 ```yaml
-schema: 1
+schema: 2
 title: metrainome
 description: A timing instrument that makes practice accuracy visible.
 bullets:
@@ -23,22 +24,37 @@ date:
 link: https://yalethom.as/metrainome/
 type: app
 tags:
+  - rhythm
+  - biofeedback
+  - training
   - music
-  - Web Audio
-  - data visualization
+skills:
+  - Rust
+  - WebAssembly
+  - TypeScript
+  - JavaScript
+  - Web Audio API
+  - AudioWorklet
+  - Data Visualization
 svg: .yalethomas/card.svg
 ```
 
 All fields are required. Set `svg: null` for a typographic card; otherwise the
 SVG path is repository-root-relative and must name an existing file. Titles,
 descriptions, bullets, dates, canonical links, types, and tags are validated as
-schema 1 data rather than rewritten by this site.
+declared rather than rewritten by this site. Schema 2 also requires `skills`
+(which may be empty), keeps tags and skills case-insensitively disjoint, and
+requires JavaScript alongside TypeScript, Ruby alongside Ruby on Rails, and SQL
+alongside SQLite. Legacy schema 1 declarations remain readable and are treated
+as having no skills. Project URL slugs preserve their declared case, but two
+projects may not use slugs that differ only by case because their copied assets
+would collide on case-insensitive filesystems.
 
 Rebuild the aggregate manifest by scanning a directory that contains project
 repositories:
 
 ```sh
-npm run manifest -- /home/yale/dev
+npm run manifest -- /path/to/projects
 ```
 
 Rebuild mode is the default: it replaces the aggregate project list with every
@@ -46,7 +62,7 @@ valid declaration found under the scan path. To update matching projects while
 retaining aggregate entries the scan did not match, use:
 
 ```sh
-npm run manifest -- --update /home/yale/dev
+npm run manifest -- --update /path/to/projects
 ```
 
 Update matching is case-insensitive by project title. Both modes store
@@ -69,7 +85,8 @@ declarations:
 ```yaml
 site:
   title: YaleThom.as
-  link: https://yalethom.as
+  description: "Projects by Yale Thomas: interactive tools, visualizations, and experiments."
+  link: https://yalethom.as/
 order:
   - txtop
   - graphtv
@@ -82,16 +99,16 @@ by recency: ongoing work (`date.end: present`) first, then the most recent
 tiebreak. A bare `YYYY` counts as the earliest point in that year, and a project
 without a start date sorts last within its group.
 
-Entries must be unique lowercase kebab-case slugs; duplicates fail the build.
-Slugs matching no project are reported and ignored, so pinning survives a scan
-that covers only some project repositories.
+Entries must be unique case-sensitive alphanumeric slugs, with hyphens allowed;
+duplicates fail the build. Slugs matching no project are reported and ignored,
+so pinning survives a scan that covers only some project repositories.
 
 Reordering is a `site.yaml` edit plus `npm run build` — it neither rescans the
 source repositories nor changes `projects.yaml`.
 
 ## Build
 
-Requires Node.js 20 or newer.
+Requires Node.js 22 or newer.
 
 ```sh
 npm ci
@@ -112,8 +129,14 @@ npm run favicon
 ```
 
 Commit `site.yaml`, `projects.yaml`, copied SVGs, and the generated `index.html`,
-`favicon.svg`, and `favicon.ico`. GitHub Pages can continue serving the repository
-root from `master`.
+`favicon.svg`, and `favicon.ico`. On pushes to `master`,
+`.github/workflows/pages.yml` installs the locked dependencies, runs the full
+validation suite, packages only the public static assets, and deploys them to
+GitHub Pages. Pull requests run the same validation without deploying.
+
+The repository's Pages **Build and deployment** source must be set to
+**GitHub Actions**. The `github-pages` environment should allow deployments
+only from `master`.
 
 ## Custom domain and project URLs
 
@@ -121,7 +144,7 @@ The `CNAME` file configures this user site for `yalethom.as`. In GitHub, set
 the custom domain for `y4le/y4le.github.io` to `yalethom.as`, then point the
 domain's apex DNS records at GitHub Pages. The individual project sites inherit
 that domain and are available at paths matching their repository names, such as
-`yalethom.as/graphtv/` and `yalethom.as/react-resume/`.
+`yalethom.as/graphtv/` and `yalethom.as/resume/`.
 
 Project declarations use their canonical `https://yalethom.as/<project>/`
 links. Each linked repository must have GitHub Pages enabled for its path to

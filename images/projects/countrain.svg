@@ -3,13 +3,16 @@
   viewBox="0 0 1618 1000"
   role="img"
   aria-labelledby="countrain-card-title countrain-card-description"
-  style="overflow: hidden"
+  style="--train-period: 9s; --train-rest-x: 230px; overflow: hidden"
 >
   <title id="countrain-card-title">countrain</title>
   <desc id="countrain-card-description">
-    A small train carrying blackjack cards crosses a railroad track above the
-    centered countrain wordmark.
+    The centered countrain wordmark above a small train carrying blackjack
+    cards on a railroad track.
   </desc>
+
+  <!-- @control train-period min=4 max=16 step=0.5 unit=s -->
+  <!-- @control train-rest-x min=190 max=270 step=10 unit=px -->
 
   <style>
     :root {
@@ -40,8 +43,11 @@
     }
 
     .train {
-      transform: translateX(249px);
-      animation: train-pass 4.1s linear infinite;
+      --train-travel-x: 780px;
+      --train-exit-x: calc(var(--train-rest-x) + var(--train-travel-x));
+      --train-entry-x: calc(var(--train-rest-x) - var(--train-travel-x));
+      transform: translateX(var(--train-rest-x));
+      animation: train-loop var(--train-period) linear infinite;
     }
 
     .train-body {
@@ -106,12 +112,25 @@
       stroke-linecap: round;
     }
 
-    @keyframes train-pass {
-      from {
-        transform: translateX(-540px);
+    @keyframes train-loop {
+      0% {
+        transform: translateX(var(--train-rest-x));
+        animation-timing-function: cubic-bezier(0.45, 0.05, 0.8, 0.4);
       }
-      to {
-        transform: translateX(1060px);
+
+      30% {
+        transform: translateX(var(--train-exit-x));
+        animation-timing-function: step-end;
+      }
+
+      38% {
+        transform: translateX(var(--train-entry-x));
+        animation-timing-function: cubic-bezier(0.2, 0.6, 0.55, 0.95);
+      }
+
+      68%,
+      100% {
+        transform: translateX(var(--train-rest-x));
       }
     }
 

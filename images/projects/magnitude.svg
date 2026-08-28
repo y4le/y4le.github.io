@@ -1,0 +1,130 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="magnitude-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="magnitude-card-title magnitude-card-description"
+  style="--word-weight: 720"
+>
+  <title id="magnitude-card-title">magnitude</title>
+  <desc id="magnitude-card-description">
+    The centered magnitude wordmark recursively zooms into the miniature copy
+    that serves as the dot over its i.
+  </desc>
+  <!-- @control word-weight min=600 max=800 step=10 -->
+  <style>
+    #magnitude-card {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      color: var(--card-ink);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    #magnitude-card[data-color-scheme="light"] {
+      color-scheme: only light;
+    }
+
+    #magnitude-card[data-color-scheme="dark"] {
+      color-scheme: only dark;
+    }
+
+    .mg-word {
+      fill: var(--card-ink);
+      font-size: 236px;
+      font-weight: var(--word-weight);
+      letter-spacing: -0.06em;
+    }
+
+    .mg-cycle {
+      animation: mg-cycle 3s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes mg-cycle {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 0.000001;
+      }
+    }
+
+    .mg-still {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .mg-motion {
+        display: none;
+      }
+
+      .mg-still {
+        display: inline;
+      }
+    }
+  </style>
+
+  <defs>
+    <text
+      id="mg-letters"
+      class="mg-word"
+      x="806"
+      y="582"
+      text-anchor="middle"
+      aria-hidden="true"
+    >
+      magnıtude
+    </text>
+    <g id="mg-mini-chain" transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+      <use href="#mg-letters" />
+      <g transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+        <use href="#mg-letters" />
+        <g transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+          <use href="#mg-letters" />
+        </g>
+      </g>
+    </g>
+  </defs>
+
+  <rect class="mg-cycle" width="0" height="0" aria-hidden="true" />
+
+  <svg
+    class="mg-motion"
+    x="0"
+    y="0"
+    width="1618"
+    height="1000"
+    viewBox="0 0 1618 1000"
+    aria-hidden="true"
+  >
+    <animate
+      id="mg-zoom"
+      attributeName="viewBox"
+      begin="0s"
+      dur="3s"
+      repeatCount="indefinite"
+      calcMode="spline"
+      keyTimes="0;0.5;1"
+      keySplines="0.272 0.572554 0.596 0.849667;0.272 0.572554 0.596 0.849667"
+      values="0 0 1618 1000;725.472176 346.178677 286.024693 176.776695;853.71875 407.375 50.5625 31.25"
+    />
+
+    <use href="#mg-letters">
+      <animate
+        attributeName="opacity"
+        begin="0s"
+        dur="3s"
+        repeatCount="indefinite"
+        keyTimes="0;0.42;0.66;1"
+        values="1;1;0;0"
+      />
+    </use>
+    <use href="#mg-mini-chain" />
+  </svg>
+
+  <g class="mg-still" aria-hidden="true">
+    <use href="#mg-letters" />
+    <use href="#mg-mini-chain" />
+  </g>
+</svg>

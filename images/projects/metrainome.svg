@@ -4,25 +4,33 @@
   viewBox="0 0 1618 1000"
   role="img"
   aria-labelledby="metrainome-card-title metrainome-card-description"
+  style="--beat-period: 0.5s"
 >
   <title id="metrainome-card-title">metrainome</title>
   <desc id="metrainome-card-description">
     The metrainome wordmark over a stylized stream of beats crossing a centered
     now axis, with fast, slow, and on-time timing marks.
   </desc>
+
+  <!-- Tempo is the card's one authored parameter: one beat per period, one
+       sixteen-beat phrase per pass. The value lives in the root style
+       attribute; these bounds are only metadata for source-backed control
+       surfaces. -->
+  <!-- @control beat-period min=0.2 max=1.5 step=0.05 unit=s -->
+
   <style>
-    :root {
+    #metrainome-card {
       color-scheme: light dark;
       --card-ink: light-dark(#1a1814, #e8e3d5);
       --timing-early: light-dark(#b95416, #ff9a60);
       --timing-late: light-dark(#2f6fa8, #75b0ff);
     }
 
-    :root[data-color-scheme="light"] {
+    #metrainome-card[data-color-scheme="light"] {
       color-scheme: only light;
     }
 
-    :root[data-color-scheme="dark"] {
+    #metrainome-card[data-color-scheme="dark"] {
       color-scheme: only dark;
     }
 
@@ -34,22 +42,60 @@
       letter-spacing: -0.06em;
       transform-box: view-box;
       transform-origin: 809px 500px;
-      animation: mtrn-wordmark-pulse 0.5s linear infinite;
+      animation-name: mtrn-wordmark-pulse;
+      animation-duration: var(--beat-period);
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
     }
 
     #metrainome-card .mtrn-now {
       fill: none;
       stroke: var(--card-ink);
       stroke-linecap: square;
-    }
-
-    #metrainome-card .mtrn-now {
       stroke-opacity: 0.45;
       stroke-width: 4;
     }
 
+    /* One phrase is sixteen beats wide, so the stream crosses the now axis
+       once per beat period. */
     #metrainome-card .mtrn-beat-stream {
-      animation: mtrn-beats-cross-now 8s linear infinite;
+      animation-name: mtrn-beats-cross-now;
+      animation-duration: calc(var(--beat-period) * 16);
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    /* The phrases below are drawn by use elements, and a document rule cannot
+       reach into that shadow tree through a descendant combinator, so these
+       rules match the referenced elements directly. Inherited custom
+       properties still cross the boundary from the root. */
+    .mtrn-target {
+      fill: none;
+      stroke: var(--card-ink);
+      stroke-linecap: square;
+      stroke-opacity: 0.26;
+      stroke-width: 3;
+    }
+
+    .mtrn-result {
+      fill: none;
+      stroke-linecap: square;
+      stroke-opacity: 0.85;
+      stroke-width: 5;
+    }
+
+    .mtrn-result--early {
+      stroke: var(--timing-early);
+    }
+
+    .mtrn-result--late {
+      stroke: var(--timing-late);
+    }
+
+    .mtrn-result--on-time {
+      stroke: var(--card-ink);
+      stroke-opacity: 0.9;
+      stroke-width: 6;
     }
 
     @keyframes mtrn-beats-cross-now {
@@ -88,153 +134,46 @@
       <rect width="806" height="1000" />
     </clipPath>
 
-    <g
-      id="metrainome-card-target-phrase"
-      fill="none"
-      stroke-linecap="square"
-    >
+    <g id="metrainome-card-target-phrase">
       <path
         class="mtrn-target"
         d="M9 400V600 M209 400V600 M409 400V600 M609 400V600 M809 400V600 M1009 400V600 M1209 400V600 M1409 400V600 M1609 400V600 M1809 400V600 M2009 400V600 M2209 400V600 M2409 400V600 M2609 400V600 M2809 400V600 M3009 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.26"
-        stroke-width="3"
       />
     </g>
 
-    <g
-      id="metrainome-card-result-phrase"
-      fill="none"
-      stroke-linecap="square"
-    >
+    <g id="metrainome-card-result-phrase">
       <!-- -44 ms: fast/early, 17.6px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M-8.6 500V261"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M-8.6 500V261" />
       <!-- 0 ms: on time, exactly coincident with its target. -->
-      <path
-        class="mtrn-result--on-time"
-        d="M209 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.9"
-        stroke-width="6"
-      />
+      <path class="mtrn-result mtrn-result--on-time" d="M209 400V600" />
       <!-- +52 ms: slow/late, 20.8px right of its target. -->
-      <path
-        class="mtrn-result--late"
-        d="M429.8 500V757"
-        stroke="var(--timing-late)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--late" d="M429.8 500V757" />
       <!-- -72 ms: fast/early, 28.8px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M580.2 500V198"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M580.2 500V198" />
       <!-- +24 ms: slow/late, 9.6px right of its target. -->
-      <path
-        class="mtrn-result--late"
-        d="M818.6 500V694"
-        stroke="var(--timing-late)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--late" d="M818.6 500V694" />
       <!-- 0 ms: on time, exactly coincident with its target. -->
-      <path
-        class="mtrn-result--on-time"
-        d="M1009 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.9"
-        stroke-width="6"
-      />
+      <path class="mtrn-result mtrn-result--on-time" d="M1009 400V600" />
       <!-- -18 ms: fast/early, 7.2px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M1201.8 500V319.5"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M1201.8 500V319.5" />
       <!-- +68 ms: slow/late, 27.2px right of its target. -->
-      <path
-        class="mtrn-result--late"
-        d="M1436.2 500V793"
-        stroke="var(--timing-late)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--late" d="M1436.2 500V793" />
       <!-- -36 ms: fast/early, 14.4px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M1594.6 500V279"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M1594.6 500V279" />
       <!-- 0 ms: on time, exactly coincident with its target. -->
-      <path
-        class="mtrn-result--on-time"
-        d="M1809 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.9"
-        stroke-width="6"
-      />
+      <path class="mtrn-result mtrn-result--on-time" d="M1809 400V600" />
       <!-- -28 ms: fast/early, 11.2px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M1997.8 500V297"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M1997.8 500V297" />
       <!-- +76 ms: slow/late, 30.4px right of its target. -->
-      <path
-        class="mtrn-result--late"
-        d="M2239.4 500V811"
-        stroke="var(--timing-late)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--late" d="M2239.4 500V811" />
       <!-- +43 ms: slow/late, 17.2px right of its target. -->
-      <path
-        class="mtrn-result--late"
-        d="M2426.2 500V737"
-        stroke="var(--timing-late)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--late" d="M2426.2 500V737" />
       <!-- 0 ms: on time, exactly coincident with its target. -->
-      <path
-        class="mtrn-result--on-time"
-        d="M2609 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.9"
-        stroke-width="6"
-      />
+      <path class="mtrn-result mtrn-result--on-time" d="M2609 400V600" />
       <!-- -45 ms: fast/early, 18px left of its target. -->
-      <path
-        class="mtrn-result--early"
-        d="M2791 500V259"
-        stroke="var(--timing-early)"
-        stroke-opacity="0.85"
-        stroke-width="5"
-      />
+      <path class="mtrn-result mtrn-result--early" d="M2791 500V259" />
       <!-- 0 ms: on time, exactly coincident with its target. -->
-      <path
-        class="mtrn-result--on-time"
-        d="M3009 400V600"
-        stroke="var(--card-ink)"
-        stroke-opacity="0.9"
-        stroke-width="6"
-      />
+      <path class="mtrn-result mtrn-result--on-time" d="M3009 400V600" />
     </g>
   </defs>
 

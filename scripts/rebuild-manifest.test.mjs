@@ -10,7 +10,7 @@ import { parseArguments, rebuildManifest } from "./rebuild-manifest.mjs";
 function project(title, overrides = {}) {
   const slug = title.toLocaleLowerCase("en-US").replaceAll(/[^a-z0-9]+/g, "-");
   return {
-    schema: 1,
+    schema: 2,
     title,
     description: `${title} does one useful thing well.`,
     bullets: [`Explains the concrete value of ${title}.`],
@@ -18,6 +18,7 @@ function project(title, overrides = {}) {
     link: `https://yalethom.as/${slug}/`,
     type: "tool",
     tags: ["testing"],
+    skills: ["JavaScript"],
     svg: ".yalethomas/card.svg",
     ...overrides,
   };

@@ -1,6 +1,8 @@
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const preferredDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+const wordmarkDot = document.querySelector(".wordmark-dot");
+let isWordmarkDotHovered = wordmarkDot?.matches(":hover") ?? false;
 
 function getSvgRoot(media) {
   const root = media.contentDocument?.documentElement;
@@ -170,7 +172,8 @@ function setupSvgCard(media) {
 
     syncSvgColorScheme(root);
 
-    const shouldPlay = (isHovered || isFocused) && !reducedMotion.matches;
+    const shouldPlay =
+      (isHovered || isFocused || isWordmarkDotHovered) && !reducedMotion.matches;
 
     if (shouldPlay) {
       cancelCycleFinish?.();
@@ -234,6 +237,15 @@ function setupSvgCard(media) {
 
 const svgCardSyncs = [...document.querySelectorAll(".project-svg")].map(setupSvgCard);
 const syncSvgCards = () => svgCardSyncs.forEach((sync) => sync());
+
+wordmarkDot?.addEventListener("pointerenter", () => {
+  isWordmarkDotHovered = true;
+  syncSvgCards();
+});
+wordmarkDot?.addEventListener("pointerleave", () => {
+  isWordmarkDotHovered = false;
+  syncSvgCards();
+});
 
 new MutationObserver(syncSvgCards).observe(document.documentElement, {
   attributes: true,

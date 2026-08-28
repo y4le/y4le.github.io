@@ -79,16 +79,19 @@
     <g
       class="resume-job-history"
       aria-label="Work history"
-      style="--resume-job-size: 82px; --resume-scroll-start: 1082px; --resume-scroll-end: -866px; --resume-scroll-rest: 108px"
+      style="--resume-job-size: 82px; --resume-scroll-start: 746px; --resume-scroll-end: -1202px; --resume-scroll-rest: 746px"
     >
-      <text class="resume-job" x="1480" y="0">Meta</text>
-      <text class="resume-job" x="1480" y="112">Amazon</text>
-      <text class="resume-job" x="1480" y="224">Google</text>
-      <text class="resume-job" x="1480" y="336">Tophatter</text>
-      <text class="resume-job" x="1480" y="448">Pandora</text>
-      <text class="resume-job" x="1480" y="560">Rdio</text>
-      <text class="resume-job" x="1480" y="672">Facebook</text>
-      <text class="resume-job" x="1480" y="784">WASHU</text>
+      <text class="resume-job" x="1605" y="0">Meta</text>
+      <text class="resume-job" x="1605" y="112">Amazon</text>
+      <text class="resume-job" x="1605" y="224">Google</text>
+      <text class="resume-job" x="1605" y="336">Tophatter</text>
+      <text class="resume-job" x="1605" y="448">Pandora</text>
+      <text class="resume-job" x="1605" y="560">Rdio</text>
+      <text class="resume-job" x="1605" y="672">Facebook</text>
+      <text class="resume-job" x="1605" y="784">WASHU</text>
+      <text class="resume-job resume-job-loop" x="1605" y="1948" aria-hidden="true">Meta</text>
+      <text class="resume-job resume-job-loop" x="1605" y="2060" aria-hidden="true">Amazon</text>
+      <text class="resume-job resume-job-loop" x="1605" y="2172" aria-hidden="true">Google</text>
     </g>
   </g>
 </svg>

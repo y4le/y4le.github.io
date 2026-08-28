@@ -71,7 +71,7 @@ function renderProject(project) {
   let content = `<span class="project-title">${escapeHtml(project.title)}</span>`;
   if (project.svg) {
     content = [
-      `<object class="project-media project-svg" data="${escapeHtml(project.svg)}" type="image/svg+xml" aria-hidden="true" tabindex="-1">`,
+      `<object class="project-media project-svg" data="${escapeHtml(project.svg)}" type="image/svg+xml" aria-hidden="true" inert>`,
       `  <span class="project-title">${escapeHtml(project.title)}</span>`,
       `</object>`,
     ].join("\n");
@@ -144,6 +144,7 @@ async function render() {
 
   const replacements = {
     SITE_TITLE: escapeHtml(config.site.title),
+    SITE_DESCRIPTION: escapeHtml(config.site.description),
     SITE_LINK: escapeHtml(config.site.link),
     WORDMARK: renderWordmark(config.site.title),
     PROJECT_CARDS: projectCards,

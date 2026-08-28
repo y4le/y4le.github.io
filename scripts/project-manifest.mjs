@@ -1,7 +1,7 @@
 import path from "node:path";
 import { parseDocument, visit } from "yaml";
 
-export const PROJECT_FIELDS = [
+export const PROJECT_FIELDS_V1 = [
   "schema",
   "title",
   "description",
@@ -13,8 +13,15 @@ export const PROJECT_FIELDS = [
   "svg",
 ];
 
+export const PROJECT_FIELDS_V2 = [
+  ...PROJECT_FIELDS_V1.slice(0, -1),
+  "skills",
+  "svg",
+];
+
 const DATE_PATTERN = /^(\d{4})(?:-(0[1-9]|1[0-2]))?$/;
 const LABEL_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+const PROJECT_SLUG_PATTERN = /^[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*$/;
 
 export function assert(condition, message) {
   if (!condition) {
@@ -71,12 +78,16 @@ export function requireSingleLine(value, field, { maxLength } = {}) {
 export function validateSite(value, field = "site") {
   assert(isRecord(value), `${field} must be a mapping`);
   const fields = Object.keys(value);
-  const unknown = fields.filter((key) => !["title", "link"].includes(key));
+  const unknown = fields.filter((key) => !["title", "description", "link"].includes(key));
   assert(unknown.length === 0, `${field} has unsupported field(s): ${unknown.join(", ")}`);
   assert(Object.hasOwn(value, "title"), `${field}.title is required`);
+  assert(Object.hasOwn(value, "description"), `${field}.description is required`);
   assert(Object.hasOwn(value, "link"), `${field}.link is required`);
 
   const title = requireSingleLine(value.title, `${field}.title`);
+  const description = requireSingleLine(value.description, `${field}.description`, {
+    maxLength: 160,
+  });
   const link = requireSingleLine(value.link, `${field}.link`);
   let url;
   try {
@@ -87,7 +98,7 @@ export function validateSite(value, field = "site") {
   assert(url.protocol === "https:", `${field}.link must use HTTPS`);
   assert(!url.username && !url.password && !url.search && !url.hash, `${field}.link must not include credentials, a query, or a fragment`);
 
-  return { title, link };
+  return { title, description, link };
 }
 
 function requireExactFields(value, fields, field) {
@@ -135,7 +146,10 @@ function validateLink(value, field) {
   assert(url.protocol === "https:", `${field} must use HTTPS`);
   assert(url.hostname === "yalethom.as" && !url.port, `${field} must use yalethom.as`);
   assert(!url.username && !url.password && !url.search && !url.hash, `${field} must not include credentials, a query, or a fragment`);
-  assert(/^\/[a-z0-9]+(?:-[a-z0-9]+)*\/$/.test(url.pathname), `${field} must contain one lowercase kebab-case project path and a trailing slash`);
+  assert(
+    /^\/[A-Za-z0-9]+(?:-[A-Za-z0-9]+)*\/$/.test(url.pathname),
+    `${field} must contain one case-sensitive alphanumeric project path and a trailing slash`,
+  );
   return link;
 }
 
@@ -151,8 +165,14 @@ function validateSvg(value, field) {
 }
 
 export function validateProject(value, field = "project") {
-  requireExactFields(value, PROJECT_FIELDS, field);
-  assert(value.schema === 1, `${field}.schema must be 1`);
+  assert(isRecord(value), `${field} must be a mapping`);
+  assert(Object.hasOwn(value, "schema"), `${field} is missing field(s): schema`);
+  assert(value.schema === 1 || value.schema === 2, `${field}.schema must be 1 or 2`);
+  requireExactFields(
+    value,
+    value.schema === 1 ? PROJECT_FIELDS_V1 : PROJECT_FIELDS_V2,
+    field,
+  );
 
   const title = requireSingleLine(value.title, `${field}.title`);
   const description = requireSingleLine(value.description, `${field}.description`, { maxLength: 140 });
@@ -175,8 +195,41 @@ export function validateProject(value, field = "project") {
   const normalizedTags = tags.map((tag) => tag.toLocaleLowerCase("en-US"));
   assert(new Set(normalizedTags).size === tags.length, `${field}.tags must be case-insensitively unique`);
 
+  let skills;
+  if (value.schema === 2) {
+    assert(Array.isArray(value.skills), `${field}.skills must be a list`);
+    skills = value.skills.map((skill, index) =>
+      requireSingleLine(skill, `${field}.skills[${index}]`),
+    );
+    const normalizedSkills = skills.map((skill) => skill.toLocaleLowerCase("en-US"));
+    assert(
+      new Set(normalizedSkills).size === skills.length,
+      `${field}.skills must be case-insensitively unique`,
+    );
+
+    const tagSet = new Set(normalizedTags);
+    const overlap = skills.filter((_, index) => tagSet.has(normalizedSkills[index]));
+    assert(
+      overlap.length === 0,
+      `${field}.tags and ${field}.skills must be case-insensitively disjoint: ${overlap.join(", ")}`,
+    );
+
+    const skillSet = new Set(normalizedSkills);
+    const requiredCompanions = new Map([
+      ["typescript", "javascript"],
+      ["ruby on rails", "ruby"],
+      ["sqlite", "sql"],
+    ]);
+    for (const [skill, companion] of requiredCompanions) {
+      assert(
+        !skillSet.has(skill) || skillSet.has(companion),
+        `${field}.skills must include ${companion} when it includes ${skill}`,
+      );
+    }
+  }
+
   return {
-    schema: 1,
+    schema: value.schema,
     title,
     description,
     bullets,
@@ -184,6 +237,7 @@ export function validateProject(value, field = "project") {
     link,
     type,
     tags,
+    ...(skills === undefined ? {} : { skills }),
     svg: validateSvg(value.svg, `${field}.svg`),
   };
 }
@@ -193,13 +247,20 @@ export function validateProjectList(values, field = "projects") {
   const projects = values.map((project, index) => validateProject(project, `${field}[${index}]`));
   const titles = new Set();
   const links = new Set();
+  const slugs = new Set();
 
   for (const project of projects) {
     const title = project.title.toLocaleLowerCase("en-US");
+    const slug = projectSlug(project).toLocaleLowerCase("en-US");
     assert(!titles.has(title), `${field} contains duplicate title: ${project.title}`);
     assert(!links.has(project.link), `${field} contains duplicate link: ${project.link}`);
+    assert(
+      !slugs.has(slug),
+      `${field} contains a case-insensitive duplicate project slug: ${projectSlug(project)}`,
+    );
     titles.add(title);
     links.add(project.link);
+    slugs.add(slug);
   }
 
   return projects;
@@ -217,7 +278,7 @@ export function validateOrder(value, field = "order") {
 
   const slugs = value.map((entry, index) => {
     const slug = requireSingleLine(entry, `${field}[${index}]`);
-    assert(LABEL_PATTERN.test(slug), `${field}[${index}] must be a lowercase kebab-case project slug`);
+    assert(PROJECT_SLUG_PATTERN.test(slug), `${field}[${index}] must be a case-sensitive alphanumeric project slug`);
     return slug;
   });
 

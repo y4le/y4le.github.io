@@ -3,14 +3,17 @@ import test from "node:test";
 import {
   compareByRecency,
   orderProjects,
+  projectSlug,
   unmatchedOrderSlugs,
   validateOrder,
+  validateProject,
+  validateProjectList,
   validateSiteConfig,
 } from "./project-manifest.mjs";
 
 function project(slug, date, overrides = {}) {
   return {
-    schema: 1,
+    schema: 2,
     title: slug,
     description: `${slug} does one useful thing well.`,
     bullets: [`Explains the concrete value of ${slug}.`],
@@ -18,6 +21,7 @@ function project(slug, date, overrides = {}) {
     link: `https://yalethom.as/${slug}/`,
     type: "tool",
     tags: ["testing"],
+    skills: ["JavaScript"],
     svg: null,
     ...overrides,
   };
@@ -29,7 +33,11 @@ const FINISHED_RECENT = project("finished-recent", { start: "2019-01", end: "202
 const FINISHED_OLD = project("finished-old", { start: "2012-01", end: "2013-02" });
 const UNDATED = project("undated", { start: null, end: "present" });
 
-const SITE = { title: "YaleThom.as", link: "https://yalethom.as" };
+const SITE = {
+  title: "YaleThom.as",
+  description: "Projects by Yale Thomas.",
+  link: "https://yalethom.as/",
+};
 
 test("pinned slugs lead in listed order and the rest follow by recency", () => {
   const projects = [ONGOING_NEW, FINISHED_OLD, ONGOING_OLD, FINISHED_RECENT];
@@ -87,15 +95,67 @@ test("an empty or absent order list leaves ordering entirely to recency", () => 
   assert.deepEqual(orderProjects(projects).map(({ title }) => title), ["ongoing-new", "finished-old"]);
 });
 
-test("order entries must be unique lowercase kebab-case slugs", () => {
-  assert.deepEqual(validateOrder(["graphtv", "txtop"]), ["graphtv", "txtop"]);
+test("project links and order entries allow case-sensitive slugs", () => {
+  const bigO = project("bigO", { start: "2026-08", end: "present" });
+
+  assert.equal(validateProject(bigO).link, "https://yalethom.as/bigO/");
+  assert.equal(projectSlug(bigO), "bigO");
+  assert.deepEqual(validateOrder(["bigO", "txtop"]), ["bigO", "txtop"]);
   assert.deepEqual(validateOrder(undefined), []);
   assert.deepEqual(validateOrder(null), []);
   assert.throws(() => validateOrder(["graphtv", "graphtv"]), /duplicate slug: graphtv/);
-  assert.throws(() => validateOrder(["GraphTV"]), /kebab-case project slug/);
-  assert.throws(() => validateOrder(["/graphtv/"]), /kebab-case project slug/);
+  assert.throws(() => validateOrder(["graph_tv"]), /alphanumeric project slug/);
+  assert.throws(() => validateOrder(["/graphtv/"]), /alphanumeric project slug/);
   assert.throws(() => validateOrder("graphtv"), /must be a list/);
   assert.throws(() => validateOrder([3]), /must be a string/);
+});
+
+test("project slugs cannot differ only by case", () => {
+  const uppercase = project("bigO", { start: "2026-08", end: "present" });
+  const lowercase = project("bigo", { start: "2026-07", end: "present" }, {
+    title: "another project",
+  });
+
+  assert.throws(
+    () => validateProjectList([uppercase, lowercase]),
+    /case-insensitive duplicate project slug: bigo/,
+  );
+});
+
+test("project schema 2 separates subject tags from demonstrated skills", () => {
+  const valid = project("typed", { start: "2026-08", end: "present" }, {
+    skills: ["TypeScript", "JavaScript"],
+  });
+
+  assert.deepEqual(validateProject(valid).skills, ["TypeScript", "JavaScript"]);
+  assert.throws(
+    () => validateProject({ ...valid, skills: ["TypeScript"] }),
+    /include javascript when it includes typescript/i,
+  );
+  assert.throws(
+    () => validateProject({ ...valid, tags: ["JavaScript"] }),
+    /tags and project\.skills must be case-insensitively disjoint/i,
+  );
+  assert.throws(
+    () => validateProject({ ...valid, skills: ["JavaScript", "javascript"] }),
+    /skills must be case-insensitively unique/i,
+  );
+});
+
+test("project schema 1 remains valid without skills and rejects schema 2 fields", () => {
+  const current = project("legacy", { start: "2015", end: "2020" });
+  const { skills: _skills, ...legacy } = current;
+  legacy.schema = 1;
+
+  assert.equal(Object.hasOwn(validateProject(legacy), "skills"), false);
+  assert.throws(
+    () => validateProject({ ...legacy, skills: [] }),
+    /unsupported field\(s\): skills/,
+  );
+  assert.throws(
+    () => validateProject({ ...current, skills: undefined }),
+    /skills must be a list/,
+  );
 });
 
 test("the site config requires site, accepts an optional order, and rejects extras", () => {
@@ -111,4 +171,12 @@ test("the site config requires site, accepts an optional order, and rejects extr
     /unsupported field\(s\): projects/,
   );
   assert.throws(() => validateSiteConfig([]), /must contain a mapping/);
+  assert.throws(
+    () => validateSiteConfig({ site: { title: SITE.title, link: SITE.link } }),
+    /site\.description is required/,
+  );
+  assert.throws(
+    () => validateSiteConfig({ site: { ...SITE, description: "x".repeat(161) } }),
+    /site\.description must be at most 160 characters/,
+  );
 });

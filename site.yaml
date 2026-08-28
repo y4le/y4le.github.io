@@ -2,7 +2,8 @@
 
 site:
   title: YaleThom.as
-  link: https://yalethom.as
+  description: "Projects by Yale Thomas: interactive tools, visualizations, and experiments."
+  link: https://yalethom.as/
 
 # Pinned display order, listed by project slug (the path segment of the
 # canonical link). Pinned projects render first, in this order; every other
