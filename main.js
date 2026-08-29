@@ -1,8 +1,10 @@
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const preferredDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+const wordmark = document.querySelector(".wordmark");
 const wordmarkDot = document.querySelector(".wordmark-dot");
 let isWordmarkDotHovered = wordmarkDot?.matches(":hover") ?? false;
+let isWordmarkPressed = false;
 
 function getSvgRoot(media) {
   const root = media.contentDocument?.documentElement;
@@ -85,6 +87,32 @@ function getFinishPlan(animation) {
   };
 }
 
+function getCyclePlan(animation) {
+  const effect = animation.effect;
+  const timing = effect?.getTiming?.();
+
+  if (!effect?.updateTiming || timing == null) {
+    return null;
+  }
+
+  const alternates = timing.direction === "alternate" || timing.direction === "alternate-reverse";
+  let endingIteration = alternates ? 2 : 1;
+
+  if (Number.isFinite(timing.iterations)) {
+    endingIteration = Math.min(endingIteration, timing.iterations);
+  }
+
+  if (endingIteration <= 0) {
+    return null;
+  }
+
+  return {
+    effect,
+    endingIteration,
+    originalIterations: timing.iterations,
+  };
+}
+
 function finishCssAnimationCycles(root, onFinish) {
   const pending = new Map();
   const plans = [];
@@ -131,6 +159,63 @@ function finishCssAnimationCycles(root, onFinish) {
   return { cancel, isPending: pending.size > 0 };
 }
 
+function playCssAnimationCycles(root, onFinish, shouldRepeat) {
+  const pending = new Map();
+  const plans = [];
+
+  for (const animation of getCssAnimations(root)) {
+    const plan = getCyclePlan(animation);
+
+    if (!plan) {
+      resetCssAnimation(animation);
+      continue;
+    }
+
+    plans.push({ animation, ...plan });
+  }
+
+  const restoreAnimations = () => {
+    for (const plan of plans) {
+      plan.effect.updateTiming({ iterations: plan.originalIterations });
+      resetCssAnimation(plan.animation);
+    }
+  };
+
+  for (const plan of plans) {
+    const handleFinish = () => {
+      if (shouldRepeat()) {
+        resetCssAnimation(plan.animation);
+        plan.animation.play();
+        return;
+      }
+
+      plan.animation.removeEventListener("finish", handleFinish);
+      pending.delete(plan.animation);
+
+      if (pending.size === 0) {
+        restoreAnimations();
+        onFinish();
+      }
+    };
+
+    pending.set(plan.animation, { ...plan, handleFinish });
+    plan.animation.addEventListener("finish", handleFinish);
+    plan.effect.updateTiming({ iterations: plan.endingIteration });
+    plan.animation.play();
+  }
+
+  const cancel = () => {
+    for (const [animation, plan] of pending) {
+      animation.removeEventListener("finish", plan.handleFinish);
+    }
+
+    pending.clear();
+    restoreAnimations();
+  };
+
+  return { cancel, isPending: pending.size > 0 };
+}
+
 function playSvgAnimation(root) {
   root.unpauseAnimations?.();
   setCssAnimations(root, true);
@@ -157,14 +242,42 @@ function finishSvgAnimationCycle(root, onFinish) {
   return result;
 }
 
+function playSvgAnimationCycle(root, onFinish, shouldRepeat) {
+  resetSvgAnimation(root);
+  root.unpauseAnimations?.();
+
+  const result = playCssAnimationCycles(
+    root,
+    () => {
+      root.pauseAnimations?.();
+      root.setCurrentTime?.(0);
+      onFinish();
+    },
+    shouldRepeat,
+  );
+
+  if (!result.isPending) {
+    root.pauseAnimations?.();
+    root.setCurrentTime?.(0);
+  }
+
+  return result;
+}
+
 function setupSvgCard(media) {
   const card = media.closest(".project-card");
   let isHovered = card.matches(":hover");
   let isFocused = card.matches(":focus");
   let animationState = "stopped";
   let cancelCycleFinish = null;
+  let cancelTriggeredCycle = null;
+  let shouldTriggerOnLoad = false;
 
   const syncAnimation = () => {
+    if (reducedMotion.matches) {
+      shouldTriggerOnLoad = false;
+    }
+
     const root = getSvgRoot(media);
     if (!root) {
       return;
@@ -174,6 +287,17 @@ function setupSvgCard(media) {
 
     const shouldPlay =
       (isHovered || isFocused || isWordmarkDotHovered) && !reducedMotion.matches;
+
+    if (animationState === "triggering") {
+      if (reducedMotion.matches) {
+        cancelTriggeredCycle?.();
+        cancelTriggeredCycle = null;
+        resetSvgAnimation(root);
+        animationState = "stopped";
+      }
+
+      return;
+    }
 
     if (shouldPlay) {
       cancelCycleFinish?.();
@@ -212,7 +336,50 @@ function setupSvgCard(media) {
     }
   };
 
-  media.addEventListener("load", syncAnimation);
+  const triggerAnimationCycle = () => {
+    if (reducedMotion.matches) {
+      shouldTriggerOnLoad = false;
+      return;
+    }
+
+    const root = getSvgRoot(media);
+    if (!root) {
+      shouldTriggerOnLoad = true;
+      return;
+    }
+
+    shouldTriggerOnLoad = false;
+    cancelCycleFinish?.();
+    cancelCycleFinish = null;
+    cancelTriggeredCycle?.();
+    cancelTriggeredCycle = null;
+    animationState = "triggering";
+
+    const triggeredCycle = playSvgAnimationCycle(
+      root,
+      () => {
+        cancelTriggeredCycle = null;
+        animationState = "stopped";
+        syncAnimation();
+      },
+      () => isWordmarkPressed,
+    );
+
+    if (triggeredCycle.isPending) {
+      cancelTriggeredCycle = triggeredCycle.cancel;
+    } else {
+      animationState = "stopped";
+      syncAnimation();
+    }
+  };
+
+  media.addEventListener("load", () => {
+    syncAnimation();
+
+    if (shouldTriggerOnLoad) {
+      triggerAnimationCycle();
+    }
+  });
   card.addEventListener("pointerenter", () => {
     isHovered = true;
     syncAnimation();
@@ -232,11 +399,41 @@ function setupSvgCard(media) {
   reducedMotion.addEventListener("change", syncAnimation);
   syncAnimation();
 
-  return syncAnimation;
+  return { syncAnimation, triggerAnimationCycle };
 }
 
-const svgCardSyncs = [...document.querySelectorAll(".project-svg")].map(setupSvgCard);
-const syncSvgCards = () => svgCardSyncs.forEach((sync) => sync());
+const svgCards = [...document.querySelectorAll(".project-svg")].map(setupSvgCard);
+const syncSvgCards = () => svgCards.forEach(({ syncAnimation }) => syncAnimation());
+const triggerSvgCards = () => {
+  for (const { triggerAnimationCycle } of svgCards) {
+    triggerAnimationCycle();
+  }
+};
+
+wordmark?.addEventListener("pointerdown", (event) => {
+  if (!event.isPrimary || event.button !== 0) {
+    return;
+  }
+
+  isWordmarkPressed = true;
+  wordmark.setPointerCapture?.(event.pointerId);
+  triggerSvgCards();
+});
+wordmark?.addEventListener("pointerup", (event) => {
+  if (event.isPrimary && event.button === 0) {
+    isWordmarkPressed = false;
+  }
+});
+wordmark?.addEventListener("pointercancel", () => {
+  isWordmarkPressed = false;
+});
+wordmark?.addEventListener("click", (event) => {
+  // Pointer presses begin playback on pointerdown. A zero-detail click comes
+  // from a keyboard or other non-pointer activation and still needs a cycle.
+  if (event.detail === 0) {
+    triggerSvgCards();
+  }
+});
 
 wordmarkDot?.addEventListener("pointerenter", () => {
   isWordmarkDotHovered = true;

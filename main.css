@@ -48,14 +48,24 @@ body {
 }
 
 .wordmark {
+  padding: 0;
+  border: 0;
+  -webkit-appearance: none;
+  appearance: none;
   display: inline-flex;
   align-items: baseline;
+  background: none;
   color: var(--foreground);
+  cursor: pointer;
+  font-family: inherit;
   font-size: clamp(32px, 7vw, 48px);
   font-weight: 500;
   letter-spacing: -0.03em;
   line-height: 1.05;
   text-decoration: none;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .wordmark-dot {

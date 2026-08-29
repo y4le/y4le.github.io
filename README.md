@@ -74,7 +74,9 @@ touch `site.yaml`, delete unmatched assets, build the site, or edit
 `index.html`. Same-origin SVG animations are paused and reset at rest, played
 while the card is hovered or keyboard-focused, and allowed to finish their
 current cycle when that interaction ends; reduced-motion preferences are
-respected.
+respected. Clicking or tapping the YaleThom.as wordmark plays every card's
+animation for one complete cycle; holding it keeps those cycles looping until
+release.
 
 ## Order the projects
 
