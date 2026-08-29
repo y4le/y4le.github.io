@@ -10,4 +10,13 @@ site:
 # project follows by recency: ongoing work first, then the most recent end
 # date, then the most recent start date, with the slug as the final tiebreak.
 # Slugs that match no project in projects.yaml are reported and ignored.
-order: []
+order:
+  - magnitude
+  - resume
+  - graphtv
+  - metrainome
+  - countrain
+  - bigO
+  - svg
+  - txtop
+  - veil
