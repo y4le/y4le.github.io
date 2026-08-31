@@ -18,23 +18,35 @@
     <link rel="canonical" href="{{SITE_LINK}}">
     <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="main.css">
     <script src="main.js" defer></script>
   </head>
   <body>
     <div class="page">
       <header class="site-header">
-        <button class="wordmark" type="button" aria-label="{{SITE_TITLE}}: play all project animations; hold to loop">
-          {{WORDMARK}}
+        <h1 class="site-title">
+          <button class="wordmark" type="button" aria-label="{{SITE_TITLE}}: play every project once; hold to loop" title="Play every project once — hold to loop">
+            {{WORDMARK}}
+          </button>
+        </h1>
+        <button class="help-toggle" type="button" aria-label="Show project descriptions" aria-controls="project-grid" aria-keyshortcuts="?" aria-pressed="false" title="Show project descriptions (keyboard: ?)">
+          <span class="help-toggle-mark" aria-hidden="true">?</span>
         </button>
       </header>
 
+      <p class="visually-hidden" id="help-status" role="status"></p>
+
       <main>
-        <h1 class="visually-hidden">Projects</h1>
-        <div class="project-grid">
+        <div class="project-grid" id="project-grid">
           {{PROJECT_CARDS}}
         </div>
       </main>
+
+      <footer class="site-footer">
+        <p><a href="https://github.com/y4le/y4le.github.io">View source <span aria-hidden="true">↗</span></a></p>
+        <img class="site-mark" src="favicon.svg" width="24" height="24" alt="">
+      </footer>
     </div>
   </body>
 </html>

@@ -1,14 +1,64 @@
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
+const SVG_FONT_STYLE_ID = "yalethomas-card-fonts";
+const SVG_FONT_CSS = `
+  @font-face {
+    font-family: "Geist";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: block;
+    src: url("../../fonts/geist-latin-wght-normal.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Geist Mono";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: block;
+    src: url("../../fonts/geist-mono-latin-wght-normal.woff2") format("woff2");
+  }
+`;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const preferredDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 const wordmark = document.querySelector(".wordmark");
 const wordmarkDot = document.querySelector(".wordmark-dot");
+const helpToggle = document.querySelector(".help-toggle");
+const helpToggleMark = document.querySelector(".help-toggle-mark");
+const helpStatus = document.getElementById("help-status");
 let isWordmarkDotHovered = wordmarkDot?.matches(":hover") ?? false;
 let isWordmarkPressed = false;
+let isHelpVisible = false;
+
+function setHelpVisible(shouldShow, { announce = false } = {}) {
+  isHelpVisible = shouldShow;
+  document.documentElement.dataset.help = shouldShow ? "on" : "off";
+  helpToggle?.setAttribute("aria-pressed", String(shouldShow));
+  const action = shouldShow ? "Hide project descriptions" : "Show project descriptions";
+  helpToggle?.setAttribute("aria-label", action);
+  if (helpToggle) {
+    helpToggle.title = `${action} (keyboard: ?)`;
+  }
+  if (helpToggleMark) helpToggleMark.textContent = shouldShow ? "×" : "?";
+
+  if (announce && helpStatus) {
+    helpStatus.textContent = shouldShow
+      ? "Project descriptions shown."
+      : "Project descriptions hidden.";
+  }
+}
 
 function getSvgRoot(media) {
   const root = media.contentDocument?.documentElement;
   return root?.namespaceURI === SVG_NAMESPACE ? root : null;
+}
+
+function ensureSvgFonts(root) {
+  const document = root.ownerDocument;
+  if (document.getElementById(SVG_FONT_STYLE_ID)) return;
+
+  const style = document.createElementNS(SVG_NAMESPACE, "style");
+  style.id = SVG_FONT_STYLE_ID;
+  style.textContent = SVG_FONT_CSS;
+  root.prepend(style);
 }
 
 function getActiveColorScheme() {
@@ -283,6 +333,7 @@ function setupSvgCard(media) {
       return;
     }
 
+    ensureSvgFonts(root);
     syncSvgColorScheme(root);
 
     const shouldPlay =
@@ -409,6 +460,31 @@ const triggerSvgCards = () => {
     triggerAnimationCycle();
   }
 };
+
+setHelpVisible(false);
+helpToggle?.addEventListener("click", () => {
+  setHelpVisible(!isHelpVisible);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.defaultPrevented) {
+    return;
+  }
+
+  if (event.key === "Escape" && isHelpVisible) {
+    setHelpVisible(false, { announce: document.activeElement !== helpToggle });
+    return;
+  }
+
+  if (event.key !== "?") return;
+  const activeElement = document.activeElement;
+  const acceptsText = activeElement?.isContentEditable
+    || /^(INPUT|SELECT|TEXTAREA)$/.test(activeElement?.tagName ?? "");
+  if (acceptsText) return;
+
+  event.preventDefault();
+  setHelpVisible(!isHelpVisible, { announce: true });
+});
 
 wordmark?.addEventListener("pointerdown", (event) => {
   if (!event.isPrimary || event.button !== 0) {

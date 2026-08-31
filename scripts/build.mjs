@@ -6,6 +6,7 @@ import {
   isRecord,
   orderProjects,
   parseYamlMapping,
+  projectSlug,
   unmatchedOrderSlugs,
   validateProjectList,
   validateSiteConfig,
@@ -41,7 +42,16 @@ function renderWordmark(title) {
 
   const before = escapeHtml(title.slice(0, dotIndex));
   const after = escapeHtml(title.slice(dotIndex + 1));
-  return `${before}<span class="wordmark-dot" aria-hidden="true"></span>${after}`;
+  return `${before}<span class="wordmark-dot" aria-hidden="true"></span><span class="visually-hidden">.</span>${after}`;
+}
+
+function renderProjectDate({ start, end }) {
+  const startYear = start?.slice(0, 4) ?? null;
+  const endYear = end === "present" ? "now" : end.slice(0, 4);
+
+  if (startYear === null) return endYear === "now" ? "Ongoing" : endYear;
+  if (startYear === endYear) return startYear;
+  return `${startYear}–${endYear}`;
 }
 
 async function validateProjectSvg(project, index) {
@@ -68,6 +78,8 @@ async function validateProjectSvg(project, index) {
 }
 
 function renderProject(project) {
+  const descriptionId = `project-description-${escapeHtml(projectSlug(project))}`;
+  const projectDate = renderProjectDate(project.date);
   let content = `<span class="project-title">${escapeHtml(project.title)}</span>`;
   if (project.svg) {
     content = [
@@ -77,9 +89,22 @@ function renderProject(project) {
     ].join("\n");
   }
 
+  const help = [
+    `<span class="project-help">`,
+    `  <span class="project-help-meta" aria-hidden="true">${escapeHtml(project.type)} · ${escapeHtml(projectDate)}</span>`,
+    `  <span class="project-help-copy">`,
+    `    <span class="project-help-name">${escapeHtml(project.title)}</span>`,
+    `    <span class="project-help-text" id="${descriptionId}">${escapeHtml(project.description)}</span>`,
+    `  </span>`,
+    `  <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>`,
+    `</span>`,
+  ].join("\n");
+
   return [
-    `<a class="project-card" href="${escapeHtml(project.link)}" data-category="${escapeHtml(project.type)}" aria-label="${escapeHtml(project.title)}">`,
+    `<a class="project-card" href="${escapeHtml(project.link)}" data-category="${escapeHtml(project.type)}" aria-label="${escapeHtml(project.title)}" aria-describedby="${descriptionId}">`,
     `  ${content.replaceAll("\n", "\n  ")}`,
+    `  <span class="project-link-cue" aria-hidden="true">→</span>`,
+    `  ${help.replaceAll("\n", "\n  ")}`,
     `</a>`,
   ].join("\n");
 }

@@ -76,7 +76,15 @@ while the card is hovered or keyboard-focused, and allowed to finish their
 current cycle when that interaction ends; reduced-motion preferences are
 respected. Clicking or tapping the YaleThom.as wordmark plays every card's
 animation for one complete cycle; holding it keeps those cycles looping until
-release.
+release. The project toolbar's context button toggles a metadata-and-description
+side across every project card; the `?` key toggles it too, and Escape hides it
+without moving keyboard focus. Descriptions remain attached to their links for
+assistive technology whether or not that visual layer is shown.
+
+The page and embedded SVG artwork use the vendored Geist variable fonts under
+`fonts/`, with the matching SIL Open Font License notices committed alongside
+them. Because SVG `<object>` elements are separate documents, `main.js` installs
+their font-face declarations after each object loads.
 
 ## Order the projects
 

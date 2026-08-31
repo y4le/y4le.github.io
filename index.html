@@ -7,9 +7,9 @@
     <meta name="color-scheme" content="light dark">
     <meta name="theme-color" content="#fbf7ec" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
-    <meta name="description" content="Projects by Yale Thomas: interactive tools, visualizations, and experiments.">
+    <meta name="description" content="Interactive tools, visualizations, and experiments by Yale Thomas.">
     <meta property="og:title" content="YaleThom.as">
-    <meta property="og:description" content="Projects by Yale Thomas: interactive tools, visualizations, and experiments.">
+    <meta property="og:description" content="Interactive tools, visualizations, and experiments by Yale Thomas.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://yalethom.as/">
     <meta property="og:site_name" content="YaleThom.as">
@@ -18,67 +18,174 @@
     <link rel="canonical" href="https://yalethom.as/">
     <link rel="icon" href="favicon.ico" sizes="16x16 32x32 48x48">
     <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="preload" href="fonts/geist-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="stylesheet" href="main.css">
     <script src="main.js" defer></script>
   </head>
   <body>
     <div class="page">
       <header class="site-header">
-        <button class="wordmark" type="button" aria-label="YaleThom.as: play all project animations; hold to loop">
-          YaleThom<span class="wordmark-dot" aria-hidden="true"></span>as
+        <h1 class="site-title">
+          <button class="wordmark" type="button" aria-label="YaleThom.as: play every project once; hold to loop" title="Play every project once — hold to loop">
+            YaleThom<span class="wordmark-dot" aria-hidden="true"></span><span class="visually-hidden">.</span>as
+          </button>
+        </h1>
+        <button class="help-toggle" type="button" aria-label="Show project descriptions" aria-controls="project-grid" aria-keyshortcuts="?" aria-pressed="false" title="Show project descriptions (keyboard: ?)">
+          <span class="help-toggle-mark" aria-hidden="true">?</span>
         </button>
       </header>
 
+      <p class="visually-hidden" id="help-status" role="status"></p>
+
       <main>
-        <h1 class="visually-hidden">Projects</h1>
-        <div class="project-grid">
-          <a class="project-card" href="https://yalethom.as/magnitude/" data-category="visualization" aria-label="magnitude">
+        <div class="project-grid" id="project-grid">
+          <a class="project-card" href="https://yalethom.as/magnitude/" data-category="visualization" aria-label="magnitude" aria-describedby="project-description-magnitude">
             <object class="project-media project-svg" data="images/projects/magnitude.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">magnitude</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">visualization · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">magnitude</span>
+                <span class="project-help-text" id="project-description-magnitude">An interactive atlas of orders of magnitude sourced from Wikipedia</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/resume/" data-category="website" aria-label="resume">
-            <object class="project-media project-svg" data="images/projects/resume.svg" type="image/svg+xml" aria-hidden="true" inert>
-              <span class="project-title">resume</span>
+          <a class="project-card" href="https://yalethom.as/textTrends/" data-category="app" aria-label="textTrends" aria-describedby="project-description-textTrends">
+            <object class="project-media project-svg" data="images/projects/textTrends.svg" type="image/svg+xml" aria-hidden="true" inert>
+              <span class="project-title">textTrends</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">app · 2014–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">textTrends</span>
+                <span class="project-help-text" id="project-description-textTrends">Local workbench for text analysis; Google Trends for books.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/graphtv/" data-category="visualization" aria-label="graphtv">
+          <a class="project-card" href="https://yalethom.as/graphtv/" data-category="visualization" aria-label="graphtv" aria-describedby="project-description-graphtv">
             <object class="project-media project-svg" data="images/projects/graphtv.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">graphtv</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">visualization · 2018–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">graphtv</span>
+                <span class="project-help-text" id="project-description-graphtv">Explore television episode ratings across seasons, trends, and multiple data providers.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/metrainome/" data-category="app" aria-label="metrainome">
+          <a class="project-card" href="https://yalethom.as/metrainome/" data-category="app" aria-label="metrainome" aria-describedby="project-description-metrainome">
             <object class="project-media project-svg" data="images/projects/metrainome.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">metrainome</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">app · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">metrainome</span>
+                <span class="project-help-text" id="project-description-metrainome">Train your rhythm with immediate feedback.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/countrain/" data-category="app" aria-label="countrain">
+          <a class="project-card" href="https://yalethom.as/countrain/" data-category="app" aria-label="countrain" aria-describedby="project-description-countrain">
             <object class="project-media project-svg" data="images/projects/countrain.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">countrain</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">app · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">countrain</span>
+                <span class="project-help-text" id="project-description-countrain">Train yourself to play blackjack, then to count cards.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/bigO/" data-category="visualization" aria-label="bigO">
+          <a class="project-card" href="https://yalethom.as/bigO/" data-category="visualization" aria-label="bigO" aria-describedby="project-description-bigO">
             <object class="project-media project-svg" data="images/projects/bigO.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">bigO</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">visualization · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">bigO</span>
+                <span class="project-help-text" id="project-description-bigO">Sweep one step budget across sixty orders of magnitude; see how much input each representative growth model can handle.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/svg/" data-category="tool" aria-label="svg">
+          <a class="project-card" href="https://yalethom.as/svg/" data-category="tool" aria-label="svg" aria-describedby="project-description-svg">
             <object class="project-media project-svg" data="images/projects/svg.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">svg</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">tool · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">svg</span>
+                <span class="project-help-text" id="project-description-svg">A source-first browser workbench for inspecting and tuning SVG without surrendering the code.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/txtop/" data-category="tool" aria-label="txtop">
+          <a class="project-card" href="https://yalethom.as/txtop/" data-category="tool" aria-label="txtop" aria-describedby="project-description-txtop">
             <object class="project-media project-svg" data="images/projects/txtop.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">txtop</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">tool · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">txtop</span>
+                <span class="project-help-text" id="project-description-txtop">Track LLM usage locally and privately</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
-          <a class="project-card" href="https://yalethom.as/veil/" data-category="tool" aria-label="Veil">
+          <a class="project-card" href="https://yalethom.as/veil/" data-category="tool" aria-label="Veil" aria-describedby="project-description-veil">
             <object class="project-media project-svg" data="images/projects/veil.svg" type="image/svg+xml" aria-hidden="true" inert>
               <span class="project-title">Veil</span>
             </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">tool · 2026–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">Veil</span>
+                <span class="project-help-text" id="project-description-veil">Encrypt static HTML at build time and unlock it in the browser without a server.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
+          </a>
+          <a class="project-card" href="https://yalethom.as/resume/" data-category="website" aria-label="resume" aria-describedby="project-description-resume">
+            <object class="project-media project-svg" data="images/projects/resume.svg" type="image/svg+xml" aria-hidden="true" inert>
+              <span class="project-title">resume</span>
+            </object>
+            <span class="project-link-cue" aria-hidden="true">→</span>
+            <span class="project-help">
+              <span class="project-help-meta" aria-hidden="true">website · 2015–now</span>
+              <span class="project-help-copy">
+                <span class="project-help-name">resume</span>
+                <span class="project-help-text" id="project-description-resume">Yale&#39;s web and PDF resume. Built for humans and bots.</span>
+              </span>
+              <span class="project-help-action" aria-hidden="true">View project <span>→</span></span>
+            </span>
           </a>
         </div>
       </main>
+
+      <footer class="site-footer">
+        <p><a href="https://github.com/y4le/y4le.github.io">View source <span aria-hidden="true">↗</span></a></p>
+        <img class="site-mark" src="favicon.svg" width="24" height="24" alt="">
+      </footer>
     </div>
   </body>
 </html>
