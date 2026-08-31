@@ -2,7 +2,7 @@
 
 site:
   title: YaleThom.as
-  description: "Projects by Yale Thomas: interactive tools, visualizations, and experiments."
+  description: "Interactive tools, visualizations, and experiments by Yale Thomas."
   link: https://yalethom.as/
 
 # Pinned display order, listed by project slug (the path segment of the
@@ -12,7 +12,7 @@ site:
 # Slugs that match no project in projects.yaml are reported and ignored.
 order:
   - magnitude
-  - resume
+  - textTrends
   - graphtv
   - metrainome
   - countrain
@@ -20,3 +20,4 @@ order:
   - svg
   - txtop
   - veil
+  - resume

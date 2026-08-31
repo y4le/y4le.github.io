@@ -5,7 +5,7 @@ projects:
     title: bigO
     description: Sweep one step budget across sixty orders of magnitude; see how much input each representative growth model can handle.
     bullets:
-      - Climbs a computation budget overtime; showing how far the budget goes for each representative model.
+      - Climbs a computation budget; showing how far the budget goes for each complexity class.
       - Grounds each budget in time and the capacities in real-world size comparisons.
     date:
       start: "2026-08"
@@ -18,12 +18,9 @@ projects:
       - algorithms
       - computer science
     skills:
-      - TypeScript
-      - JavaScript
+      - Web
       - Data Visualization
-      - SVG
       - Numerical Computing
-      - Accessibility
     svg: images/projects/bigO.svg
   - schema: 2
     title: countrain
@@ -42,14 +39,9 @@ projects:
       - card counting
       - training
     skills:
-      - TypeScript
-      - JavaScript
+      - Web
       - React
-      - Spaced Repetition
       - Monte Carlo Simulation
-      - Progressive Web Apps
-      - IndexedDB
-      - Accessibility
     svg: images/projects/countrain.svg
   - schema: 2
     title: graphtv
@@ -66,19 +58,18 @@ projects:
     tags:
       - television
     skills:
-      - JavaScript
       - Data Visualization
       - D3
       - API Integration
-      - Accessibility
       - Web Performance
+      - Web
     svg: images/projects/graphtv.svg
   - schema: 2
     title: magnitude
     description: An interactive atlas of orders of magnitude sourced from Wikipedia
     bullets:
-      - All 30 quantities share one log-10 axis.
-      - Traces hundreds of entities that occur in two or more examples for easy browsing.
+      - Compare 30 units on one log axis.
+      - Navigate through hundres of entities that occur across multiple examples.
       - Find examples by entity/link/full text.
     date:
       start: "2026-08"
@@ -89,14 +80,14 @@ projects:
       - orders of magnitude
       - Wikipedia
       - science
+      - learning
     skills:
+      - Web
       - React
-      - TypeScript
-      - JavaScript
       - Data Visualization
-      - SVG
       - Data Modeling
-      - Accessibility
+      - Numerical Computing
+      - Data Cleaning
     svg: images/projects/magnitude.svg
   - schema: 2
     title: metrainome
@@ -118,8 +109,7 @@ projects:
     skills:
       - Rust
       - WebAssembly
-      - TypeScript
-      - JavaScript
+      - Web
       - Web Audio API
       - AudioWorklet
       - Data Visualization
@@ -138,15 +128,10 @@ projects:
     type: website
     tags:
       - resume
-      - web
     skills:
       - Information Design
-      - JavaScript
+      - Web
       - React
-      - Preact
-      - Puppeteer
-      - Accessibility
-      - JSON-LD
       - Web Performance
     svg: images/projects/resume.svg
   - schema: 2
@@ -165,15 +150,38 @@ projects:
       - vector graphics
       - source editing
     skills:
-      - TypeScript
-      - JavaScript
-      - CodeMirror
+      - Web
       - SVG
       - CSS Animation
-      - SMIL
       - Security Engineering
-      - Accessibility
     svg: images/projects/svg.svg
+  - schema: 2
+    title: textTrends
+    description: Local workbench for text analysis; Google Trends for books.
+    bullets:
+      - Browse and read books, visualize and contrast terms, and jump occurrences across multiple texts.
+      - View text statistics and vocabulary for a corpus, text, or selection.
+      - Compares texts or selections to find characteristic words.
+      - Reads TXT, Markdown, HTML/XHTML, and EPUB entirely in the browser; with demo corpora and a baked 1,000-book Standard Ebooks catalog.
+    date:
+      start: "2014-11"
+      end: "present"
+    link: https://yalethom.as/textTrends/
+    type: app
+    tags:
+      - reading
+      - speed reading
+      - linguistics
+      - analysis
+      - humanities
+    skills:
+      - Web
+      - React
+      - Web Workers
+      - Data Visualization
+      - Statistics
+      - Information Retrieval
+    svg: images/projects/textTrends.svg
   - schema: 2
     title: txtop
     description: Track LLM usage locally and privately
@@ -196,8 +204,6 @@ projects:
       - Ratatui
       - SQLite
       - SQL
-      - OpenTelemetry
-      - Tokio
       - Data Visualization
       - API Integration
       - Data Pipelines
@@ -217,10 +223,9 @@ projects:
     tags:
       - static sites
     skills:
-      - JavaScript
+      - Web
       - Node.js
       - Web Crypto API
-      - AES-GCM
       - Encryption
       - Security Engineering
     svg: images/projects/veil.svg
