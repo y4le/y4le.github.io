@@ -41,6 +41,7 @@ jobs:
         run: |
           mkdir _site
           cp CNAME favicon.ico favicon.svg index.html main.css main.js _site/
+          cp -R fonts _site/fonts
           cp -R images _site/images
 
       - name: Upload Pages artifact
