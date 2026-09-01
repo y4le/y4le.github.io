@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1618 1000" role="img" aria-labelledby="card-title card-description">
+  <title id="card-title">Don't Look Back</title>
+  <desc id="card-description">A filled dot loops through a tangled pointer route while a hollow ring follows one second behind.</desc>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --ink: light-dark(#1a1814, #e8e3d5);
+      --muted: light-dark(#625d54, #8a857a);
+      --accent: #c1432e;
+    }
+    :root[data-color-scheme="light"] { color-scheme: only light; }
+    :root[data-color-scheme="dark"] { color-scheme: only dark; }
+    .route { fill: none; stroke: var(--muted); stroke-width: 3; opacity: 0.55; }
+    .mark {
+      offset-path: path("M 294 520 C 340 180 690 164 710 448 C 730 720 1080 792 1290 536 C 1450 340 1170 188 974 330 C 748 494 932 770 586 796 C 252 820 156 612 294 520 Z");
+      offset-rotate: 0deg;
+      transform-box: fill-box;
+      animation: travel 6s linear infinite;
+    }
+    .player { --phase: 0%; fill: var(--ink); }
+    .ghost { --phase: 83.333%; fill: none; stroke: var(--accent); stroke-width: 4; }
+    .word {
+      fill: var(--ink);
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 236px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+    }
+    @keyframes travel {
+      from { offset-distance: var(--phase); }
+      to { offset-distance: calc(var(--phase) + 100%); }
+    }
+    @media (prefers-reduced-motion: reduce) { .mark { animation: none; offset-distance: var(--phase); } }
+  </style>
+  <path class="route" d="M 294 520 C 340 180 690 164 710 448 C 730 720 1080 792 1290 536 C 1450 340 1170 188 974 330 C 748 494 932 770 586 796 C 252 820 156 612 294 520 Z" />
+  <circle class="mark ghost" r="19" />
+  <circle class="mark player" r="17" />
+  <text class="word" x="809" y="590" text-anchor="middle">Don't Look Back</text>
+</svg>
