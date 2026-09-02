@@ -45,20 +45,16 @@ projects:
     svg: images/projects/countrain.svg
   - schema: 2
     title: Don't Look Back
-    description: Your cursor from three seconds ago is chasing you.
+    description: Your cursor from two seconds ago is chasing you.
     bullets:
-      - Replays your own pointer path as the opponent, interpolated from timestamped samples so the chase is exact.
-      - Closes the gap on a fixed schedule so no motion pattern stays safe.
-      - Redraws every run's route as its result card, unique without accounts.
+      - The delay shrinks until your past catches you.
     date:
       start: "2026-09"
       end: "present"
     link: https://yalethom.as/dont-look-back/
-    type: game
+    type: toy
     tags:
       - game
-      - pointer
-      - self-as-opponent
     skills:
       - Web
       - TypeScript

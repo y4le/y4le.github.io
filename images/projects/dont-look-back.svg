@@ -1,39 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1618 1000" role="img" aria-labelledby="card-title card-description">
   <title id="card-title">Don't Look Back</title>
-  <desc id="card-description">A filled dot loops through a tangled pointer route while a hollow ring follows one second behind.</desc>
+  <desc id="card-description">The apostrophe in Don't runs two circles around the title as a hollow ghost chases it, then slips back into place.</desc>
   <style>
     :root {
       color-scheme: light dark;
+      --ink: #e8e3d5;
       --ink: light-dark(#1a1814, #e8e3d5);
-      --muted: light-dark(#625d54, #8a857a);
       --accent: #c1432e;
     }
     :root[data-color-scheme="light"] { color-scheme: only light; }
     :root[data-color-scheme="dark"] { color-scheme: only dark; }
-    .route { fill: none; stroke: var(--muted); stroke-width: 3; opacity: 0.55; }
-    .mark {
-      offset-path: path("M 294 520 C 340 180 690 164 710 448 C 730 720 1080 792 1290 536 C 1450 340 1170 188 974 330 C 748 494 932 770 586 796 C 252 820 156 612 294 520 Z");
-      offset-rotate: 0deg;
-      transform-box: fill-box;
-      animation: travel 6s linear infinite;
-    }
-    .player { --phase: 0%; fill: var(--ink); }
-    .ghost { --phase: 83.333%; fill: none; stroke: var(--accent); stroke-width: 4; }
     .word {
       fill: var(--ink);
       font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
-      font-size: 236px;
+      font-size: 205px;
       font-weight: 720;
       letter-spacing: -0.06em;
     }
-    @keyframes travel {
-      from { offset-distance: var(--phase); }
-      to { offset-distance: calc(var(--phase) + 100%); }
+    .apostrophe, .ghost {
+      offset-anchor: left top;
+      offset-path: path("M 0 0 A 350 350 0 1 1 700 0 A 350 350 0 1 1 0 0 Z");
+      offset-position: auto;
+      offset-rotate: 0deg;
     }
-    @media (prefers-reduced-motion: reduce) { .mark { animation: none; offset-distance: var(--phase); } }
+    .apostrophe {
+      animation: escape 3s linear infinite;
+    }
+    .ghost {
+      animation: pursue 3s linear infinite;
+      fill: none;
+      opacity: 0;
+      stroke: var(--accent);
+      stroke-width: 7;
+    }
+    @keyframes escape {
+      0%, 5% { offset-distance: 0%; }
+      47.49% { offset-distance: 100%; }
+      47.5% { offset-distance: 0%; }
+      90%, 100% { offset-distance: 100%; }
+    }
+    @keyframes pursue {
+      0%, 12% { offset-distance: 0%; opacity: 0; }
+      16% { offset-distance: 0%; opacity: 1; }
+      52.49% { offset-distance: 100%; opacity: 1; }
+      52.5% { offset-distance: 0%; opacity: 1; }
+      92% { offset-distance: 100%; opacity: 1; }
+      98%, 100% { offset-distance: 100%; opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .apostrophe, .ghost { animation: none; }
+    }
   </style>
-  <path class="route" d="M 294 520 C 340 180 690 164 710 448 C 730 720 1080 792 1290 536 C 1450 340 1170 188 974 330 C 748 494 932 770 586 796 C 252 820 156 612 294 520 Z" />
-  <circle class="mark ghost" r="19" />
-  <circle class="mark player" r="17" />
-  <text class="word" x="809" y="590" text-anchor="middle">Don't Look Back</text>
+  <text class="word" x="95" y="605" fill="#e8e3d5">Don</text>
+  <text class="word apostrophe" x="455" y="605" text-anchor="middle" fill="#e8e3d5">'</text>
+  <text class="word" x="475" y="605" fill="#e8e3d5">t Look Back</text>
+  <circle class="ghost" cx="455" cy="483" r="26" fill="none" stroke="#c1432e" stroke-width="7" opacity="0" />
 </svg>
