@@ -126,9 +126,9 @@ projects:
       - training
       - music
     skills:
+      - Web
       - Rust
       - WebAssembly
-      - Web
       - Web Audio API
       - AudioWorklet
       - Data Visualization
