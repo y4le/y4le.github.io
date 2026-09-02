@@ -51,6 +51,18 @@ test("pinned slugs lead in listed order and the rest follow by recency", () => {
   ]);
 });
 
+test("last-pinned slugs follow unordered projects in listed order", () => {
+  const projects = [ONGOING_NEW, FINISHED_OLD, ONGOING_OLD, FINISHED_RECENT];
+  const ordered = orderProjects(projects, ["finished-old"], ["ongoing-new", "ongoing-old"]);
+
+  assert.deepEqual(ordered.map(({ title }) => title), [
+    "finished-old",
+    "finished-recent",
+    "ongoing-new",
+    "ongoing-old",
+  ]);
+});
+
 test("recency ranks ongoing work first, then end date, then start date, then slug", () => {
   const ordered = orderProjects([FINISHED_OLD, ONGOING_OLD, FINISHED_RECENT, ONGOING_NEW, UNDATED]);
 
@@ -158,13 +170,22 @@ test("project schema 1 remains valid without skills and rejects schema 2 fields"
   );
 });
 
-test("the site config requires site, accepts an optional order, and rejects extras", () => {
-  assert.deepEqual(validateSiteConfig({ site: SITE, order: ["graphtv"] }), {
+test("the site config requires site, accepts optional leading and trailing order, and rejects extras", () => {
+  assert.deepEqual(validateSiteConfig({ site: SITE, order: ["graphtv"], last: ["resume"] }), {
     site: SITE,
     order: ["graphtv"],
+    last: ["resume"],
   });
-  assert.deepEqual(validateSiteConfig({ site: SITE }), { site: SITE, order: [] });
-  assert.deepEqual(validateSiteConfig({ site: SITE, order: null }), { site: SITE, order: [] });
+  assert.deepEqual(validateSiteConfig({ site: SITE }), { site: SITE, order: [], last: [] });
+  assert.deepEqual(validateSiteConfig({ site: SITE, order: null, last: null }), {
+    site: SITE,
+    order: [],
+    last: [],
+  });
+  assert.throws(
+    () => validateSiteConfig({ site: SITE, order: ["resume"], last: ["resume"] }),
+    /lists slug in both order and last: resume/,
+  );
   assert.throws(() => validateSiteConfig({ order: [] }), /site\.yaml\.site is required/);
   assert.throws(
     () => validateSiteConfig({ site: SITE, projects: [] }),

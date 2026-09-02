@@ -128,7 +128,7 @@ async function loadSiteConfig() {
 }
 
 async function loadConfig() {
-  const [{ site, order }, source] = await Promise.all([
+  const [{ site, order, last }, source] = await Promise.all([
     loadSiteConfig(),
     readFile(CONFIG_PATH, "utf8"),
   ]);
@@ -145,11 +145,11 @@ async function loadConfig() {
 
   const declarations = validateProjectList(config.projects);
   const validated = await Promise.all(declarations.map(validateProjectSvg));
-  const projects = orderProjects(validated, order);
-  const unmatched = unmatchedOrderSlugs(validated, order);
+  const projects = orderProjects(validated, order, last);
+  const unmatched = unmatchedOrderSlugs(validated, order, last);
 
   if (unmatched.length) {
-    console.warn(`Notice: site.yaml order lists unknown project slug(s): ${unmatched.join(", ")}`);
+    console.warn(`Notice: site.yaml ordering lists unknown project slug(s): ${unmatched.join(", ")}`);
   }
 
   return { site, projects };

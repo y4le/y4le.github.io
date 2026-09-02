@@ -100,18 +100,23 @@ site:
 order:
   - txtop
   - graphtv
+last:
+  - resume
 ```
 
 Projects named in `order` render first, in that order, identified by project
-slug — the path segment of the canonical link. Every project left out follows
-by recency: ongoing work (`date.end: present`) first, then the most recent
-`date.end`, then the most recent `date.start`, with the slug as the final
-tiebreak. A bare `YYYY` counts as the earliest point in that year, and a project
-without a start date sorts last within its group.
+slug — the path segment of the canonical link. Projects named in `last` render
+at the end, in that order, so they stay there when new unordered projects are
+added. Every project left out of both lists goes between them by recency:
+ongoing work (`date.end: present`) first, then the most recent `date.end`, then
+the most recent `date.start`, with the slug as the final tiebreak. A bare `YYYY`
+counts as the earliest point in that year, and a project without a start date
+sorts last within its group.
 
 Entries must be unique case-sensitive alphanumeric slugs, with hyphens allowed;
-duplicates fail the build. Slugs matching no project are reported and ignored,
-so pinning survives a scan that covers only some project repositories.
+duplicates, including a slug appearing in both lists, fail the build. Slugs
+matching no project are reported and ignored, so pinning survives a scan that
+covers only some project repositories.
 
 Reordering is a `site.yaml` edit plus `npm run build` — it neither rescans the
 source repositories nor changes `projects.yaml`.

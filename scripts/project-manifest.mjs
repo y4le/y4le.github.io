@@ -270,7 +270,7 @@ export function projectSlug(project) {
   return new URL(project.link).pathname.split("/")[1];
 }
 
-export const SITE_CONFIG_FIELDS = ["site", "order"];
+export const SITE_CONFIG_FIELDS = ["site", "order", "last"];
 
 export function validateOrder(value, field = "order") {
   if (value === undefined || value === null) return [];
@@ -297,9 +297,16 @@ export function validateSiteConfig(value, field = "site.yaml") {
   assert(unknown.length === 0, `${field} has unsupported field(s): ${unknown.join(", ")}`);
   assert(Object.hasOwn(value, "site"), `${field}.site is required`);
 
+  const order = validateOrder(value.order, `${field}.order`);
+  const last = validateOrder(value.last, `${field}.last`);
+  const leading = new Set(order);
+  const duplicated = last.find((slug) => leading.has(slug));
+  assert(duplicated === undefined, `${field} lists slug in both order and last: ${duplicated}`);
+
   return {
     site: validateSite(value.site, `${field}.site`),
-    order: validateOrder(value.order, `${field}.order`),
+    order,
+    last,
   };
 }
 
@@ -326,18 +333,24 @@ export function compareByRecency(left, right) {
   return projectSlug(left).localeCompare(projectSlug(right), "en");
 }
 
-export function orderProjects(projects, order = []) {
-  const rank = new Map(order.map((slug, index) => [slug, index]));
+export function orderProjects(projects, order = [], last = []) {
+  const leadingRank = new Map(order.map((slug, index) => [slug, index]));
+  const trailingRank = new Map(last.map((slug, index) => [slug, index]));
 
   return [...projects].sort((left, right) => {
-    const leftRank = rank.get(projectSlug(left)) ?? Infinity;
-    const rightRank = rank.get(projectSlug(right)) ?? Infinity;
-    if (leftRank !== rightRank) return leftRank - rightRank;
+    const leftSlug = projectSlug(left);
+    const rightSlug = projectSlug(right);
+    const leftGroup = leadingRank.has(leftSlug) ? 0 : trailingRank.has(leftSlug) ? 2 : 1;
+    const rightGroup = leadingRank.has(rightSlug) ? 0 : trailingRank.has(rightSlug) ? 2 : 1;
+    if (leftGroup !== rightGroup) return leftGroup - rightGroup;
+
+    if (leftGroup === 0) return leadingRank.get(leftSlug) - leadingRank.get(rightSlug);
+    if (leftGroup === 2) return trailingRank.get(leftSlug) - trailingRank.get(rightSlug);
     return compareByRecency(left, right);
   });
 }
 
-export function unmatchedOrderSlugs(projects, order) {
+export function unmatchedOrderSlugs(projects, ...orders) {
   const present = new Set(projects.map(projectSlug));
-  return order.filter((slug) => !present.has(slug));
+  return orders.flat().filter((slug) => !present.has(slug));
 }
