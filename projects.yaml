@@ -84,6 +84,25 @@ projects:
       - Web
     svg: images/projects/graphtv.svg
   - schema: 2
+    title: Half
+    description: Cut the shape exactly in half.
+    bullets:
+      - Five shapes a day, one straight cut each; the scale tells the truth to a hundredth.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/half/
+    type: toy
+    tags:
+      - game
+    skills:
+      - Web
+      - TypeScript
+      - JavaScript
+      - Canvas
+      - Web Audio API
+    svg: images/projects/half.svg
+  - schema: 2
     title: magnitude
     description: An interactive atlas of orders of magnitude sourced from Wikipedia
     bullets:

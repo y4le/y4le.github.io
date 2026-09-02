@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1618 1000" role="img" aria-labelledby="card-title">
+  <title id="card-title">Half</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --paper: light-dark(#f3efe5, #0e0e0d);
+      --ink: light-dark(#1a1814, #e8e3d5);
+      --muted: light-dark(#625d54, #8a857a);
+      --accent: #c1432e;
+    }
+    :root[data-color-scheme="light"] { --paper:#f3efe5; --ink:#1a1814; --muted:#625d54; }
+    :root[data-color-scheme="dark"] { --paper:#0e0e0d; --ink:#e8e3d5; --muted:#8a857a; }
+    .word { fill:var(--ink); font:720 420px Geist,Arial,sans-serif; letter-spacing:-.06em; text-anchor:middle; }
+    .line,.scale { fill:none; stroke:var(--muted); stroke-width:4; stroke-linecap:round; }
+    .line { stroke:var(--accent); transform-box:fill-box; transform-origin:center; animation:line 6s ease-in-out infinite; }
+    .whole { animation:whole 6s linear infinite; }
+    .left-half,.right-half { animation:pieces 6s cubic-bezier(.4,0,.2,1) infinite; transform-box:fill-box; }
+    .left-half { transform-origin:620px 430px; }
+    .right-half { transform-origin:1000px 430px; }
+    .beam { animation:beam 6s ease-in-out infinite; transform-origin:809px 720px; }
+    @keyframes whole { 0%,18%,82%,100%{opacity:1} 21%,79%{opacity:0} }
+    @keyframes line { 0%,8%,88%,100%{opacity:0;transform:scaleY(0)} 15%,75%{opacity:1;transform:scaleY(1)} 82%{opacity:0;transform:scaleY(0)} }
+    @keyframes pieces {
+      0%,18%,82%,100%{opacity:0;transform:translateY(0) rotate(0)}
+      21%{opacity:1;transform:translateY(0) rotate(0)}
+      42%,68%{opacity:1;transform:translateY(390px) rotate(-5deg)}
+      78%{opacity:1;transform:translateY(0) rotate(0)}
+    }
+    @keyframes beam {
+      0%,40%,82%,100%{transform:rotate(0)}
+      48%{transform:rotate(-8deg)} 55%{transform:rotate(-4deg)} 61%{transform:rotate(-6deg)} 68%{transform:rotate(-5deg)}
+    }
+    @media (prefers-reduced-motion:reduce) {
+      .whole,.beam { animation:none; }
+      .left-half,.right-half,.line { animation:none; opacity:0; }
+    }
+  </style>
+  <defs>
+    <clipPath id="left"><rect x="0" y="0" width="830" height="1000"/></clipPath>
+    <clipPath id="right"><rect x="830" y="0" width="788" height="1000"/></clipPath>
+  </defs>
+  <text class="word whole" x="809" y="470">Half</text>
+  <text class="word left-half" x="809" y="470" clip-path="url(#left)">Half</text>
+  <text class="word right-half" x="809" y="470" clip-path="url(#right)">Half</text>
+  <path class="line" d="M830 105V560"/>
+  <g class="beam">
+    <path class="scale" d="M380 720H1238M380 720V855M1238 720V855M275 850Q380 885 485 850M1133 850Q1238 885 1343 850"/>
+    <path d="M809 720l-24 48h48z" fill="var(--ink)"/>
+  </g>
+</svg>
