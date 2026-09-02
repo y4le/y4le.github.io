@@ -29,7 +29,7 @@
 
     #resume-card .resume-wordmark {
       fill: var(--card-ink);
-      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: 318px;
       font-weight: 720;
       letter-spacing: -0.06em;
@@ -43,7 +43,7 @@
 
     #resume-card .resume-job {
       fill: var(--card-muted);
-      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-size: var(--resume-job-size);
       font-weight: 600;
       letter-spacing: -0.025em;
