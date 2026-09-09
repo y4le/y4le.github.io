@@ -1,0 +1,1037 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="elements-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="elements-card-title elements-card-description"
+>
+  <title id="elements-card-title">Elements</title>
+  <desc id="elements-card-description">
+    The 118 elements as bare squares, at rest in the conventional periodic
+    table. They travel on straight paths into Janet's left-step form, then
+    into the 32-column long form, then a Benfey-inspired spiral, then home
+    again in a twelve-second cycle. The spiral pulls back to fit the frame,
+    with a longer pause to read its loops. Each move takes about half
+    a second and each shape holds long enough to read. While a move is under
+    way a red thread runs through the squares in atomic-number order and then
+    fades, showing where the new arrangement disagrees with the old.
+  </desc>
+
+  <style>
+    :root, #elements-card {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-accent: #c1432e;
+    }
+
+    :root[data-color-scheme="light"],
+    #elements-card[data-color-scheme="light"] { color-scheme: only light; }
+    :root[data-color-scheme="dark"],
+    #elements-card[data-color-scheme="dark"] { color-scheme: only dark; }
+
+    /* Each square carries its conventional corner and travels by offset, so
+       reduced motion leaves the conventional table standing. The cycle's
+       timing function is morph.ts's ease(); the holds are flat regardless,
+       so it is the easing of every moving segment and of nothing else. */
+    .element {
+      fill: var(--card-ink);
+      transform-box: view-box;
+      transform-origin: 0 0;
+      animation: 12s cubic-bezier(0.65, 0, 0.35, 1) infinite both;
+    }
+
+    .ribbon {
+      fill: none;
+      opacity: 0;
+      stroke: var(--card-accent);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      animation: 12s linear infinite both;
+    }
+    .ribbon-janet { animation-name: ribbon-janet; }
+    .ribbon-long { animation-name: ribbon-long; }
+    .ribbon-spiral { animation-name: ribbon-spiral; }
+    .ribbon-conventional { animation-name: ribbon-conventional; }
+
+    @keyframes ribbon-janet {
+      0%, 13.5% { opacity: 0; }
+      18%, 26.25% { opacity: 0.9; }
+      29.25%, 100% { opacity: 0; }
+    }
+    @keyframes ribbon-long {
+      0%, 33% { opacity: 0; }
+      37.5%, 45.75% { opacity: 0.9; }
+      48.75%, 100% { opacity: 0; }
+    }
+    @keyframes ribbon-spiral {
+      0%, 52.5% { opacity: 0; }
+      57%, 68% { opacity: 0.9; }
+      71%, 100% { opacity: 0; }
+    }
+    @keyframes ribbon-conventional {
+      0%, 77.5% { opacity: 0; }
+      82%, 90.25% { opacity: 0.9; }
+      93.25%, 100% { opacity: 0; }
+    }
+
+    .e1 { animation-name: s1; }
+    @keyframes s1 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(557.33px, 206.62px) scale(0.6739530253846131); }
+    }
+    .e2 { animation-name: s2; }
+    @keyframes s2 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(328.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(83.23px, 210.65px) scale(0.6739530253846131); }
+    }
+    .e3 { animation-name: s3; }
+    @keyframes s3 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(631.77px, 219.29px) scale(0.6739530253846131); }
+    }
+    .e4 { animation-name: s4; }
+    @keyframes s4 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(573.53px, 251.24px) scale(0.6739530253846131); }
+    }
+    .e5 { animation-name: s5; }
+    @keyframes s5 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(103.15px, 92.41px) scale(0.6739530253846131); }
+    }
+    .e6 { animation-name: s6; }
+    @keyframes s6 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(116.52px, 64.2px) scale(0.6739530253846131); }
+    }
+    .e7 { animation-name: s7; }
+    @keyframes s7 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(139.4px, 59.6px) scale(0.6739530253846131); }
+    }
+    .e8 { animation-name: s8; }
+    @keyframes s8 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(159.81px, 81.05px) scale(0.6739530253846131); }
+    }
+    .e9 { animation-name: s9; }
+    @keyframes s9 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(165.66px, 125.16px) scale(0.6739530253846131); }
+    }
+    .e10 { animation-name: s10; }
+    @keyframes s10 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(147.54px, 183.08px) scale(0.6739530253846131); }
+    }
+    .e11 { animation-name: s11; }
+    @keyframes s11 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(670.44px, 210.67px) scale(0.6739530253846131); }
+    }
+    .e12 { animation-name: s12; }
+    @keyframes s12 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(597.44px, 257.73px) scale(0.6739530253846131); }
+    }
+    .e13 { animation-name: s13; }
+    @keyframes s13 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(72.99px, 27.38px) scale(0.6739530253846131); }
+    }
+    .e14 { animation-name: s14; }
+    @keyframes s14 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(104.92px, -10.91px) scale(0.6739530253846131); }
+    }
+    .e15 { animation-name: s15; }
+    @keyframes s15 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(148.91px, -16.03px) scale(0.6739530253846131); }
+    }
+    .e16 { animation-name: s16; }
+    @keyframes s16 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(188.34px, 14.61px) scale(0.6739530253846131); }
+    }
+    .e17 { animation-name: s17; }
+    @keyframes s17 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(206.93px, 75.57px) scale(0.6739530253846131); }
+    }
+    .e18 { animation-name: s18; }
+    @keyframes s18 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(192.45px, 154.29px) scale(0.6739530253846131); }
+    }
+    .e19 { animation-name: s19; }
+    @keyframes s19 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(709.11px, 202.06px) scale(0.6739530253846131); }
+    }
+    .e20 { animation-name: s20; }
+    @keyframes s20 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(621.35px, 264.22px) scale(0.6739530253846131); }
+    }
+    .e21 { animation-name: s21; }
+    @keyframes s21 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(600.72px, 340.53px) scale(0.6739530253846131); }
+    }
+    .e22 { animation-name: s22; }
+    @keyframes s22 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(353.18px, 346.21px) scale(0.6739530253846131); }
+    }
+    .e23 { animation-name: s23; }
+    @keyframes s23 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(269.76px, 316.29px) scale(0.6739530253846131); }
+    }
+    .e24 { animation-name: s24; }
+    @keyframes s24 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(194.3px, 275.04px) scale(0.6739530253846131); }
+    }
+    .e25 { animation-name: s25; }
+    @keyframes s25 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(129.23px, 224.53px) scale(0.6739530253846131); }
+    }
+    .e26 { animation-name: s26; }
+    @keyframes s26 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(76.49px, 167.36px) scale(0.6739530253846131); }
+    }
+    .e27 { animation-name: s27; }
+    @keyframes s27 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(37.35px, 106.49px) scale(0.6739530253846131); }
+    }
+    .e28 { animation-name: s28; }
+    @keyframes s28 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(12.39px, 45.14px) scale(0.6739530253846131); }
+    }
+    .e29 { animation-name: s29; }
+    @keyframes s29 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(1.44px, -13.41px) scale(0.6739530253846131); }
+    }
+    .e30 { animation-name: s30; }
+    @keyframes s30 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(3.54px, -65.99px) scale(0.6739530253846131); }
+    }
+    .e31 { animation-name: s31; }
+    @keyframes s31 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(42.82px, -37.65px) scale(0.6739530253846131); }
+    }
+    .e32 { animation-name: s32; }
+    @keyframes s32 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(93.31px, -86.03px) scale(0.6739530253846131); }
+    }
+    .e33 { animation-name: s33; }
+    @keyframes s33 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(158.41px, -91.65px) scale(0.6739530253846131); }
+    }
+    .e34 { animation-name: s34; }
+    @keyframes s34 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(216.87px, -51.83px) scale(0.6739530253846131); }
+    }
+    .e35 { animation-name: s35; }
+    @keyframes s35 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(248.19px, 25.97px) scale(0.6739530253846131); }
+    }
+    .e36 { animation-name: s36; }
+    @keyframes s36 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(237.37px, 125.5px) scale(0.6739530253846131); }
+    }
+    .e37 { animation-name: s37; }
+    @keyframes s37 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(747.78px, 193.44px) scale(0.6739530253846131); }
+    }
+    .e38 { animation-name: s38; }
+    @keyframes s38 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(645.27px, 270.72px) scale(0.6739530253846131); }
+    }
+    .e39 { animation-name: s39; }
+    @keyframes s39 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(619.74px, 349.69px) scale(0.6739530253846131); }
+    }
+    .e40 { animation-name: s40; }
+    @keyframes s40 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(334.17px, 355.37px) scale(0.6739530253846131); }
+    }
+    .e41 { animation-name: s41; }
+    @keyframes s41 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(241.92px, 320.02px) scale(0.6739530253846131); }
+    }
+    .e42 { animation-name: s42; }
+    @keyframes s42 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(159.1px, 271.46px) scale(0.6739530253846131); }
+    }
+    .e43 { animation-name: s43; }
+    @keyframes s43 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(88.55px, 212.16px) scale(0.6739530253846131); }
+    }
+    .e44 { animation-name: s44; }
+    @keyframes s44 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(32.48px, 145.16px) scale(0.6739530253846131); }
+    }
+    .e45 { animation-name: s45; }
+    @keyframes s45 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-7.65px, 73.97px) scale(0.6739530253846131); }
+    }
+    .e46 { animation-name: s46; }
+    @keyframes s46 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-31.21px, 2.35px) scale(0.6739530253846131); }
+    }
+    .e47 { animation-name: s47; }
+    @keyframes s47 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-38.46px, -65.88px) scale(0.6739530253846131); }
+    }
+    .e48 { animation-name: s48; }
+    @keyframes s48 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-30.53px, -127.04px) scale(0.6739530253846131); }
+    }
+    .e49 { animation-name: s49; }
+    @keyframes s49 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(12.66px, -102.69px) scale(0.6739530253846131); }
+    }
+    .e50 { animation-name: s50; }
+    @keyframes s50 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(81.7px, -161.14px) scale(0.6739530253846131); }
+    }
+    .e51 { animation-name: s51; }
+    @keyframes s51 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(167.92px, -167.27px) scale(0.6739530253846131); }
+    }
+    .e52 { animation-name: s52; }
+    @keyframes s52 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(245.39px, -118.27px) scale(0.6739530253846131); }
+    }
+    .e53 { animation-name: s53; }
+    @keyframes s53 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(289.46px, -23.62px) scale(0.6739530253846131); }
+    }
+    .e54 { animation-name: s54; }
+    @keyframes s54 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(282.28px, 96.71px) scale(0.6739530253846131); }
+    }
+    .e55 { animation-name: s55; }
+    @keyframes s55 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(786.46px, 184.83px) scale(0.6739530253846131); }
+    }
+    .e56 { animation-name: s56; }
+    @keyframes s56 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(669.18px, 277.21px) scale(0.6739530253846131); }
+    }
+    .e57 { animation-name: s57; }
+    @keyframes s57 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(638.75px, 279.76px) scale(0.6739530253846131); }
+    }
+    .e58 { animation-name: s58; }
+    @keyframes s58 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(608.44px, 358.17px) scale(0.6739530253846131); }
+    }
+    .e59 { animation-name: s59; }
+    @keyframes s59 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(593.23px, 396.64px) scale(0.6739530253846131); }
+    }
+    .e60 { animation-name: s60; }
+    @keyframes s60 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(578.02px, 435.12px) scale(0.6739530253846131); }
+    }
+    .e61 { animation-name: s61; }
+    @keyframes s61 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(513.99px, 441.36px) scale(0.6739530253846131); }
+    }
+    .e62 { animation-name: s62; }
+    @keyframes s62 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(440.52px, 441.36px) scale(0.6739530253846131); }
+    }
+    .e63 { animation-name: s63; }
+    @keyframes s63 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(367.06px, 441.37px) scale(0.6739530253846131); }
+    }
+    .e64 { animation-name: s64; }
+    @keyframes s64 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(293.59px, 441.37px) scale(0.6739530253846131); }
+    }
+    .e65 { animation-name: s65; }
+    @keyframes s65 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(220.12px, 441.37px) scale(0.6739530253846131); }
+    }
+    .e66 { animation-name: s66; }
+    @keyframes s66 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(146.65px, 441.38px) scale(0.6739530253846131); }
+    }
+    .e67 { animation-name: s67; }
+    @keyframes s67 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(73.19px, 441.38px) scale(0.6739530253846131); }
+    }
+    .e68 { animation-name: s68; }
+    @keyframes s68 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-0.28px, 441.38px) scale(0.6739530253846131); }
+    }
+    .e69 { animation-name: s69; }
+    @keyframes s69 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-64.31px, 435.15px) scale(0.6739530253846131); }
+    }
+    .e70 { animation-name: s70; }
+    @keyframes s70 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-79.53px, 396.67px) scale(0.6739530253846131); }
+    }
+    .e71 { animation-name: s71; }
+    @keyframes s71 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-94.75px, 358.19px) scale(0.6739530253846131); }
+    }
+    .e72 { animation-name: s72; }
+    @keyframes s72 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(315.16px, 364.53px) scale(0.6739530253846131); }
+    }
+    .e73 { animation-name: s73; }
+    @keyframes s73 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(214.09px, 323.74px) scale(0.6739530253846131); }
+    }
+    .e74 { animation-name: s74; }
+    @keyframes s74 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(123.91px, 267.88px) scale(0.6739530253846131); }
+    }
+    .e75 { animation-name: s75; }
+    @keyframes s75 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(47.88px, 199.78px) scale(0.6739530253846131); }
+    }
+    .e76 { animation-name: s76; }
+    @keyframes s76 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-11.52px, 122.96px) scale(0.6739530253846131); }
+    }
+    .e77 { animation-name: s77; }
+    @keyframes s77 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-52.64px, 41.45px) scale(0.6739530253846131); }
+    }
+    .e78 { animation-name: s78; }
+    @keyframes s78 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-74.81px, -40.44px) scale(0.6739530253846131); }
+    }
+    .e79 { animation-name: s79; }
+    @keyframes s79 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-78.35px, -118.35px) scale(0.6739530253846131); }
+    }
+    .e80 { animation-name: s80; }
+    @keyframes s80 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-64.59px, -188.08px) scale(0.6739530253846131); }
+    }
+    .e81 { animation-name: s81; }
+    @keyframes s81 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-17.51px, -167.72px) scale(0.6739530253846131); }
+    }
+    .e82 { animation-name: s82; }
+    @keyframes s82 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(70.09px, -236.26px) scale(0.6739530253846131); }
+    }
+    .e83 { animation-name: s83; }
+    @keyframes s83 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(177.43px, -242.9px) scale(0.6739530253846131); }
+    }
+    .e84 { animation-name: s84; }
+    @keyframes s84 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(273.92px, -184.71px) scale(0.6739530253846131); }
+    }
+    .e85 { animation-name: s85; }
+    @keyframes s85 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(330.72px, -73.22px) scale(0.6739530253846131); }
+    }
+    .e86 { animation-name: s86; }
+    @keyframes s86 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(327.2px, 67.91px) scale(0.6739530253846131); }
+    }
+    .e87 { animation-name: s87; }
+    @keyframes s87 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(825.13px, 176.21px) scale(0.6739530253846131); }
+    }
+    .e88 { animation-name: s88; }
+    @keyframes s88 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(1079.56px, 35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(693.09px, 283.7px) scale(0.6739530253846131); }
+    }
+    .e89 { animation-name: s89; }
+    @keyframes s89 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(657.76px, 288.92px) scale(0.6739530253846131); }
+    }
+    .e90 { animation-name: s90; }
+    @keyframes s90 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(656.82px, 371.53px) scale(0.6739530253846131); }
+    }
+    .e91 { animation-name: s91; }
+    @keyframes s91 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(661.69px, 415.51px) scale(0.6739530253846131); }
+    }
+    .e92 { animation-name: s92; }
+    @keyframes s92 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(656.41px, 454.72px) scale(0.6739530253846131); }
+    }
+    .e93 { animation-name: s93; }
+    @keyframes s93 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(567.62px, 454.73px) scale(0.6739530253846131); }
+    }
+    .e94 { animation-name: s94; }
+    @keyframes s94 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(478.83px, 454.73px) scale(0.6739530253846131); }
+    }
+    .e95 { animation-name: s95; }
+    @keyframes s95 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(390.04px, 454.73px) scale(0.6739530253846131); }
+    }
+    .e96 { animation-name: s96; }
+    @keyframes s96 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(301.25px, 454.74px) scale(0.6739530253846131); }
+    }
+    .e97 { animation-name: s97; }
+    @keyframes s97 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(212.46px, 454.74px) scale(0.6739530253846131); }
+    }
+    .e98 { animation-name: s98; }
+    @keyframes s98 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(123.67px, 454.75px) scale(0.6739530253846131); }
+    }
+    .e99 { animation-name: s99; }
+    @keyframes s99 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(34.89px, 454.75px) scale(0.6739530253846131); }
+    }
+    .e100 { animation-name: s100; }
+    @keyframes s100 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-53.9px, 454.76px) scale(0.6739530253846131); }
+    }
+    .e101 { animation-name: s101; }
+    @keyframes s101 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-142.69px, 454.76px) scale(0.6739530253846131); }
+    }
+    .e102 { animation-name: s102; }
+    @keyframes s102 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-147.98px, 415.55px) scale(0.6739530253846131); }
+    }
+    .e103 { animation-name: s103; }
+    @keyframes s103 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(-422.44px, -35.2px) scale(1); }
+      37.5%, 52.5% { transform: translate(-328.56px, -58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-143.12px, 371.57px) scale(0.6739530253846131); }
+    }
+    .e104 { animation-name: s104; }
+    @keyframes s104 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(296.16px, 373.69px) scale(0.6739530253846131); }
+    }
+    .e105 { animation-name: s105; }
+    @keyframes s105 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(186.25px, 327.47px) scale(0.6739530253846131); }
+    }
+    .e106 { animation-name: s106; }
+    @keyframes s106 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(88.72px, 264.3px) scale(0.6739530253846131); }
+    }
+    .e107 { animation-name: s107; }
+    @keyframes s107 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(7.2px, 187.4px) scale(0.6739530253846131); }
+    }
+    .e108 { animation-name: s108; }
+    @keyframes s108 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-55.53px, 100.77px) scale(0.6739530253846131); }
+    }
+    .e109 { animation-name: s109; }
+    @keyframes s109 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-97.64px, 8.94px) scale(0.6739530253846131); }
+    }
+    .e110 { animation-name: s110; }
+    @keyframes s110 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-118.41px, -83.23px) scale(0.6739530253846131); }
+    }
+    .e111 { animation-name: s111; }
+    @keyframes s111 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-118.24px, -170.82px) scale(0.6739530253846131); }
+    }
+    .e112 { animation-name: s112; }
+    @keyframes s112 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-98.65px, -249.13px) scale(0.6739530253846131); }
+    }
+    .e113 { animation-name: s113; }
+    @keyframes s113 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(-47.68px, -232.75px) scale(0.6739530253846131); }
+    }
+    .e114 { animation-name: s114; }
+    @keyframes s114 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(58.49px, -311.38px) scale(0.6739530253846131); }
+    }
+    .e115 { animation-name: s115; }
+    @keyframes s115 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(186.94px, -318.52px) scale(0.6739530253846131); }
+    }
+    .e116 { animation-name: s116; }
+    @keyframes s116 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(302.45px, -251.15px) scale(0.6739530253846131); }
+    }
+    .e117 { animation-name: s117; }
+    @keyframes s117 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(371.99px, -122.81px) scale(0.6739530253846131); }
+    }
+    .e118 { animation-name: s118; }
+    @keyframes s118 {
+      0%, 13.5%, 82%, 100% { transform: translate(0px, 0px) scale(1); }
+      18%, 33% { transform: translate(234.69px, 82.14px) scale(1); }
+      37.5%, 52.5% { transform: translate(328.56px, 58.67px) scale(1); }
+      57%, 77.5% { transform: translate(372.11px, 39.12px) scale(0.6739530253846131); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .element, .ribbon { animation: none; }
+      .ribbon { opacity: 0; }
+    }
+  </style>
+
+  <g class="squares">
+    <rect class="element e1" x="389.38" y="279.86" width="41.31" height="41.31" rx="2" />
+    <rect class="element e2" x="1187.32" y="279.86" width="41.31" height="41.31" rx="2" />
+    <rect class="element e3" x="389.38" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e4" x="436.32" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e5" x="952.63" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e6" x="999.57" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e7" x="1046.5" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e8" x="1093.44" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e9" x="1140.38" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e10" x="1187.32" y="326.8" width="41.31" height="41.31" rx="2" />
+    <rect class="element e11" x="389.38" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e12" x="436.32" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e13" x="952.63" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e14" x="999.57" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e15" x="1046.5" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e16" x="1093.44" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e17" x="1140.38" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e18" x="1187.32" y="373.74" width="41.31" height="41.31" rx="2" />
+    <rect class="element e19" x="389.38" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e20" x="436.32" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e21" x="483.25" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e22" x="530.19" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e23" x="577.13" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e24" x="624.07" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e25" x="671" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e26" x="717.94" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e27" x="764.88" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e28" x="811.82" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e29" x="858.75" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e30" x="905.69" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e31" x="952.63" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e32" x="999.57" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e33" x="1046.5" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e34" x="1093.44" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e35" x="1140.38" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e36" x="1187.32" y="420.68" width="41.31" height="41.31" rx="2" />
+    <rect class="element e37" x="389.38" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e38" x="436.32" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e39" x="483.25" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e40" x="530.19" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e41" x="577.13" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e42" x="624.07" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e43" x="671" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e44" x="717.94" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e45" x="764.88" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e46" x="811.82" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e47" x="858.75" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e48" x="905.69" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e49" x="952.63" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e50" x="999.57" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e51" x="1046.5" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e52" x="1093.44" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e53" x="1140.38" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e54" x="1187.32" y="467.61" width="41.31" height="41.31" rx="2" />
+    <rect class="element e55" x="389.38" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e56" x="436.32" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e57" x="483.25" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e58" x="530.19" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e59" x="577.13" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e60" x="624.07" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e61" x="671" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e62" x="717.94" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e63" x="764.88" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e64" x="811.82" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e65" x="858.75" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e66" x="905.69" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e67" x="952.63" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e68" x="999.57" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e69" x="1046.5" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e70" x="1093.44" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e71" x="1140.38" y="631.89" width="41.31" height="41.31" rx="2" />
+    <rect class="element e72" x="530.19" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e73" x="577.13" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e74" x="624.07" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e75" x="671" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e76" x="717.94" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e77" x="764.88" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e78" x="811.82" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e79" x="858.75" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e80" x="905.69" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e81" x="952.63" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e82" x="999.57" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e83" x="1046.5" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e84" x="1093.44" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e85" x="1140.38" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e86" x="1187.32" y="514.55" width="41.31" height="41.31" rx="2" />
+    <rect class="element e87" x="389.38" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e88" x="436.32" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e89" x="483.25" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e90" x="530.19" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e91" x="577.13" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e92" x="624.07" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e93" x="671" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e94" x="717.94" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e95" x="764.88" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e96" x="811.82" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e97" x="858.75" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e98" x="905.69" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e99" x="952.63" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e100" x="999.57" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e101" x="1046.5" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e102" x="1093.44" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e103" x="1140.38" y="678.83" width="41.31" height="41.31" rx="2" />
+    <rect class="element e104" x="530.19" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e105" x="577.13" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e106" x="624.07" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e107" x="671" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e108" x="717.94" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e109" x="764.88" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e110" x="811.82" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e111" x="858.75" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e112" x="905.69" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e113" x="952.63" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e114" x="999.57" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e115" x="1046.5" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e116" x="1093.44" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e117" x="1140.38" y="561.49" width="41.31" height="41.31" rx="2" />
+    <rect class="element e118" x="1187.32" y="561.49" width="41.31" height="41.31" rx="2" />
+  </g>
+  <g class="ribbons">
+    <path class="ribbon ribbon-janet" d="M 1489.59 335.72 L 1536.53 335.72 L 1489.59 382.66 L 1536.53 382.66 L 1207.97 429.59 L 1254.91 429.59 L 1301.84 429.59 L 1348.78 429.59 L 1395.72 429.59 L 1442.66 429.59 L 1489.59 429.59 L 1536.53 429.59 L 1207.97 476.53 L 1254.91 476.53 L 1301.84 476.53 L 1348.78 476.53 L 1395.72 476.53 L 1442.66 476.53 L 1489.59 476.53 L 1536.53 476.53 L 738.59 523.47 L 785.53 523.47 L 832.47 523.47 L 879.41 523.47 L 926.34 523.47 L 973.28 523.47 L 1020.22 523.47 L 1067.16 523.47 L 1114.09 523.47 L 1161.03 523.47 L 1207.97 523.47 L 1254.91 523.47 L 1301.84 523.47 L 1348.78 523.47 L 1395.72 523.47 L 1442.66 523.47 L 1489.59 523.47 L 1536.53 523.47 L 738.59 570.41 L 785.53 570.41 L 832.47 570.41 L 879.41 570.41 L 926.34 570.41 L 973.28 570.41 L 1020.22 570.41 L 1067.16 570.41 L 1114.09 570.41 L 1161.03 570.41 L 1207.97 570.41 L 1254.91 570.41 L 1301.84 570.41 L 1348.78 570.41 L 1395.72 570.41 L 1442.66 570.41 L 1489.59 570.41 L 1536.53 570.41 L 81.47 617.34 L 128.41 617.34 L 175.34 617.34 L 222.28 617.34 L 269.22 617.34 L 316.16 617.34 L 363.09 617.34 L 410.03 617.34 L 456.97 617.34 L 503.91 617.34 L 550.84 617.34 L 597.78 617.34 L 644.72 617.34 L 691.66 617.34 L 738.59 617.34 L 785.53 617.34 L 832.47 617.34 L 879.41 617.34 L 926.34 617.34 L 973.28 617.34 L 1020.22 617.34 L 1067.16 617.34 L 1114.09 617.34 L 1161.03 617.34 L 1207.97 617.34 L 1254.91 617.34 L 1301.84 617.34 L 1348.78 617.34 L 1395.72 617.34 L 1442.66 617.34 L 1489.59 617.34 L 1536.53 617.34 L 81.47 664.28 L 128.41 664.28 L 175.34 664.28 L 222.28 664.28 L 269.22 664.28 L 316.16 664.28 L 363.09 664.28 L 410.03 664.28 L 456.97 664.28 L 503.91 664.28 L 550.84 664.28 L 597.78 664.28 L 644.72 664.28 L 691.66 664.28 L 738.59 664.28 L 785.53 664.28 L 832.47 664.28 L 879.41 664.28 L 926.34 664.28 L 973.28 664.28 L 1020.22 664.28 L 1067.16 664.28 L 1114.09 664.28 L 1161.03 664.28 L 1207.97 664.28 L 1254.91 664.28 L 1301.84 664.28 L 1348.78 664.28 L 1395.72 664.28 L 1442.66 664.28" />
+    <path class="ribbon ribbon-long" d="M 81.47 359.19 L 1536.53 359.19 L 81.47 406.12 L 128.41 406.12 L 1301.84 406.12 L 1348.78 406.12 L 1395.72 406.12 L 1442.66 406.12 L 1489.59 406.12 L 1536.53 406.12 L 81.47 453.06 L 128.41 453.06 L 1301.84 453.06 L 1348.78 453.06 L 1395.72 453.06 L 1442.66 453.06 L 1489.59 453.06 L 1536.53 453.06 L 81.47 500 L 128.41 500 L 832.47 500 L 879.41 500 L 926.34 500 L 973.28 500 L 1020.22 500 L 1067.16 500 L 1114.09 500 L 1161.03 500 L 1207.97 500 L 1254.91 500 L 1301.84 500 L 1348.78 500 L 1395.72 500 L 1442.66 500 L 1489.59 500 L 1536.53 500 L 81.47 546.94 L 128.41 546.94 L 832.47 546.94 L 879.41 546.94 L 926.34 546.94 L 973.28 546.94 L 1020.22 546.94 L 1067.16 546.94 L 1114.09 546.94 L 1161.03 546.94 L 1207.97 546.94 L 1254.91 546.94 L 1301.84 546.94 L 1348.78 546.94 L 1395.72 546.94 L 1442.66 546.94 L 1489.59 546.94 L 1536.53 546.94 L 81.47 593.88 L 128.41 593.88 L 175.34 593.88 L 222.28 593.88 L 269.22 593.88 L 316.16 593.88 L 363.09 593.88 L 410.03 593.88 L 456.97 593.88 L 503.91 593.88 L 550.84 593.88 L 597.78 593.88 L 644.72 593.88 L 691.66 593.88 L 738.59 593.88 L 785.53 593.88 L 832.47 593.88 L 879.41 593.88 L 926.34 593.88 L 973.28 593.88 L 1020.22 593.88 L 1067.16 593.88 L 1114.09 593.88 L 1161.03 593.88 L 1207.97 593.88 L 1254.91 593.88 L 1301.84 593.88 L 1348.78 593.88 L 1395.72 593.88 L 1442.66 593.88 L 1489.59 593.88 L 1536.53 593.88 L 81.47 640.81 L 128.41 640.81 L 175.34 640.81 L 222.28 640.81 L 269.22 640.81 L 316.16 640.81 L 363.09 640.81 L 410.03 640.81 L 456.97 640.81 L 503.91 640.81 L 550.84 640.81 L 597.78 640.81 L 644.72 640.81 L 691.66 640.81 L 738.59 640.81 L 785.53 640.81 L 832.47 640.81 L 879.41 640.81 L 926.34 640.81 L 973.28 640.81 L 1020.22 640.81 L 1067.16 640.81 L 1114.09 640.81 L 1161.03 640.81 L 1207.97 640.81 L 1254.91 640.81 L 1301.84 640.81 L 1348.78 640.81 L 1395.72 640.81 L 1442.66 640.81 L 1489.59 640.81 L 1536.53 640.81" />
+    <path class="ribbon ribbon-spiral" d="M 833.68 409.15 L 897.34 413.18 L 908.11 453.45 L 881.5 485.41 L 759.1 326.58 L 804.1 298.37 L 858.61 293.76 L 910.66 315.22 L 948.14 359.33 L 961.65 417.25 L 946.78 476.47 L 905.42 523.53 L 728.93 293.18 L 792.5 254.89 L 868.12 249.77 L 939.19 280.41 L 989.41 341.37 L 1006.57 420.09 L 985.45 499.49 L 929.33 561.66 L 940.33 637.96 L 724.42 643.64 L 672.64 613.72 L 628.81 572.47 L 595.37 521.97 L 574.26 464.79 L 566.76 403.92 L 573.44 342.57 L 594.11 284.02 L 627.85 231.44 L 698.77 259.78 L 780.89 211.41 L 877.63 205.78 L 967.71 245.61 L 1030.67 323.41 L 1051.48 422.93 L 1024.13 522.51 L 953.24 599.78 L 959.35 678.75 L 705.41 684.44 L 644.8 649.08 L 593.61 600.53 L 554.7 541.22 L 530.26 474.23 L 521.77 403.04 L 529.84 331.42 L 554.22 263.19 L 593.79 202.03 L 668.6 226.38 L 769.28 167.92 L 887.14 161.8 L 996.24 210.8 L 1071.94 305.45 L 1096.4 425.77 L 1062.8 545.53 L 977.16 637.91 L 978.36 719.55 L 979.69 797.95 L 996.11 836.43 L 1012.53 874.91 L 980.14 881.14 L 938.3 881.15 L 896.47 881.15 L 854.63 881.15 L 812.8 881.16 L 770.96 881.16 L 729.13 881.17 L 687.3 881.17 L 654.9 874.94 L 671.32 836.46 L 687.73 797.98 L 686.41 725.23 L 616.96 684.45 L 558.42 628.58 L 514.02 560.48 L 486.26 483.67 L 476.77 402.16 L 486.24 320.26 L 514.33 242.35 L 559.72 172.62 L 638.44 192.98 L 757.67 124.44 L 896.64 117.81 L 1024.77 175.99 L 1113.2 287.49 L 1141.31 428.62 L 1101.47 568.55 L 1001.07 676.04 L 997.37 760.34 L 1028.06 842.95 L 1064.57 886.93 L 1090.92 926.14 L 1033.76 926.14 L 976.61 926.15 L 919.45 926.15 L 862.3 926.16 L 805.14 926.16 L 747.99 926.17 L 690.83 926.17 L 633.68 926.18 L 576.52 926.18 L 602.86 886.97 L 639.36 842.99 L 667.4 766.03 L 589.12 719.81 L 523.23 656.64 L 473.34 579.74 L 442.25 493.1 L 431.77 401.27 L 442.64 309.11 L 474.44 221.51 L 525.66 143.21 L 608.27 159.59 L 746.07 80.96 L 906.15 73.82 L 1053.3 141.18 L 1154.47 269.52 L 1186.23 431.46" />
+    <path class="ribbon ribbon-conventional" d="M 410.03 300.52 L 1207.97 300.52 L 410.03 347.45 L 456.97 347.45 L 973.28 347.45 L 1020.22 347.45 L 1067.16 347.45 L 1114.09 347.45 L 1161.03 347.45 L 1207.97 347.45 L 410.03 394.39 L 456.97 394.39 L 973.28 394.39 L 1020.22 394.39 L 1067.16 394.39 L 1114.09 394.39 L 1161.03 394.39 L 1207.97 394.39 L 410.03 441.33 L 456.97 441.33 L 503.91 441.33 L 550.84 441.33 L 597.78 441.33 L 644.72 441.33 L 691.66 441.33 L 738.59 441.33 L 785.53 441.33 L 832.47 441.33 L 879.41 441.33 L 926.34 441.33 L 973.28 441.33 L 1020.22 441.33 L 1067.16 441.33 L 1114.09 441.33 L 1161.03 441.33 L 1207.97 441.33 L 410.03 488.27 L 456.97 488.27 L 503.91 488.27 L 550.84 488.27 L 597.78 488.27 L 644.72 488.27 L 691.66 488.27 L 738.59 488.27 L 785.53 488.27 L 832.47 488.27 L 879.41 488.27 L 926.34 488.27 L 973.28 488.27 L 1020.22 488.27 L 1067.16 488.27 L 1114.09 488.27 L 1161.03 488.27 L 1207.97 488.27 L 410.03 535.2 L 456.97 535.2 L 503.91 652.55 L 550.84 652.55 L 597.78 652.55 L 644.72 652.55 L 691.66 652.55 L 738.59 652.55 L 785.53 652.55 L 832.47 652.55 L 879.41 652.55 L 926.34 652.55 L 973.28 652.55 L 1020.22 652.55 L 1067.16 652.55 L 1114.09 652.55 L 1161.03 652.55 L 550.84 535.2 L 597.78 535.2 L 644.72 535.2 L 691.66 535.2 L 738.59 535.2 L 785.53 535.2 L 832.47 535.2 L 879.41 535.2 L 926.34 535.2 L 973.28 535.2 L 1020.22 535.2 L 1067.16 535.2 L 1114.09 535.2 L 1161.03 535.2 L 1207.97 535.2 L 410.03 582.14 L 456.97 582.14 L 503.91 699.48 L 550.84 699.48 L 597.78 699.48 L 644.72 699.48 L 691.66 699.48 L 738.59 699.48 L 785.53 699.48 L 832.47 699.48 L 879.41 699.48 L 926.34 699.48 L 973.28 699.48 L 1020.22 699.48 L 1067.16 699.48 L 1114.09 699.48 L 1161.03 699.48 L 550.84 582.14 L 597.78 582.14 L 644.72 582.14 L 691.66 582.14 L 738.59 582.14 L 785.53 582.14 L 832.47 582.14 L 879.41 582.14 L 926.34 582.14 L 973.28 582.14 L 1020.22 582.14 L 1067.16 582.14 L 1114.09 582.14 L 1161.03 582.14 L 1207.97 582.14" />
+  </g>
+</svg>

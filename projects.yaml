@@ -63,6 +63,30 @@ projects:
       - Web Audio API
     svg: images/projects/dont-look-back.svg
   - schema: 2
+    title: Elements
+    description: The periodic table.
+    bullets:
+      - Project the elements into three modern tables, a Benfey-inspired spiral, and Mendeleev's 1871 chart without losing your place.
+      - View various properties in place on the table with one honest scale; computed values are hatched, unknown ones hollow, a temperature or year scrubs in place, and a reservoir is chosen in the same word.
+      - Open an element in place and read every number against the other 117, its source one click away.
+      - Type export to save the exact view as a citation-bearing SVG poster with its restoring permalink inside.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/elements/
+    type: visualization
+    tags:
+      - chemistry
+      - periodic table
+      - science
+      - learning
+    skills:
+      - Web
+      - TypeScript
+      - JavaScript
+      - Data Visualization
+    svg: images/projects/elements.svg
+  - schema: 2
     title: graphtv
     description: Explore television episode ratings across seasons, trends, and multiple data providers.
     bullets:
@@ -173,6 +197,27 @@ projects:
       - Web Performance
     svg: images/projects/resume.svg
   - schema: 2
+    title: Spectral
+    description: Live spectrogram from your microphone.
+    bullets:
+      - A live scrolling spectrogram with full detail and focus modes, 2d/3d presentation.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/spectral/
+    type: tool
+    tags:
+      - instrument
+    skills:
+      - Web
+      - TypeScript
+      - JavaScript
+      - Canvas
+      - Web Audio API
+      - AudioWorklet
+      - Web Workers
+    svg: images/projects/spectral.svg
+  - schema: 2
     title: svg
     description: A source-first browser workbench for inspecting and tuning SVG without surrendering the code.
     bullets:
@@ -220,6 +265,27 @@ projects:
       - Statistics
       - Information Retrieval
     svg: images/projects/textTrends.svg
+  - schema: 2
+    title: Time
+    description: Time workbench
+    bullets:
+      - Runs durable countdown timers with pause history, reload recovery, and transactional multi-tab updates.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/time/
+    type: tool
+    tags:
+      - time
+      - clocks
+      - time zones
+    skills:
+      - TypeScript
+      - JavaScript
+      - IndexedDB
+      - Data Visualization
+      - Product Design
+    svg: images/projects/time.svg
   - schema: 2
     title: txtop
     description: Track LLM usage locally and privately

@@ -1,50 +1,371 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1618 1000" role="img" aria-labelledby="card-title">
-  <title id="card-title">Half</title>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="half-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="half-card-title half-card-description"
+>
+  <title id="half-card-title">Half</title>
+  <desc id="half-card-description">
+    The Half logo played as one of the game's own shapes. A block with the
+    wordmark knocked out of it rests above a balance; a line is dragged
+    through it 7 degrees off vertical and released. The block turns until that
+    cut stands upright, breaks along it and falls into the pans, the counter
+    of the a dropping as a chip of its own. The beam settles at 2.4 degrees
+    and the pans report 48.54 against 51.46, a score of 97.1: Half was 11 px
+    to the right. Behind the pieces the whole block returns as an outline, the
+    cut in red and the true half dashed beside it, before everything resets
+    and the block is whole again.
+  </desc>
+
   <style>
-    :root {
+    :root, #half-card {
       color-scheme: light dark;
-      --paper: light-dark(#f3efe5, #0e0e0d);
-      --ink: light-dark(#1a1814, #e8e3d5);
-      --muted: light-dark(#625d54, #8a857a);
-      --accent: #c1432e;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-muted: light-dark(#625d54, #8a857a);
+      --card-rule-strong: light-dark(#b9b1a2, #403e39);
+      --card-accent: #c1432e;
     }
-    :root[data-color-scheme="light"] { --paper:#f3efe5; --ink:#1a1814; --muted:#625d54; }
-    :root[data-color-scheme="dark"] { --paper:#0e0e0d; --ink:#e8e3d5; --muted:#8a857a; }
-    .word { fill:var(--ink); font:720 420px Geist,Arial,sans-serif; letter-spacing:-.06em; text-anchor:middle; }
-    .line,.scale { fill:none; stroke:var(--muted); stroke-width:4; stroke-linecap:round; }
-    .line { stroke:var(--accent); transform-box:fill-box; transform-origin:center; animation:line 6s ease-in-out infinite; }
-    .whole { animation:whole 6s linear infinite; }
-    .left-half,.right-half { animation:pieces 6s cubic-bezier(.4,0,.2,1) infinite; transform-box:fill-box; }
-    .left-half { transform-origin:620px 430px; }
-    .right-half { transform-origin:1000px 430px; }
-    .beam { animation:beam 6s ease-in-out infinite; transform-origin:809px 720px; }
-    @keyframes whole { 0%,18%,82%,100%{opacity:1} 21%,79%{opacity:0} }
-    @keyframes line { 0%,8%,88%,100%{opacity:0;transform:scaleY(0)} 15%,75%{opacity:1;transform:scaleY(1)} 82%{opacity:0;transform:scaleY(0)} }
-    @keyframes pieces {
-      0%,18%,82%,100%{opacity:0;transform:translateY(0) rotate(0)}
-      21%{opacity:1;transform:translateY(0) rotate(0)}
-      42%,68%{opacity:1;transform:translateY(390px) rotate(-5deg)}
-      78%{opacity:1;transform:translateY(0) rotate(0)}
+
+    :root[data-color-scheme="light"],
+    #half-card[data-color-scheme="light"] { color-scheme: only light; }
+    :root[data-color-scheme="dark"],
+    #half-card[data-color-scheme="dark"] { color-scheme: only dark; }
+
+    .half-item { fill: var(--card-ink); fill-rule: evenodd; }
+    .half-rig { fill: none; stroke: var(--card-ink); stroke-linecap: round; stroke-linejoin: round; stroke-width: 3.1; }
+    .half-beam-arm { stroke-width: 4.13; }
+    .half-hanger { stroke-width: 2.06; }
+    .half-joint { fill: var(--card-ink); stroke: none; }
+    .half-label {
+      fill: var(--card-ink);
+      font: 500 40.24px "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
-    @keyframes beam {
-      0%,40%,82%,100%{transform:rotate(0)}
-      48%{transform:rotate(-8deg)} 55%{transform:rotate(-4deg)} 61%{transform:rotate(-6deg)} 68%{transform:rotate(-5deg)}
+    .half-ghost { fill: none; stroke: var(--card-rule-strong); stroke-width: 2.06; }
+    .half-ghost-cut { fill: none; stroke: var(--card-accent); stroke-width: 4.13; }
+    .half-ghost-half { fill: none; stroke: var(--card-muted); stroke-width: 2.06; stroke-dasharray: 12.38 10.32; }
+    .half-drag-rule { fill: none; stroke: var(--card-rule-strong); stroke-width: 2.06; }
+    .half-drag-cut { fill: none; stroke: var(--card-accent); stroke-width: 4.13; }
+
+    .half-whole,
+    .half-drag,
+    .half-piece,
+    .half-beam,
+    .half-pan,
+    .half-labels,
+    .half-ghosts {
+      animation: 6s linear infinite both;
+      transform-box: view-box;
+      transform-origin: 0 0;
     }
-    @media (prefers-reduced-motion:reduce) {
-      .whole,.beam { animation:none; }
-      .left-half,.right-half,.line { animation:none; opacity:0; }
+
+    .half-whole { animation-name: half-whole; }
+    .half-drag { animation-name: half-drag; stroke-dasharray: 3236; }
+    .half-beam { animation-name: half-beam; transform-origin: 803.89px 495.47px; }
+    .half-pan-left { animation-name: half-pan-left; }
+    .half-pan-right { animation-name: half-pan-right; }
+    .half-labels { animation-name: half-labels; }
+    .half-ghosts { animation-name: half-ghosts; }
+    .half-body-left { animation-name: half-body-left; transform-origin: 599.37px 277.13px; }
+    .half-chip { animation-name: half-chip; transform-origin: 797.46px 335.74px; }
+    .half-body-right { animation-name: half-body-right; transform-origin: 999.78px 269.3px; }
+
+    @keyframes half-whole {
+      0% { opacity: 1; }
+      25.332% { opacity: 1; }
+      25.333% { opacity: 0; }
+      92% { opacity: 0; }
+      97% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+    @keyframes half-drag {
+      0% { opacity: 0; stroke-dashoffset: 3236; }
+      10.667% { opacity: 1; stroke-dashoffset: 3236; }
+      19.667% { opacity: 1; stroke-dashoffset: 0; }
+      25.332% { opacity: 1; stroke-dashoffset: 0; }
+      25.333% { opacity: 0; stroke-dashoffset: 0; }
+      100% { opacity: 0; stroke-dashoffset: 3236; }
+    }
+    @keyframes half-beam {
+      0% { transform: rotate(0deg); }
+      45.333% { transform: rotate(0deg); }
+      46.833% { transform: rotate(0.288deg); }
+      48.333% { transform: rotate(0.999deg); }
+      49.833% { transform: rotate(1.873deg); }
+      51.333% { transform: rotate(2.676deg); }
+      52.833% { transform: rotate(3.239deg); }
+      54.333% { transform: rotate(3.489deg); }
+      55.833% { transform: rotate(3.441deg); }
+      57.333% { transform: rotate(3.171deg); }
+      58.833% { transform: rotate(2.793deg); }
+      60.333% { transform: rotate(2.417deg); }
+      61.833% { transform: rotate(2.128deg); }
+      63.333% { transform: rotate(1.972deg); }
+      64.833% { transform: rotate(1.955deg); }
+      66.333% { transform: rotate(2.049deg); }
+      67.833% { transform: rotate(2.208deg); }
+      88.333% { transform: rotate(2.426deg); }
+      95% { transform: rotate(0deg); }
+      100% { transform: rotate(0deg); }
+    }
+    @keyframes half-pan-left {
+      0% { transform: translate(0px, 0px); }
+      45.333% { transform: translate(0px, 0px); }
+      46.833% { transform: translate(0.01px, -2.54px); }
+      48.333% { transform: translate(0.08px, -8.79px); }
+      49.833% { transform: translate(0.27px, -16.48px); }
+      51.333% { transform: translate(0.55px, -23.54px); }
+      52.833% { transform: translate(0.81px, -28.49px); }
+      54.333% { transform: translate(0.93px, -30.69px); }
+      55.833% { transform: translate(0.91px, -30.26px); }
+      57.333% { transform: translate(0.77px, -27.9px); }
+      58.833% { transform: translate(0.6px, -24.57px); }
+      60.333% { transform: translate(0.45px, -21.27px); }
+      61.833% { transform: translate(0.35px, -18.73px); }
+      63.333% { transform: translate(0.3px, -17.36px); }
+      64.833% { transform: translate(0.29px, -17.21px); }
+      66.333% { transform: translate(0.32px, -18.03px); }
+      67.833% { transform: translate(0.37px, -19.43px); }
+      88.333% { transform: translate(0.45px, -21.34px); }
+      95% { transform: translate(0px, 0px); }
+      100% { transform: translate(0px, 0px); }
+    }
+    @keyframes half-pan-right {
+      0% { transform: translate(0px, 0px); }
+      45.333% { transform: translate(0px, 0px); }
+      46.833% { transform: translate(-0.01px, 2.54px); }
+      48.333% { transform: translate(-0.08px, 8.79px); }
+      49.833% { transform: translate(-0.27px, 16.48px); }
+      51.333% { transform: translate(-0.55px, 23.54px); }
+      52.833% { transform: translate(-0.81px, 28.49px); }
+      54.333% { transform: translate(-0.93px, 30.69px); }
+      55.833% { transform: translate(-0.91px, 30.26px); }
+      57.333% { transform: translate(-0.77px, 27.9px); }
+      58.833% { transform: translate(-0.6px, 24.57px); }
+      60.333% { transform: translate(-0.45px, 21.27px); }
+      61.833% { transform: translate(-0.35px, 18.73px); }
+      63.333% { transform: translate(-0.3px, 17.36px); }
+      64.833% { transform: translate(-0.29px, 17.21px); }
+      66.333% { transform: translate(-0.32px, 18.03px); }
+      67.833% { transform: translate(-0.37px, 19.43px); }
+      88.333% { transform: translate(-0.45px, 21.34px); }
+      95% { transform: translate(0px, 0px); }
+      100% { transform: translate(0px, 0px); }
+    }
+    @keyframes half-labels {
+      0% { opacity: 0; }
+      57% { opacity: 0; }
+      61.167% { opacity: 1; }
+      85.333% { opacity: 1; }
+      90% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @keyframes half-ghosts {
+      0% { opacity: 0; }
+      62% { opacity: 0; }
+      68.667% { opacity: 1; }
+      85.333% { opacity: 1; }
+      90% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    @keyframes half-body-left {
+      0% { opacity: 0; transform: translate(0px, 0px); }
+      25.332% { opacity: 0; transform: translate(0px, 0px); }
+      25.333% { opacity: 1; transform: translate(0px, 0px); }
+      26.333% { opacity: 1; transform: translate(0px, 0px); }
+      27.333% { opacity: 1; transform: translate(0px, -1.95px) rotate(0.547deg); }
+      28.333% { opacity: 1; transform: translate(0.07px, -6.8px) rotate(1.904deg); }
+      29.333% { opacity: 1; transform: translate(0.33px, -13.02px) rotate(3.65deg); }
+      30.333% { opacity: 1; transform: translate(0.76px, -19.11px) rotate(5.36deg); }
+      31.333% { opacity: 1; transform: translate(1.2px, -23.56px) rotate(6.612deg); }
+      32.333% { opacity: 1; transform: translate(-2.48px, -24.88px) rotate(6.384deg); }
+      33.333% { opacity: 1; transform: translate(-20.95px, -22.95px) rotate(3.42deg); }
+      34.333% { opacity: 1; transform: translate(-51.46px, -13.81px) rotate(-1.478deg); }
+      35.333% { opacity: 1; transform: translate(-90.4px, 8.63px) rotate(-7.729deg); }
+      36.333% { opacity: 1; transform: translate(-134.16px, 48.29px) rotate(-14.754deg); }
+      37.333% { opacity: 1; transform: translate(-179.12px, 104.94px) rotate(-21.971deg); }
+      38.333% { opacity: 1; transform: translate(-221.67px, 173.4px) rotate(-28.802deg); }
+      39.333% { opacity: 1; transform: translate(-258.2px, 243.7px) rotate(-32.827deg); }
+      40.333% { opacity: 1; transform: translate(-285.1px, 302.26px) rotate(-29.701deg); }
+      41.333% { opacity: 1; transform: translate(-298.75px, 334.18px) rotate(-28.114deg); }
+      42.333% { opacity: 1; transform: translate(-299.73px, 336.53px) rotate(-28deg); }
+      45.333% { opacity: 1; transform: translate(-299.73px, 336.53px) rotate(-28deg); }
+      46.833% { opacity: 1; transform: translate(-299.72px, 333.99px) rotate(-28deg); }
+      48.333% { opacity: 1; transform: translate(-299.65px, 327.74px) rotate(-28deg); }
+      49.833% { opacity: 1; transform: translate(-299.46px, 320.05px) rotate(-28deg); }
+      51.333% { opacity: 1; transform: translate(-299.18px, 312.99px) rotate(-28deg); }
+      52.833% { opacity: 1; transform: translate(-298.92px, 308.04px) rotate(-28deg); }
+      54.333% { opacity: 1; transform: translate(-298.79px, 305.84px) rotate(-28deg); }
+      55.833% { opacity: 1; transform: translate(-298.82px, 306.27px) rotate(-28deg); }
+      57.333% { opacity: 1; transform: translate(-298.96px, 308.63px) rotate(-28deg); }
+      58.833% { opacity: 1; transform: translate(-299.13px, 311.96px) rotate(-28deg); }
+      60.333% { opacity: 1; transform: translate(-299.28px, 315.26px) rotate(-28deg); }
+      61.833% { opacity: 1; transform: translate(-299.38px, 317.81px) rotate(-28deg); }
+      63.333% { opacity: 1; transform: translate(-299.43px, 319.17px) rotate(-28deg); }
+      64.833% { opacity: 1; transform: translate(-299.44px, 319.32px) rotate(-28deg); }
+      66.333% { opacity: 1; transform: translate(-299.41px, 318.5px) rotate(-28deg); }
+      67.833% { opacity: 1; transform: translate(-299.35px, 317.1px) rotate(-28deg); }
+      85.333% { opacity: 1; transform: translate(-299.28px, 315.19px) rotate(-28deg); }
+      90% { opacity: 0; transform: translate(-299.28px, 315.19px) rotate(-28deg); }
+      100% { opacity: 0; transform: translate(0px, 0px); }
+    }
+    @keyframes half-chip {
+      0% { opacity: 0; transform: translate(0px, 0px); }
+      25.332% { opacity: 0; transform: translate(0px, 0px); }
+      25.333% { opacity: 1; transform: translate(0px, 0px); }
+      26.333% { opacity: 1; transform: translate(0px, 0px); }
+      27.333% { opacity: 1; transform: translate(-0.57px, -0.06px) rotate(0.547deg); }
+      28.333% { opacity: 1; transform: translate(-1.99px, -0.25px) rotate(1.904deg); }
+      29.333% { opacity: 1; transform: translate(-3.81px, -0.53px) rotate(3.65deg); }
+      30.333% { opacity: 1; transform: translate(-5.58px, -0.86px) rotate(5.36deg); }
+      31.333% { opacity: 1; transform: translate(-6.87px, -1.14px) rotate(6.612deg); }
+      32.333% { opacity: 1; transform: translate(-7.27px, -1.23px) rotate(7deg); }
+      33.333% { opacity: 1; transform: translate(-7.27px, -1.23px) rotate(7deg); }
+      34.333% { opacity: 1; transform: translate(-14.29px, -1.16px) rotate(6.384deg); }
+      35.333% { opacity: 1; transform: translate(-48.09px, 1.29px) rotate(3.42deg); }
+      36.333% { opacity: 1; transform: translate(-103.93px, 12.89px) rotate(-1.478deg); }
+      37.333% { opacity: 1; transform: translate(-175.2px, 41.4px) rotate(-7.729deg); }
+      38.333% { opacity: 1; transform: translate(-255.29px, 91.76px) rotate(-14.754deg); }
+      39.333% { opacity: 1; transform: translate(-337.58px, 163.7px) rotate(-21.971deg); }
+      40.333% { opacity: 1; transform: translate(-415.46px, 250.65px) rotate(-28.802deg); }
+      41.333% { opacity: 1; transform: translate(-482.33px, 339.93px) rotate(-32.827deg); }
+      42.333% { opacity: 1; transform: translate(-531.55px, 414.3px) rotate(-29.701deg); }
+      43.333% { opacity: 1; transform: translate(-556.54px, 454.84px) rotate(-28.114deg); }
+      43.667% { opacity: 1; transform: translate(-558.33px, 457.83px) rotate(-28deg); }
+      45.333% { opacity: 1; transform: translate(-558.33px, 457.83px) rotate(-28deg); }
+      46.833% { opacity: 1; transform: translate(-558.32px, 455.29px) rotate(-28deg); }
+      48.333% { opacity: 1; transform: translate(-558.25px, 449.04px) rotate(-28deg); }
+      49.833% { opacity: 1; transform: translate(-558.06px, 441.35px) rotate(-28deg); }
+      51.333% { opacity: 1; transform: translate(-557.78px, 434.29px) rotate(-28deg); }
+      52.833% { opacity: 1; transform: translate(-557.53px, 429.34px) rotate(-28deg); }
+      54.333% { opacity: 1; transform: translate(-557.4px, 427.14px) rotate(-28deg); }
+      55.833% { opacity: 1; transform: translate(-557.42px, 427.57px) rotate(-28deg); }
+      57.333% { opacity: 1; transform: translate(-557.56px, 429.93px) rotate(-28deg); }
+      58.833% { opacity: 1; transform: translate(-557.73px, 433.26px) rotate(-28deg); }
+      60.333% { opacity: 1; transform: translate(-557.88px, 436.56px) rotate(-28deg); }
+      61.833% { opacity: 1; transform: translate(-557.98px, 439.11px) rotate(-28deg); }
+      63.333% { opacity: 1; transform: translate(-558.03px, 440.47px) rotate(-28deg); }
+      64.833% { opacity: 1; transform: translate(-558.04px, 440.62px) rotate(-28deg); }
+      66.333% { opacity: 1; transform: translate(-558.01px, 439.8px) rotate(-28deg); }
+      67.833% { opacity: 1; transform: translate(-557.96px, 438.4px) rotate(-28deg); }
+      85.333% { opacity: 1; transform: translate(-557.88px, 436.49px) rotate(-28deg); }
+      90% { opacity: 0; transform: translate(-557.88px, 436.49px) rotate(-28deg); }
+      100% { opacity: 0; transform: translate(0px, 0px); }
+    }
+    @keyframes half-body-right {
+      0% { opacity: 0; transform: translate(0px, 0px); }
+      25.332% { opacity: 0; transform: translate(0px, 0px); }
+      25.333% { opacity: 1; transform: translate(0px, 0px); }
+      26.333% { opacity: 1; transform: translate(0px, 0px); }
+      27.333% { opacity: 1; transform: translate(0.05px, 1.87px) rotate(0.547deg); }
+      28.333% { opacity: 1; transform: translate(0.11px, 6.51px) rotate(1.904deg); }
+      29.333% { opacity: 1; transform: translate(0.01px, 12.48px) rotate(3.65deg); }
+      30.333% { opacity: 1; transform: translate(-0.26px, 18.33px) rotate(5.36deg); }
+      31.333% { opacity: 1; transform: translate(-0.56px, 22.6px) rotate(6.612deg); }
+      32.333% { opacity: 1; transform: translate(3.26px, 23.97px) rotate(7.616deg); }
+      33.333% { opacity: 1; transform: translate(22.21px, 25.59px) rotate(10.58deg); }
+      34.333% { opacity: 1; transform: translate(53.53px, 33.27px) rotate(15.478deg); }
+      35.333% { opacity: 1; transform: translate(93.5px, 52.14px) rotate(21.729deg); }
+      36.333% { opacity: 1; transform: translate(138.42px, 85.46px) rotate(28.754deg); }
+      37.333% { opacity: 1; transform: translate(184.57px, 133.08px) rotate(35.971deg); }
+      38.333% { opacity: 1; transform: translate(228.24px, 190.63px) rotate(42.802deg); }
+      39.333% { opacity: 1; transform: translate(265.74px, 249.71px) rotate(46.827deg); }
+      40.333% { opacity: 1; transform: translate(293.35px, 298.93px) rotate(43.701deg); }
+      41.333% { opacity: 1; transform: translate(307.36px, 325.76px) rotate(42.114deg); }
+      42.333% { opacity: 1; transform: translate(308.37px, 327.74px) rotate(42deg); }
+      45.333% { opacity: 1; transform: translate(308.37px, 327.74px) rotate(42deg); }
+      46.833% { opacity: 1; transform: translate(308.36px, 330.28px) rotate(42deg); }
+      48.333% { opacity: 1; transform: translate(308.29px, 336.53px) rotate(42deg); }
+      49.833% { opacity: 1; transform: translate(308.1px, 344.22px) rotate(42deg); }
+      51.333% { opacity: 1; transform: translate(307.82px, 351.28px) rotate(42deg); }
+      52.833% { opacity: 1; transform: translate(307.56px, 356.23px) rotate(42deg); }
+      54.333% { opacity: 1; transform: translate(307.43px, 358.43px) rotate(42deg); }
+      55.833% { opacity: 1; transform: translate(307.46px, 358px) rotate(42deg); }
+      57.333% { opacity: 1; transform: translate(307.6px, 355.64px) rotate(42deg); }
+      58.833% { opacity: 1; transform: translate(307.77px, 352.31px) rotate(42deg); }
+      60.333% { opacity: 1; transform: translate(307.92px, 349.01px) rotate(42deg); }
+      61.833% { opacity: 1; transform: translate(308.02px, 346.47px) rotate(42deg); }
+      63.333% { opacity: 1; transform: translate(308.07px, 345.1px) rotate(42deg); }
+      64.833% { opacity: 1; transform: translate(308.07px, 344.95px) rotate(42deg); }
+      66.333% { opacity: 1; transform: translate(308.05px, 345.77px) rotate(42deg); }
+      67.833% { opacity: 1; transform: translate(307.99px, 347.17px) rotate(42deg); }
+      85.333% { opacity: 1; transform: translate(307.92px, 349.08px) rotate(42deg); }
+      90% { opacity: 0; transform: translate(307.92px, 349.08px) rotate(42deg); }
+      100% { opacity: 0; transform: translate(0px, 0px); }
+    }
+
+    /* Reduced motion holds the frame the loop opens and closes on: the
+       whole item at rest over a level balance. */
+    @media (prefers-reduced-motion: reduce) {
+      .half-whole,
+      .half-drag,
+      .half-piece,
+      .half-beam,
+      .half-pan,
+      .half-labels,
+      .half-ghosts {
+        animation: none;
+      }
+
+      .half-drag, .half-piece, .half-labels, .half-ghosts { opacity: 0; }
     }
   </style>
+
   <defs>
-    <clipPath id="left"><rect x="0" y="0" width="830" height="1000"/></clipPath>
-    <clipPath id="right"><rect x="830" y="0" width="788" height="1000"/></clipPath>
+    <path id="half-body" d="M491.75 95.15H1116.04A61.38 61.38 0 0 1 1177.41 156.53V394.9A61.38 61.38 0 0 1 1116.04 456.28H491.75A61.38 61.38 0 0 1 430.37 394.9V156.53A61.38 61.38 0 0 1 491.75 95.15ZM514.06 388.05V159.52H564.27V251.9H649.24V159.52H699.45V388.05H649.24V294.06H564.27V388.05ZM776.37 391.91Q749.34 391.91 732.28 379.52 715.22 367.13 715.22 344.6 715.22 322.07 729.7 309.67 744.19 297.28 772.51 291.49L827.55 280.22Q827.55 263.81 820.15 255.44 812.74 247.07 798.9 247.07 785.39 247.07 777.98 253.35 770.58 259.62 768.01 271.53L718.12 269.6Q723.27 240.63 744.19 226.15 765.11 211.67 798.9 211.67 837.85 211.67 857.48 230.01 877.12 248.36 877.12 284.09V342.02Q877.12 349.42 879.69 351.84 882.27 354.25 887.09 354.25H891.6V388.05Q889.35 388.69 884.2 389.33 879.05 389.98 873.9 389.98 863.92 389.98 854.91 386.6 845.9 383.22 840.42 374.53 837.21 369.38 835.92 361.65 832.7 368.09 827.55 373.56 819.5 382.25 806.47 387.08 793.43 391.91 776.37 391.91ZM943.1 388.05Q921.73 388.05 909.5 377.23 897.27 366.42 897.27 342.28V159.52H946.96V336.93Q946.96 344.53 950.63 347.91 954.3 351.26 961.09 351.26H972.39V388.05ZM998.46 388.05V252.22H973.35V215.53H998.46V214.24Q998.46 188.17 1012.46 173.85 1026.46 159.52 1056.07 159.52H1093.73V196.54H1067.34Q1057.36 196.54 1052.85 201.37 1048.67 206.19 1048.35 215.53H1091.16V252.22H1048.35V388.05Z" />
+    <path id="half-chip" d="M788.28 358.11Q799.87 358.11 808.72 353.45 817.57 348.78 822.56 340.09 827.55 331.4 827.55 319.17V311.12L789.57 319.17Q777.98 321.74 772.19 326.89 766.4 332.04 766.4 340.09 766.4 348.78 772.03 353.45 777.66 358.11 788.28 358.11Z" />
+    <clipPath id="half-cut-left"><path d="M472.91 -2321.3L1111.02 2875.67l-2598.49 319.05L-2125.58 -2002.25Z" /></clipPath>
+    <clipPath id="half-cut-right"><path d="M472.91 -2321.3L1111.02 2875.67l2598.49 -319.05L3071.39 -2640.36Z" /></clipPath>
+    <clipPath id="half-inside">
+      <use href="#half-body" clip-rule="evenodd" />
+      <use href="#half-chip" />
+    </clipPath>
   </defs>
-  <text class="word whole" x="809" y="470">Half</text>
-  <text class="word left-half" x="809" y="470" clip-path="url(#left)">Half</text>
-  <text class="word right-half" x="809" y="470" clip-path="url(#right)">Half</text>
-  <path class="line" d="M830 105V560"/>
-  <g class="beam">
-    <path class="scale" d="M380 720H1238M380 720V855M1238 720V855M275 850Q380 885 485 850M1133 850Q1238 885 1343 850"/>
-    <path d="M809 720l-24 48h48z" fill="var(--ink)"/>
+
+  <g class="half-rig">
+    <path d="M803.89 501.66L733.3 616.49H874.49ZM642.53 616.49H965.25" />
+    <g class="half-beam">
+      <path class="half-beam-arm" d="M299.64 495.47L1308.15 495.47" />
+      <circle class="half-joint" cx="299.64" cy="495.47" r="4.13" />
+      <circle class="half-joint" cx="1308.15" cy="495.47" r="4.13" />
+    </g>
+    <g class="half-pan half-pan-left"><path class="half-hanger" d="M299.64 495.47L118.11 756.94M299.64 495.47L481.17 756.94" /></g>
+    <g class="half-pan half-pan-right"><path class="half-hanger" d="M1308.15 495.47L1126.62 756.94M1308.15 495.47L1489.68 756.94" /></g>
+    <circle class="half-joint" cx="803.89" cy="495.47" r="5.16" />
+  </g>
+
+  <g class="half-ghosts" transform="rotate(7 803.89 275.72)">
+    <use class="half-ghost" href="#half-body" />
+    <use class="half-ghost" href="#half-chip" />
+    <g clip-path="url(#half-inside)">
+      <path class="half-ghost-cut" d="M594.78 -1328.76L989.15 1883.12" />
+      <path class="half-ghost-half" d="M605.25 -1330.04L999.62 1881.84" />
+    </g>
+  </g>
+
+  <g class="half-item">
+    <g class="half-whole">
+      <use href="#half-body" />
+      <use href="#half-chip" />
+    </g>
+    <g class="half-piece half-body-left"><use href="#half-body" clip-path="url(#half-cut-left)" /></g>
+    <g class="half-piece half-chip"><use href="#half-chip" /></g>
+    <g class="half-piece half-body-right"><use href="#half-body" clip-path="url(#half-cut-right)" /></g>
+  </g>
+
+  <g class="half-drag">
+    <path class="half-drag-rule" d="M594.78 -1328.76L989.15 1883.12" />
+    <g clip-path="url(#half-inside)">
+      <path class="half-drag-cut" d="M594.78 -1328.76L989.15 1883.12" />
+    </g>
+  </g>
+
+  <g class="half-rig">
+    <g class="half-pan half-pan-left"><path d="M118.11 756.94Q299.64 902.16 481.17 756.94" /></g>
+    <g class="half-pan half-pan-right"><path d="M1126.62 756.94Q1308.15 902.16 1489.68 756.94" /></g>
+  </g>
+  <g class="half-labels">
+    <g class="half-pan half-pan-left"><text class="half-label" x="299.64" y="903.02" text-anchor="middle">48.54</text></g>
+    <g class="half-pan half-pan-right"><text class="half-label" x="1308.15" y="903.02" text-anchor="middle">51.46</text></g>
   </g>
 </svg>

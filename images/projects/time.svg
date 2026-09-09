@@ -1,0 +1,223 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="time-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="time-card-title time-card-description"
+  style="--turn: 8s"
+>
+  <title id="time-card-title">Time</title>
+  <desc id="time-card-description">
+    The Time wordmark at the center of a logarithmic spiral of time. One turn is
+    one hour, marked with the twelve hours of a clock face. The spiral winds
+    inward past a fixed now marker above the wordmark, changing from quiet
+    prediction outside it to recorded ink inside it, and dissolves at the center.
+  </desc>
+
+  <!-- One turn of the spiral is one hour, so the cycle is the card's one
+       authored parameter: an hour of time per pass. -->
+  <!-- @control turn min=5s max=12s step=0.5s unit=s -->
+
+  <style>
+    #time-card {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-quiet: light-dark(#6f6a60, #8a857a);
+      --card-axis: light-dark(#8a857a, #8b857a);
+      --card-now: light-dark(#c1432e, #d9644d);
+    }
+
+    #time-card[data-color-scheme="light"] {
+      color-scheme: only light;
+    }
+
+    #time-card[data-color-scheme="dark"] {
+      color-scheme: only dark;
+    }
+
+    #time-card .tm-wordmark {
+      fill: var(--card-ink);
+      font-family: Geist, Inter, "Helvetica Neue", Arial, sans-serif;
+      font-size: 236px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+    }
+
+    /* The dial is drawn by use elements, and a document rule cannot reach into
+       that shadow tree through a descendant combinator, so these rules match
+       the referenced elements directly. The ring takes its one varying value,
+       ink, from a custom property, which does inherit across the boundary. */
+    .tm-ring,
+    .tm-tick {
+      fill: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .tm-ring {
+      stroke: var(--ring-ink);
+      stroke-width: 2.2;
+    }
+
+    .tm-tick {
+      stroke: var(--card-axis);
+      stroke-width: 1.4;
+    }
+
+    .tm-hour {
+      fill: var(--card-axis);
+      font-family: Geist, Inter, "Helvetica Neue", Arial, sans-serif;
+      font-weight: 500;
+      text-anchor: middle;
+      dominant-baseline: central;
+    }
+
+    #time-card .tm-recorded {
+      --ring-ink: var(--card-ink);
+    }
+
+    #time-card .tm-predicted {
+      --ring-ink: var(--card-quiet);
+    }
+
+    #time-card .tm-now {
+      fill: none;
+      stroke: var(--card-now);
+      stroke-width: 3;
+    }
+
+    /* One turn of rotation with a matching change of scale maps the spiral onto
+       itself, so the cycle ends on the frame it started from. Scale is sampled
+       every tenth because it is exponential in time and keyframe interpolation
+       is linear. */
+    #time-card .tm-wind {
+      transform-box: view-box;
+      transform-origin: 809px 500px;
+      animation: tm-wind var(--turn) linear infinite;
+    }
+
+    @keyframes tm-wind {
+      0% { transform: rotate(0deg) scale(1); }
+      10% { transform: rotate(-36deg) scale(0.948320432279); }
+      20% { transform: rotate(-72deg) scale(0.899311642278); }
+      30% { transform: rotate(-108deg) scale(0.852835605358); }
+      40% { transform: rotate(-144deg) scale(0.808761429936); }
+      50% { transform: rotate(-180deg) scale(0.766964988847); }
+      60% { transform: rotate(-216deg) scale(0.727328569766); }
+      70% { transform: rotate(-251.99999999999997deg) scale(0.68974054369); }
+      80% { transform: rotate(-288deg) scale(0.654095050552); }
+      90% { transform: rotate(-324deg) scale(0.620291701091); }
+      100% { transform: rotate(-360deg) scale(0.588235294118); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #time-card .tm-wind {
+        animation: none;
+      }
+    }
+  </style>
+
+  <defs>
+    <radialGradient id="time-card-core" gradientUnits="userSpaceOnUse" cx="809" cy="500" r="280">
+      <stop offset="0" stop-color="#000" />
+      <stop offset="0.2143" stop-color="#000" />
+      <stop offset="1" stop-color="#fff" />
+    </radialGradient>
+
+    <!-- Turns stop being readable before they reach the center, so they
+         dissolve there instead of stacking into a disc. The mask is outside
+         the animation: the drawing moves through it. -->
+    <mask id="time-card-center-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="1618" height="1000">
+      <rect width="1618" height="1000" fill="url(#time-card-core)" />
+    </mask>
+
+    <!-- Radius increases strictly with time along this spiral, so the circle
+         through now cuts the curve exactly at now: inside is recorded, outside
+         is predicted. Both masks are static, so the ring changes state by
+         crossing them rather than by changing itself. -->
+    <mask id="time-card-recorded" maskUnits="userSpaceOnUse" x="0" y="0" width="1618" height="1000">
+      <circle cx="809" cy="500" r="380" fill="#fff" />
+    </mask>
+
+    <mask id="time-card-predicted" maskUnits="userSpaceOnUse" x="0" y="0" width="1618" height="1000">
+      <rect width="1618" height="1000" fill="#fff" />
+      <circle cx="809" cy="500" r="380" fill="#000" />
+    </mask>
+
+    <g id="time-card-ring">
+      <path class="tm-ring" d="M0 -380C99.4838 -388.4016 205.6094 -355.949 287.1274 -287.1274C368.6455 -218.3059 424.3127 -113.5964 433.9062 0C443.4996 113.5964 406.4433 234.7768 327.8589 327.8589C249.2744 420.9409 129.711 484.505 0 495.4594C-129.711 506.4137 -268.0819 464.1007 -374.3684 374.3684C-480.6549 284.6361 -553.2361 148.1115 -565.7444 0C-578.2528 -148.1115 -529.9373 -306.1115 -427.4757 -427.4757C-325.0141 -548.8398 -169.1224 -631.7173 0 -646" />
+    </g>
+
+    <!-- One hour of dial: a tick and a numeral at each five-minute mark. -->
+    <g id="time-card-dial">
+      <path class="tm-tick" d="M200.9732 -348.0958L209.5126 -362.8865 M363.8337 -210.0595L379.293 -218.9849 M439.113 0L457.771 0 M397.4761 229.4829L414.3649 239.2337 M239.8582 415.4465L250.0498 433.0989 M0 501.4049L0 522.7096 M-262.037 453.8614L-273.171 473.1461 M-474.3811 273.884L-494.5376 285.5214 M-572.5334 0L-596.8604 0 M-518.2455 -299.2092L-540.2658 -311.9226 M-312.7368 -541.676L-326.025 -564.6919 M0 -653.752L0 -681.53" />
+      <text class="tm-hour" x="172.7734" y="-299.2523" font-size="27.0083">1</text>
+      <text class="tm-hour" x="312.7819" y="-180.5847" font-size="28.2293">2</text>
+      <text class="tm-hour" x="377.4984" y="0" font-size="29.5056">3</text>
+      <text class="tm-hour" x="341.7038" y="197.2828" font-size="30.8396">4</text>
+      <text class="tm-hour" x="206.2022" y="357.1526" font-size="32.2339">5</text>
+      <text class="tm-hour" x="0" y="431.0497" font-size="33.6912">6</text>
+      <text class="tm-hour" x="-225.269" y="390.1773" font-size="35.2145">7</text>
+      <text class="tm-hour" x="-407.8177" y="235.4537" font-size="36.8066">8</text>
+      <text class="tm-hour" x="-492.1977" y="0" font-size="38.4706">9</text>
+      <text class="tm-hour" x="-445.5272" y="-257.2253" font-size="40.2099">10</text>
+      <text class="tm-hour" x="-268.8547" y="-465.6701" font-size="42.0279">11</text>
+      <text class="tm-hour" x="0" y="-562.02" font-size="43.928">12</text>
+    </g>
+  </defs>
+
+  <g mask="url(#time-card-center-fade)">
+    <g class="tm-recorded" mask="url(#time-card-recorded)">
+      <g class="tm-wind">
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.0414291928073)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.0704296277724)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.119730367213)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.203541624262)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.346020761246)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.588235294118)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(1)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(1.7)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(2.89)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(4.913)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(8.3521)" />
+      </g>
+    </g>
+
+    <g class="tm-predicted" mask="url(#time-card-predicted)">
+      <g class="tm-wind">
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.0414291928073)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.0704296277724)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.119730367213)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.203541624262)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.346020761246)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(0.588235294118)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(1)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(1.7)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(2.89)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(4.913)" />
+        <use href="#time-card-ring" transform="translate(809 500) scale(8.3521)" />
+      </g>
+    </g>
+
+    <g class="tm-wind">
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.0414291928073)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.0704296277724)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.119730367213)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.203541624262)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.346020761246)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(0.588235294118)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(1)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(1.7)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(2.89)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(4.913)" />
+      <use href="#time-card-dial" transform="translate(809 500) scale(8.3521)" />
+    </g>
+  </g>
+
+  <!-- Now does not move: time passes through it. -->
+  <g class="tm-now">
+    <path d="M809 146.6L809 70.6" />
+    <circle cx="809" cy="120" r="7" />
+  </g>
+
+  <text class="tm-wordmark" x="809" y="585" text-anchor="middle">Time</text>
+</svg>
