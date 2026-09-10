@@ -1,22 +1,4 @@
 const SVG_NAMESPACE = "http://www.w3.org/2000/svg";
-const SVG_FONT_STYLE_ID = "yalethomas-card-fonts";
-const SVG_FONT_CSS = `
-  @font-face {
-    font-family: "Geist";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: block;
-    src: url("../../fonts/geist-latin-wght-normal.woff2") format("woff2");
-  }
-
-  @font-face {
-    font-family: "Geist Mono";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: block;
-    src: url("../../fonts/geist-mono-latin-wght-normal.woff2") format("woff2");
-  }
-`;
 const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 const preferredDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
 const wordmark = document.querySelector(".wordmark");
@@ -49,16 +31,6 @@ function setHelpVisible(shouldShow, { announce = false } = {}) {
 function getSvgRoot(media) {
   const root = media.contentDocument?.documentElement;
   return root?.namespaceURI === SVG_NAMESPACE ? root : null;
-}
-
-function ensureSvgFonts(root) {
-  const document = root.ownerDocument;
-  if (document.getElementById(SVG_FONT_STYLE_ID)) return;
-
-  const style = document.createElementNS(SVG_NAMESPACE, "style");
-  style.id = SVG_FONT_STYLE_ID;
-  style.textContent = SVG_FONT_CSS;
-  root.prepend(style);
 }
 
 function getActiveColorScheme() {
@@ -333,7 +305,6 @@ function setupSvgCard(media) {
       return;
     }
 
-    ensureSvgFonts(root);
     syncSvgColorScheme(root);
 
     const shouldPlay =
@@ -454,6 +425,34 @@ function setupSvgCard(media) {
 }
 
 const svgCards = [...document.querySelectorAll(".project-svg")].map(setupSvgCard);
+const loadSvgCard = (media) => {
+  if (media.data || !media.dataset.src) return;
+  media.data = media.dataset.src;
+  delete media.dataset.src;
+};
+
+if ("IntersectionObserver" in window) {
+  const svgLoader = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        loadSvgCard(entry.target);
+        svgLoader.unobserve(entry.target);
+      }
+    },
+    // Load a preview only once a meaningful part is visible. This keeps
+    // offscreen SVG parsing out of the initial mobile render.
+    { threshold: 0.1 },
+  );
+
+  for (const media of document.querySelectorAll(".project-svg[data-src]")) {
+    svgLoader.observe(media);
+  }
+} else {
+  for (const media of document.querySelectorAll(".project-svg[data-src]")) {
+    loadSvgCard(media);
+  }
+}
 const syncSvgCards = () => svgCards.forEach(({ syncAnimation }) => syncAnimation());
 const triggerSvgCards = () => {
   for (const { triggerAnimationCycle } of svgCards) {
