@@ -1,0 +1,116 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  id="atlas-card"
+  viewBox="0 0 1618 1000"
+  role="img"
+  aria-labelledby="atlas-card-title atlas-card-description"
+>
+  <title id="atlas-card-title">Atlas of Worlds</title>
+  <desc id="atlas-card-description">
+    The four inner worlds circle the Sun beside the title. Each ring is a circle
+    at the world's mean orbital distance, and each world starts at its true
+    heliocentric longitude for 2026-01-01T00:00:00Z, the atlas's
+    reference instant, with the whole system turned as one to compose the
+    frame. One 6-second cycle stands for 1.923 years: Mercury completes eight
+    laps, Venus three, Earth two, and Mars, the oxide world, one. Every mean
+    rate is within 4.1% of the value the atlas sources from JPL. Disc sizes
+    rank the worlds and are not to scale.
+  </desc>
+
+  <style>
+    #atlas-card {
+      color-scheme: light dark;
+      --card-ink: light-dark(#1a1814, #e8e3d5);
+      --card-disc: light-dark(#57534a, #a09a8d);
+      --card-ring: light-dark(#c3bcaa, #5f5c54);
+      --card-oxide: #c1432e;
+      font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+    }
+
+    #atlas-card[data-color-scheme='light'] {
+      color-scheme: only light;
+    }
+
+    #atlas-card[data-color-scheme='dark'] {
+      color-scheme: only dark;
+    }
+
+    .ring {
+      fill: none;
+      stroke: var(--card-ring);
+      stroke-width: 2px;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .sun {
+      fill: var(--card-ink);
+    }
+
+    .disc {
+      fill: var(--card-disc);
+    }
+
+    .oxide {
+      fill: var(--card-oxide);
+    }
+
+    .wordmark {
+      fill: var(--card-ink);
+      font-size: 236px;
+      font-weight: 720;
+      letter-spacing: -0.06em;
+    }
+
+    .world {
+      transform-box: view-box;
+      transform-origin: 1128px 500px;
+      animation: 6s linear infinite;
+    }
+
+    .laps-1 { animation-name: laps-1; }
+    .laps-2 { animation-name: laps-2; }
+    .laps-3 { animation-name: laps-3; }
+    .laps-8 { animation-name: laps-8; }
+
+    @keyframes laps-1 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    @keyframes laps-2 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-720deg); }
+    }
+
+    @keyframes laps-3 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-1080deg); }
+    }
+
+    @keyframes laps-8 {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-2880deg); }
+    }
+
+    /* The resting frame is the reference instant, so it stands alone. */
+    @media (prefers-reduced-motion: reduce) {
+      .world {
+        animation: none;
+      }
+    }
+  </style>
+
+  <g aria-hidden="true">
+    <circle class="ring" cx="1128" cy="500" r="107.97" />
+    <circle class="ring" cx="1128" cy="500" r="201.76" />
+    <circle class="ring" cx="1128" cy="500" r="278.92" />
+    <circle class="ring" cx="1128" cy="500" r="425.00" />
+    <circle class="sun" cx="1128" cy="500" r="27" />
+    <g class="world laps-8"><circle class="disc" cx="1164.47" cy="398.37" r="15" /></g>
+    <g class="world laps-3"><circle class="disc" cx="1075.71" cy="305.14" r="21" /></g>
+    <g class="world laps-2"><circle class="disc" cx="1215.16" cy="764.96" r="22" /></g>
+    <g class="world laps-1"><circle class="oxide" cx="970.23" cy="105.37" r="18" /></g>
+  </g>
+
+  <text class="wordmark" x="110" y="585">Worlds</text>
+</svg>

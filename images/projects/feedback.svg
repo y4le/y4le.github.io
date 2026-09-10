@@ -1,0 +1,542 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1618 1000" width="1618" height="1000">
+<title>Feedback</title>
+<style>
+:root { color-scheme: light dark; }
+:root[data-color-scheme="light"] { color-scheme: only light; }
+:root[data-color-scheme="dark"] { color-scheme: only dark; }
+text {
+  font-family: Geist, Inter, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 236px;
+  font-weight: 720;
+  letter-spacing: -0.06em;
+  text-anchor: middle;
+}
+.d0 { fill: #1a1814; fill: light-dark(#1a1814, #e8e3d5); }
+.d1 { fill: #56534c; fill: light-dark(#56534c, #b0aca1); }
+.d2 { fill: #838078; fill: light-dark(#838078, #85827a); }
+.d3 { fill: #a5a29a; fill: light-dark(#a5a29a, #67645d); }
+.d4 { fill: #bcb9b1; fill: light-dark(#bcb9b1, #524f4a); }
+.d5 { fill: #cecbc3; fill: light-dark(#cecbc3, #454239); }
+.dot { fill: #c1432e; fill: light-dark(#c1432e, #d9644d); }
+/* One camera roll, replicated at every level of the recursion. */
+.r {
+  transform-box: view-box;
+  transform-origin: 0 0;
+  animation: roll 8s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) { .r { animation: none; } }
+@keyframes roll {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+</style>
+  <g transform="translate(802.93 487.04)">
+    <g transform="scale(0.55)">
+      <g class="r">
+        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+          <g class="r">
+            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+              <g class="r">
+                <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+                <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+              </g>
+              <text class="d2" y="82">Feedback</text>
+            </g>
+            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+              <g class="r">
+                <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+                <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+              </g>
+              <text class="d2" y="82">Feedback</text>
+            </g>
+          </g>
+          <text class="d1" y="82">Feedback</text>
+        </g>
+        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+          <g class="r">
+            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+              <g class="r">
+                <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+                <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+              </g>
+              <text class="d2" y="82">Feedback</text>
+            </g>
+            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+              <g class="r">
+                <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+                <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                  <g class="r">
+                    <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                    <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                      <g class="r">
+                        <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                        <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                          <g class="r">
+                            <g transform="matrix(0.67 -0.3 0.3 0.67 -293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                            <g transform="matrix(-0.67 -0.3 -0.3 0.67 293.4 0)">
+                              <circle class="dot" r="30"/>
+                            </g>
+                          </g>
+                          <text class="d5" y="82">Feedback</text>
+                        </g>
+                      </g>
+                      <text class="d4" y="82">Feedback</text>
+                    </g>
+                  </g>
+                  <text class="d3" y="82">Feedback</text>
+                </g>
+              </g>
+              <text class="d2" y="82">Feedback</text>
+            </g>
+          </g>
+          <text class="d1" y="82">Feedback</text>
+        </g>
+      </g>
+    </g>
+    <text class="d0" y="82">Feedback</text>
+  </g>
+</svg>

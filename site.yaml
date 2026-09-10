@@ -10,14 +10,21 @@ site:
 # by recency; projects in last always render at the end. Slugs that match no
 # project in projects.yaml are reported and ignored.
 order:
-  - magnitude
-  - textTrends
   - graphtv
+  - textTrends
   - metrainome
+  - magnitude
+  - worlds
+  - elements
+  - spectral
+  - feedback
+  - time
   - countrain
+  - half
+  - dont-look-back
   - bigO
   - svg
+last:
   - txtop
   - veil
-last:
   - resume

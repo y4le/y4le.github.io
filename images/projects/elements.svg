@@ -37,7 +37,7 @@
       fill: var(--card-ink);
       transform-box: view-box;
       transform-origin: 0 0;
-      animation: 12s cubic-bezier(0.65, 0, 0.35, 1) infinite both;
+      animation: 6s cubic-bezier(0.65, 0, 0.35, 1) infinite both;
     }
 
     .ribbon {
@@ -47,7 +47,7 @@
       stroke-width: 2;
       stroke-linecap: round;
       stroke-linejoin: round;
-      animation: 12s linear infinite both;
+      animation: 6s linear infinite both;
     }
     .ribbon-janet { animation-name: ribbon-janet; }
     .ribbon-long { animation-name: ribbon-long; }

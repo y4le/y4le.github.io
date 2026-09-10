@@ -87,6 +87,32 @@ projects:
       - Data Visualization
     svg: images/projects/elements.svg
   - schema: 2
+    title: Feedback
+    description: A browser video feedback instrument for building recursive images from coupled cameras, live media, and motion.
+    bullets:
+      - Connects up to six cameras through independently transformed and colored monitor branches, with synchronous GPU feedback.
+      - Feeds images, video, and webcams into recursive scenes with direct camera and media controls.
+      - Authors and shares portable presets with embedded images, routing, motion, and reproducible starting recipes.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/feedback/
+    type: app
+    tags:
+      - video feedback
+      - generative art
+      - creative tools
+    skills:
+      - WebGL2
+      - GLSL
+      - TypeScript
+      - JavaScript
+      - GPU Programming
+      - Real-Time Graphics
+      - Media Capture and Streams API
+      - Playwright
+    svg: images/projects/feedback.svg
+  - schema: 2
     title: graphtv
     description: Explore television episode ratings across seasons, trends, and multiple data providers.
     bullets:
@@ -279,6 +305,9 @@ projects:
       - time
       - clocks
       - time zones
+      - alarm
+      - stopwatch
+      - timer
     skills:
       - TypeScript
       - JavaScript
@@ -333,3 +362,29 @@ projects:
       - Encryption
       - Security Engineering
     svg: images/projects/veil.svg
+  - schema: 2
+    title: Atlas of Worlds
+    description: Visualizations of the planets (and some moons)
+    bullets:
+      - View all the planets in an orrery, visualize spin, and play with their gravity.
+    date:
+      start: "2026-08"
+      end: "present"
+    link: https://yalethom.as/worlds/
+    type: visualization
+    tags:
+      - planets
+      - solar system
+      - astronomy
+      - science
+      - learning
+    skills:
+      - Web
+      - TypeScript
+      - JavaScript
+      - Astro
+      - Data Visualization
+      - Numerical Computing
+      - Web Performance
+      - Accessibility
+    svg: images/projects/worlds.svg
