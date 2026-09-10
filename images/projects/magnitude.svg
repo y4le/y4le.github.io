@@ -65,6 +65,12 @@
     }
   </style>
 
+  <!--
+    Dot anchor (868.34 425.45) is where the 1618x1000 frame centre lands in the
+    miniature copy: it puts the mini wordmark's ink centre over the i stem's ink
+    centre (x 868.578) and in the middle of the tittle Geist would draw (y 411-441).
+    The zoom viewBox values below are derived from it, so the two must move together.
+  -->
   <defs>
     <text
       id="mg-letters"
@@ -76,11 +82,11 @@
     >
       magnıtude
     </text>
-    <g id="mg-mini-chain" transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+    <g id="mg-mini-chain" transform="translate(868.34 425.45) scale(0.03125) translate(-809 -500)">
       <use href="#mg-letters" />
-      <g transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+      <g transform="translate(868.34 425.45) scale(0.03125) translate(-809 -500)">
         <use href="#mg-letters" />
-        <g transform="translate(879 423) scale(0.03125) translate(-809 -500)">
+        <g transform="translate(868.34 425.45) scale(0.03125) translate(-809 -500)">
           <use href="#mg-letters" />
         </g>
       </g>
@@ -107,16 +113,18 @@
       calcMode="spline"
       keyTimes="0;0.5;1"
       keySplines="0.272 0.572554 0.596 0.849667;0.272 0.572554 0.596 0.849667"
-      values="0 0 1618 1000;725.472176 346.178677 286.024693 176.776695;853.71875 407.375 50.5625 31.25"
+      values="0 0 1618 1000;716.413533 348.260636 286.024693 176.776695;843.05875 409.825 50.5625 31.25"
     />
 
+    <!-- The full-size wordmark is clear of the frame by t=0.86, so the fade is
+         a safety net that never plays on screen. -->
     <use href="#mg-letters">
       <animate
         attributeName="opacity"
         begin="0s"
         dur="3s"
         repeatCount="indefinite"
-        keyTimes="0;0.42;0.66;1"
+        keyTimes="0;0.9;0.97;1"
         values="1;1;0;0"
       />
     </use>
