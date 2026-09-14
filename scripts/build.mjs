@@ -83,7 +83,7 @@ function renderProject(project) {
   let content = `<span class="project-title">${escapeHtml(project.title)}</span>`;
   if (project.svg) {
     content = [
-      `<object class="project-media project-svg" data-src="${escapeHtml(project.svg)}" type="image/svg+xml" aria-hidden="true" inert>`,
+      `<object class="project-media project-svg" data="${escapeHtml(project.svg)}" type="image/svg+xml" aria-hidden="true" inert>`,
       `  <span class="project-title">${escapeHtml(project.title)}</span>`,
       `</object>`,
     ].join("\n");

@@ -425,34 +425,6 @@ function setupSvgCard(media) {
 }
 
 const svgCards = [...document.querySelectorAll(".project-svg")].map(setupSvgCard);
-const loadSvgCard = (media) => {
-  if (media.data || !media.dataset.src) return;
-  media.data = media.dataset.src;
-  delete media.dataset.src;
-};
-
-if ("IntersectionObserver" in window) {
-  const svgLoader = new IntersectionObserver(
-    (entries) => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        loadSvgCard(entry.target);
-        svgLoader.unobserve(entry.target);
-      }
-    },
-    // Load a preview only once a meaningful part is visible. This keeps
-    // offscreen SVG parsing out of the initial mobile render.
-    { threshold: 0.1 },
-  );
-
-  for (const media of document.querySelectorAll(".project-svg[data-src]")) {
-    svgLoader.observe(media);
-  }
-} else {
-  for (const media of document.querySelectorAll(".project-svg[data-src]")) {
-    loadSvgCard(media);
-  }
-}
 const syncSvgCards = () => svgCards.forEach(({ syncAnimation }) => syncAnimation());
 const triggerSvgCards = () => {
   for (const { triggerAnimationCycle } of svgCards) {
