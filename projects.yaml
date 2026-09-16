@@ -203,6 +203,34 @@ projects:
       - Data Visualization
     svg: images/projects/metrainome.svg
   - schema: 2
+    title: mnistvis
+    description: Draw a digit and watch a neural network at work
+    bullets:
+      - Runs a small CNN and a dense network in the browser, exposing every hidden response and the complete arithmetic behind any value.
+    date:
+      start: "2026-09"
+      end: "present"
+    link: https://yalethom.as/mnistvis/
+    type: visualization
+    tags:
+      - neural networks
+      - MNIST
+      - handwriting recognition
+      - learning
+    skills:
+      - Machine Learning
+      - TypeScript
+      - JavaScript
+      - Data Visualization
+      - Numerical Computing
+      - PyTorch
+      - Python
+      - Web Workers
+      - Canvas
+      - Playwright
+      - Web
+    svg: images/projects/mnistvis.svg
+  - schema: 2
     title: resume
     description: Yale's web and PDF resume. Built for humans and bots.
     bullets:
