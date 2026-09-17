@@ -203,14 +203,14 @@ projects:
       - Data Visualization
     svg: images/projects/metrainome.svg
   - schema: 2
-    title: mnistvis
+    title: net-workings
     description: Draw a digit and watch a neural network at work
     bullets:
       - Runs a small CNN and a dense network in the browser, exposing every hidden response and the complete arithmetic behind any value.
     date:
       start: "2026-09"
       end: "present"
-    link: https://yalethom.as/mnistvis/
+    link: https://yalethom.as/net-workings/
     type: visualization
     tags:
       - neural networks
@@ -229,7 +229,7 @@ projects:
       - Canvas
       - Playwright
       - Web
-    svg: images/projects/mnistvis.svg
+    svg: images/projects/net-workings.svg
   - schema: 2
     title: resume
     description: Yale's web and PDF resume. Built for humans and bots.
