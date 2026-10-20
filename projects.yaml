@@ -63,6 +63,29 @@ projects:
       - Web Audio API
     svg: images/projects/dont-look-back.svg
   - schema: 2
+    title: Eldrow
+    description: Wordle solver. Learn how to spend your guesses wisely.
+    bullets:
+      - Proves average-guess strategies with a Rust solver and qualified search bounds.
+      - Improve your play in standard and hard mode by learning best guesses past the first round.
+    date:
+      start: "2026-10"
+      end: "present"
+    link: https://yalethom.as/eldrow/
+    type: tool
+    tags:
+      - word games
+      - language
+      - optimization
+    skills:
+      - Rust
+      - TypeScript
+      - JavaScript
+      - WebAssembly
+      - Dynamic Programming
+      - Data Visualization
+    svg: images/projects/eldrow.svg
+  - schema: 2
     title: Elements
     description: The periodic table.
     bullets:
